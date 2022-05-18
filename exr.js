@@ -1,0 +1,29 @@
+function print(x1, y1, x2, y2) {
+
+    let result1 = Math.sqrt((x1-y1)**2);
+    let result2 = Math.sqrt((x2-y2)**2);
+    let result3 = Math.sqrt((x1-y1)**2 + (x2-y2)**2);
+
+    if (result1 % 1 == 0){
+        console.log(`{${x1}, ${y1}} to {0, 0} is valid`)
+    } else {
+        console.log(`{${x1}, ${y1}} to {0, 0} is invalid`)
+    };
+
+    if (result2 % 1 == 0){
+        console.log(`{${x2}, ${y2}} to {0, 0} is valid`)
+    } else {
+        console.log(`{${x2}, ${y2}} to {0, 0} is invalid`)
+    };
+
+    if (result3 % 1 == 0){
+        console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is valid`)
+    } else {
+        console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is invalid`)
+    };
+    
+
+};
+
+
+print(2, 1, 1, 1);
