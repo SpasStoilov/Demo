@@ -1,4 +1,4 @@
-// Startig DATAbase Conections:
+// Starting DataBase:
 const starDataBase = require("./dataBaseConfig.js");
 starDataBase();
 
@@ -9,7 +9,7 @@ const server = express();
 server.listen(3000, () => console.log("Express working on port  3000"));
 
 
-// tamplate engine register/config:
+// Tamplate engine register/config:
 const hbs = require('express-handlebars');
 server.engine('.hbs', hbs.engine({
     extname: '.hbs',

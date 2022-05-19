@@ -15,8 +15,8 @@ function GlobalMidllewares(server, express) {
     // --------- middleware using here -------------:
     // server.use(bodyParser.json());
     server.use(express.urlencoded({ extended: false }));
-    server.use(express.static('./static'));
     server.use(express.static('./client'));
+    server.use(express.static('./static'));
     server.use(esepressSession(expressSessionConfig))
 
 };

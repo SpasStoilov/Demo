@@ -1,11 +1,21 @@
 import page from "./node_modules/page/page.mjs";
 import { html, render } from "./node_modules/lit-html/lit-html.js";
 
-const root = document.querySelector("#root");
+const wall = document.querySelector(".wall");
+
+
+let slider = document.getElementById("myRange");
+let output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+    output.innerHTML = this.value;
+}
+
 
 
 const homeTemplate = () => html`<h1>HOME</h1>`;
-// const aboutTemplate = () => html`<h1>2About</h1>`;
+const aboutTemplate = () => html`<h1>2About</h1>`;
 
 const registerTemplate = () => html`
 <form>
@@ -29,19 +39,19 @@ const loginTemplate = () => html`
 
 
 const homeRender = (ctx, next) => {
-    render(homeTemplate(), root);
+    render(homeTemplate(), wall);
 };
 
 const registerRender = (ctx, next) => {
-    render(registerTemplate(), root);
+    render(registerTemplate(), wall);
 };
 
 const loginRender = (ctx, next) => {
-    render(loginTemplate(), root);
+    render(loginTemplate(), wall);
 };
 
 const aboutRender = (ctx, next) => {
-    render(aboutTemplate(), root);
+    render(aboutTemplate(), wall);
 };
 
 page("/", homeRender);

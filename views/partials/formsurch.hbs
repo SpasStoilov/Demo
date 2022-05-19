@@ -1,0 +1,32 @@
+<form>
+    <input type="checkbox" name="sale" id="" value="Sale">Продава
+    <br>
+    <input type="checkbox" name="apartment" id="" value="Apartment">Квартира
+    <br>
+    <input type="checkbox" name="replaces" id="" value="Replace">Заменя
+    <br>
+    <label for="TypeApartment">Вид на имота</label>
+    <select name="TypeApartment" id="">
+        <option value="OneRoom">Едностаен</option>
+        <option value="TwoRooms">Двустаен</option>
+        <option value="ThreeRooms">Тристаен</option>
+        <option value="FourRooms">Четиристаен</option>
+        <option value="Penthouse">Мезонет</option>
+        <option value="House">Къща</option>
+    </select>
+    <br>
+    <label for="curuncy">Валута</label>
+    <select name="curuncy">
+        <option value="Euro">Евро</option>
+        <option value="BG">Лева</option>
+    </select>
+    <br>
+    <label for="range">Диапазон на цената</label>
+    <br>
+    <input type="range" name="range" min="1" max="1000000" value="1" class="slider" id="myRange">
+    <p>Цена: <span id="demo"></span></p>
+    <br>
+    <input type="text" id="floor" name="floor" placeholder="Етаж"/>
+    <br>
+    <input type="submit" value="ТЪРСИ"> 
+</form>

@@ -6,7 +6,7 @@ const conectionStr = 'mongodb://localhost:27017/TestDB';
 
 // ------- DATABASE Settings --------:
 
-function starDataBase() {
+async function starDataBase() {
 
     try {
         mongoose.connect(conectionStr, {
