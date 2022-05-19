@@ -41,6 +41,8 @@ img {
 
 .FormConteiner {
     display: inline-flex;
+    justify-content: center;
+    background-color: #DBDBDB;
     width: 300px;
     border: 2px solid black;
 }
