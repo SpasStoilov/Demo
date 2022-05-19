@@ -1,33 +1,31 @@
-import { render } from "./node_modules/lit-html/lit-html.js";
-import { useTeplate } from "./templates.js";
+import {render} from "./node_modules/lit-html/lit-html.js";
+import {useTemplate} from "./templates.js";
 
 // DOM selections:
 const wall = document.querySelector(".wall");
 
 
-
 // Handlers/Render:
 const home = (ctx, next) => {
-    render(useTeplate.home(), wall);
+    render(useTemplate.homeTemp(), wall);
 };
 
 const register = (ctx, next) => {
-    render(useTeplate.register(), wall);
+    render(useTemplate.registerTemp(), wall);
 };
 
 const login = (ctx, next) => {
-    render(useTeplate.login(), wall);
+    render(useTemplate.loginTemp(), wall);
 };
 
 const about = (ctx, next) => {
-    render(useTeplate.about(), wall);
+    render(useTemplate.aboutTemp(), wall);
 };
 
 
-// Register:
-export const useHandler = {
+export const useHandlerFor = {
     home,
+    about,
     register,
-    login,
-    about
+    login
 };

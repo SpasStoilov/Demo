@@ -5,8 +5,18 @@
     <br>
     <input type="checkbox" name="replaces" id="" value="Replace">Заменя
     <br>
+    
+    <label for="Citys">Населено място</label>
+    <br>
+    <select name="Citys" id="">
+        <option value="All">Всички</option>
+    </select>
+
+    <br>
     <label for="TypeApartment">Вид на имота</label>
+    <br>
     <select name="TypeApartment" id="">
+        <option value="All">Всички</option>
         <option value="OneRoom">Едностаен</option>
         <option value="TwoRooms">Двустаен</option>
         <option value="ThreeRooms">Тристаен</option>
@@ -14,19 +24,38 @@
         <option value="Penthouse">Мезонет</option>
         <option value="House">Къща</option>
     </select>
+   
     <br>
     <label for="curuncy">Валута</label>
+    <br>
+
     <select name="curuncy">
         <option value="Euro">Евро</option>
         <option value="BG">Лева</option>
     </select>
+    
+    <br>
+    <label for="loor">Етаж</label>
+    <br>
+    <input type="text" id="minfloor" name="minfloor" placeholder="от"/>
+    <br>
+    <input type="text" id="maxfloor" name="maxfloor" placeholder="до"/>
+    <br>
+
+    <br>
+    <label for="area">Площ</label>
+    <br>
+    <input type="text" id="minarea" name="minarea" placeholder="от"/>
+    <br>
+    <input type="text" id="maxarea" name="maxarea" placeholder="до"/>
+    <br>
+
     <br>
     <label for="range">Диапазон на цената</label>
     <br>
-    <input type="range" name="range" min="1" max="1000000" value="1" class="slider" id="myRange">
+
+    <input type="range" name="range" min="1" max="9000000" value="1" class="slider" id="myRange">
     <p>Цена: <span id="demo"></span></p>
-    <br>
-    <input type="text" id="floor" name="floor" placeholder="Етаж"/>
-    <br>
+
     <input type="submit" value="ТЪРСИ"> 
 </form>

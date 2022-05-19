@@ -1,6 +1,5 @@
 import page from "./node_modules/page/page.mjs";
-// import { clientRouter } from "./router.js";
-import { useHandler } from "./handlers";
+import {useHandlerFor} from "./handlers.js";
 
 let slider = document.getElementById("myRange");
 let output = document.getElementById("demo");
@@ -10,12 +9,14 @@ slider.oninput = function() {
     output.innerHTML = this.value;
 }
 
-// Router:
-// clientRouter(page);
+// Global Middleware:
 
-page("/", useHandler.home);
-page("/register", useHandler.register);
-page("/login", useHandler.login);
-page("/about", useHandler.about);
+
+
+// Router:
+page("/", useHandlerFor.home);
+page("/register", useHandlerFor.register);
+page("/login", useHandlerFor.login);
+page("/about", useHandlerFor.about);
 
 page.start();

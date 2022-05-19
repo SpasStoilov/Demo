@@ -1,12 +1,11 @@
-import { html } from "./node_modules/lit-html/lit-html.js";
+import {html} from "./node_modules/lit-html/lit-html.js";
 
 
-// Templates:
-const home = () => html`<h1>HOME</h1>`;
+const homeTemp = () => html`<h1>HOME</h1>`;
 
-const about = () => html`<h1>2About</h1>`;
+const aboutTemp = () => html`<h1>2About</h1>`;
 
-const register = () => html`
+const registerTemp = () => html`
 <form>
     <label for="email">E-mail:</label><br>
     <input type="text" id="email" name="email" placeholder="Enter email"/><br>
@@ -17,23 +16,20 @@ const register = () => html`
     <label for="reppassword">Repeat Password:</label><br>
     <input type="password" id="reppassword" name="reppassword" placeholder="Enter"/><br>
     <input type="submit" value="SendData"><br>
-</form>
-`;
+</form>`;
 
-const login = () => html`
+const loginTemp = () => html`
 <form>
     <label for="username">UserName:</label><br>
     <input type="text" id="username" name="username" placeholder="Enter name"/><br>
     <label for="password">Password:</label><br>
     <input type="password" id="password" name="password" placeholder="Enter password"/><br>
     <input type="submit" value="Log"><br>
-</form>
-`;
+</form>`;
 
-// Register:
-export const useTeplate = {
-    login,
-    register,
-    about,
-    home,
-}
+export const useTemplate = {
+    homeTemp,
+    loginTemp,
+    registerTemp,
+    aboutTemp
+};
