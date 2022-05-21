@@ -23,7 +23,7 @@ function register(formData){
         message = "Email is Not Valid!";
     } else if (username.length < 3) {
         message = "Username is too short!";
-    } else if (password.length < 8) {
+    } else if (password.length < 2) {
         message = "Password is too short!";
     } else if (password != reppassword) {
         const reppasswordField = document.querySelector('input[name=reppassword]');

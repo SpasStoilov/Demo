@@ -9,9 +9,8 @@ const homeTemp = () => html`<h1>HOME</h1>`;
 const aboutTemp = () => html`<h1>2About</h1>`;
 
 
-
 const registerTemp = () => html`
-<form @submit=${useService.sendRegisterInf}>
+<form class="registerForm" @submit=${useService.sendRegisterInf}>
     <label for="email">E-mail:</label><br>
     <input type="text" id="email" name="email" placeholder="Enter email"/><br>
     <label for="username">UserName:</label><br>

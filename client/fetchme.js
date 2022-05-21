@@ -1,3 +1,4 @@
+import page from "./node_modules/page/page.mjs";
 const baseURL = "http://localhost:3000"
 
 
@@ -11,7 +12,7 @@ function sendRegisterData(bodyInfo) {
         body: JSON.stringify(bodyInfo)
     })
         .then(resp => resp.json())
-        .then(result => console.log(result))
+        .then(result => page.redirect("/login"))
         .catch(err => console.log(err));
 };
 
