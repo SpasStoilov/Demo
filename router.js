@@ -6,6 +6,7 @@ const { home } = require("./handlers.js");
 // router:
 
 function router (server){
+    // server.post("/users");
     server.get("*", useHandler.home);
 };
 
