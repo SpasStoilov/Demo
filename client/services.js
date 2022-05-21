@@ -1,24 +1,18 @@
 import {fetchME} from './fetchme.js';
-
+import { useValidator } from './validations.js';
 
 function sendRegisterInf(e){
+
     e.preventDefault();
     let formData = new FormData(e.currentTarget);
-    let {email, username, password, reppassword} = Object.fromEntries(formData);
+    const validator = useValidator.register(formData);
 
-    let bodyInfo = {
-        'email': email,
-        'username': username,
-        'password': password,
-    };
-
-    if (password != reppassword) {
-        let repasswordEL = document.querySelector('input[name=reppassword]');
-        repasswordEL.style.borderColor = "red"
-        alert("Passwords do not match!")
+    if (!validator.value) {
+        alert(validator.message);
     } else {
-        fetchME.sendRegisterData(bodyInfo);
+        fetchME.sendRegisterData(validator.bodyInfo);
     };
+ 
 };
 
 

@@ -8,11 +8,16 @@ function home (req, res) {
 };
 
 
-
+function register (req, res) {
+    console.log(">>> Register income:");
+    console.log(req.body);
+    res.json(req.body)
+};
 
 //------ Hendler Registrations ----:
 const useHandler = {
     home,
+    register
 };
 
 module.exports = useHandler;

@@ -1,7 +1,8 @@
-const baseURL = "http://localhost:3030/"
+const baseURL = "http://localhost:3000"
 
 
 function sendRegisterData(bodyInfo) {
+
     fetch(`${baseURL}/users`, {
         method: "POST",
         headers: {
