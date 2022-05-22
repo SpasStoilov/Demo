@@ -17,6 +17,7 @@ function sendRegisterData(bodyInfo) {
             console.log(errorMessage)
             const wall = document.querySelector('.wall');
             let errorHeader = document.querySelector('.errorHeader')
+
             if (errorHeader){
                 errorHeader.textContent = '';
             } else {
@@ -27,6 +28,7 @@ function sendRegisterData(bodyInfo) {
 
             const listerrors = document.createElement('ul');
             errorHeader.appendChild(listerrors);
+            errorHeader.style.backgroundColor = "red";
            
             errorMessage.forEach(msg => {
                 let li = document.createElement('li')
