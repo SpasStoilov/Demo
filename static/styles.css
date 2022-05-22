@@ -54,8 +54,10 @@ input[type=submit]{
 }
 
 .wall {
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 900px;
     border: 2px solid black;
 }

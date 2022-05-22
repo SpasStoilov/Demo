@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // conect.to Copass -  prot  ://---------------/creating Database in Compass
-const conectionStr = 'mongodb://localhost:27017/TestDB';
+const conectionStr = 'mongodb://localhost:27017/VRimoti';
 
 
 // ------- DATABASE Settings --------:

@@ -1,6 +1,5 @@
 const { validationResult } = require("express-validator");
 
-
 //------ Request Hendler Functions ----:
 
 function home (req, res) {
@@ -9,9 +8,15 @@ function home (req, res) {
 
 
 function register (req, res) {
-    console.log(">>> Register income:");
-    console.log(req.body);
-    res.json(req.body)
+    
+    const listOfErrors = validationResult(req).errors
+    if (listOfErrors === []) {
+        res.json(req.body);
+    } 
+    else {
+        res.json(validationResult(req))
+    };
+
 };
 
 //------ Hendler Registrations ----:

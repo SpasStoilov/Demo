@@ -8,12 +8,11 @@ function router (server){
 
     server.post(
         "/users",
-        body('email').notEmpty().bail().isEmail(),
+        body('email').notEmpty().bail().isEmail().normalizeEmail().trim(),
         body('username').notEmpty().bail().isLength({min: 3}),
         body('password').notEmpty().bail().isLength({min: 8}),
         useHandler.register
     );
-
 
     server.get("*", useHandler.home);
 };
