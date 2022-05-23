@@ -16,7 +16,7 @@ const userSchema = new Schema({
     },
     username: {
         type: String,
-        minLength: [4, "Min length of Username: 4 char!"],
+        minLength: [3, "Min length of Username: 3 char!"],
     },
     password: {
         type: String, 
