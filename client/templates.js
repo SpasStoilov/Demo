@@ -2,6 +2,25 @@ import {html} from "./node_modules/lit-html/lit-html.js";
 import { useService } from "./services.js";
 
 
+const errorHeaderResgister = (result) => {
+
+    const errorMessages = result.errors.map(el => `${el.param} : ${el.msg}`);
+
+    let resultErrors = '';
+    errorMessages.forEach(element => resultErrors +=`<h1>${element}</h1>`);
+    resultErrors = `<div class="errorHeader">${resultErrors}</div>`;
+
+    let fragErrors = document.createRange().createContextualFragment(resultErrors);
+    const wall = document.querySelector('.wall');
+    let checkForErrorHeader = document.querySelector('.errorHeader');
+
+    if (checkForErrorHeader){
+        wall.removeChild(checkForErrorHeader)
+    }
+    wall.prepend(fragErrors)
+};
+
+
 const homeTemp = () => html`<h1>HOME</h1>`;
 
 
@@ -39,5 +58,6 @@ export const useTemplate = {
     homeTemp,
     loginTemp,
     registerTemp,
-    aboutTemp
+    aboutTemp,
+    errorHeaderResgister
 };

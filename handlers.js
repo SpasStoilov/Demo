@@ -10,7 +10,7 @@ function home (req, res) {
 function register (req, res) {
     
     const listOfErrors = validationResult(req).errors
-    if (listOfErrors === []) {
+    if (JSON.stringify(listOfErrors) === '[]') {
         res.json(req.body);
     } 
     else {
