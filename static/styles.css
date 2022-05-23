@@ -62,3 +62,19 @@ input[type=submit]{
     border: 2px solid black;
 }
 
+.errorHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(221, 142, 142);
+    border-radius: 10px;
+    width: 250px;
+};
+
+p {
+    margin: 0px, 0px, 0px, 0px;
+    color: beige;
+    font-size: medium;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

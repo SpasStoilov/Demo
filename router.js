@@ -10,7 +10,7 @@ function router (server){
         "/users",
         body('email').notEmpty().bail().isEmail().normalizeEmail().trim(),
         body('username').notEmpty().bail().isLength({min: 3}),
-        body('password').notEmpty().bail().isLength({min: 8}),
+        body('password').notEmpty().bail().isLength({min: 1}),
         useHandler.register
     );
 

@@ -1,6 +1,6 @@
 const baseURL = "http://localhost:3000";
 import {useTemplate} from './templates.js';
-
+import {render} from "./node_modules/lit-html/lit-html.js";
 
 function sendRegisterData(bodyInfo) {
 
@@ -13,7 +13,17 @@ function sendRegisterData(bodyInfo) {
     })
         .then(resp => resp.json())
         .then(result => {
-            useTemplate.errorHeaderResgister(result);
+            console.log(result)
+            if (result[0]){
+                useTemplate.errorHeaderResgister(result);
+            } else {
+                const wall = document.querySelector(".wall");
+                let checkForErrorHeader = document.querySelector('.errorHeader');
+                if (checkForErrorHeader){
+                    wall.removeChild(checkForErrorHeader);
+                }
+                render(useTemplate.loginTemp(), wall);
+            }
         });
 };
 

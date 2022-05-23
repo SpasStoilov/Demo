@@ -4,10 +4,10 @@ import { useService } from "./services.js";
 
 const errorHeaderResgister = (result) => {
 
-    const errorMessages = result.errors.map(el => `${el.param} : ${el.msg}`);
+    const errorMessages = result.map(el => `${el.param} : ${el.msg}`);
 
     let resultErrors = '';
-    errorMessages.forEach(element => resultErrors +=`<h1>${element}</h1>`);
+    errorMessages.forEach(element => resultErrors +=`<p class="errorMsgRegister">${element}</p>`);
     resultErrors = `<div class="errorHeader">${resultErrors}</div>`;
 
     let fragErrors = document.createRange().createContextualFragment(resultErrors);
@@ -17,7 +17,7 @@ const errorHeaderResgister = (result) => {
     if (checkForErrorHeader){
         wall.removeChild(checkForErrorHeader)
     }
-    wall.prepend(fragErrors)
+    wall.prepend(fragErrors);
 };
 
 

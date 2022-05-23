@@ -9,12 +9,12 @@ function home (req, res) {
 
 function register (req, res) {
     
-    const listOfErrors = validationResult(req).errors
-    if (JSON.stringify(listOfErrors) === '[]') {
+    console.log('>>> ERRORS:', validationResult(req).errors);
+    if (JSON.stringify(validationResult(req).errors) == '[]') {
         res.json(req.body);
     } 
     else {
-        res.json(validationResult(req))
+        res.json(validationResult(req).errors)
     };
 
 };
