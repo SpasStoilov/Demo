@@ -13,8 +13,12 @@ function sendRegisterData(bodyInfo) {
     })
         .then(resp => resp.json())
         .then(result => {
-            console.log(result)
-            if (result[0]){
+            console.log('>>>Register result:', result);
+            
+            // returns list if it has erros and obj if it not!
+            const responseErrors = result[0];
+            
+            if (responseErrors){
                 useTemplate.errorHeaderResgister(result);
             } else {
                 const wall = document.querySelector(".wall");

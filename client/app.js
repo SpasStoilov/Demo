@@ -11,11 +11,17 @@ slider.oninput = function() {
 
 // Global Middleware:
 
+function fetchRegister (ctx, next){
+    if (JSON.stringify(ctx.params) != '{}'){
+        console.log('>>>CTX.params:', ctx.params);
+    };
+    next();
+};
 
 
 // Router:
 page("/", useHandlerFor.home);
-page("/register", useHandlerFor.register);
+page("/register/", useHandlerFor.register);
 page("/login", useHandlerFor.login);
 page("/about", useHandlerFor.about);
 
