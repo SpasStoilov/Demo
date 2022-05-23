@@ -1,4 +1,5 @@
 async function validateCreation (userInstance) {
+    
     const DataBaseErrReport = [];
 
     try {
@@ -21,7 +22,7 @@ async function validateCreation (userInstance) {
     return DataBaseErrReport;
 };
 
-
+//------ Validator Registrations ----:
 module.exports = {
     validateCreation
 };

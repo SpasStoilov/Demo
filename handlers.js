@@ -1,5 +1,4 @@
 const { validationResult } = require("express-validator");
-// const UserModel = require("./Models/users.js");
 const useBackService = require('./services.js');
 
 //------ Request Hendler Functions ----:
@@ -11,38 +10,14 @@ function home (req, res) {
 
 async function register (req, res) {
     
-    console.log('>>> REQUEST Body:', req.body);
-    // const DataBaseErrReport = [];
     let {email, username, password} = req.body;
-
-    const DataBaseErrReport = await useBackService.userCreation(email, username, password);
-
-    // const userInstance = new UserModel({
-    //     email,
-    //     username,
-    //     password
-    // });
-
-    // try {
-    //     await userInstance.save();
-    // } catch (err) {
-    //     console.log('>>> DATABASE ERRORS STRUCTURES:', err.errors);
-    //     console.log('>>> DATABASE ERRORS FIELDS:', Object.keys(err.errors));
-    //     Object.keys(err.errors).forEach( field => {
-    //         const dataBaseErr = {
-    //             value: err.errors[field].properties.value,
-    //             msg: err.errors[field].properties.message,
-    //             param: err.errors[field].properties.path,
-    //             location: 'body'
-    //         };
-    //         DataBaseErrReport.push(dataBaseErr);
-    //     });
-
-    // };
-
     const [...ServerErrReport] = validationResult(req).errors;
+    const DataBaseErrReport = await useBackService.userCreation(email, username, password);
+    
+    console.log('>>> REQUEST Body:', req.body);
     console.log('>>> SEVER ERRORS REPORT:', ServerErrReport);
     console.log('>>> DATABASE ERRORS REPORT:', DataBaseErrReport);
+    
     let TOTALerrREPORT = DataBaseErrReport.concat(ServerErrReport);
     console.log('>>> TOTAL REPORT:', TOTALerrREPORT);
 
