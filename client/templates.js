@@ -24,7 +24,6 @@ const errorHeaderResgister = (result) => {
 const homeTemp = () => html`<h1>HOME</h1>`;
 
 
-
 const aboutTemp = () => html`<h1>2About</h1>`;
 
 
@@ -38,7 +37,7 @@ const registerTemp = () => html`
     <input type="password" id="password" name="password" placeholder="Enter password"/><br>
     <label for="reppassword">Repeat Password:</label><br>
     <input type="password" id="reppassword" name="reppassword" placeholder="Enter"/><br>
-    <input type="submit" value="SendData"><br>
+    <input type="submit" value="Регистрирай"><br>
 </form>`;
 
 

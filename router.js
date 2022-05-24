@@ -15,7 +15,11 @@ function router (server){
         useHandler.register
     );
 
-    server.post('/users/login', useLocalMiddlewere.userExistInDataBase);
+    server.post(
+        "/users/login", 
+        useLocalMiddlewere.userExistInDataBase,
+        useHandler.logIn
+    );
 
     server.get("*", useHandler.home);
 };

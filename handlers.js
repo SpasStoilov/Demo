@@ -4,6 +4,7 @@ const useBackService = require('./services.js');
 //------ Request Hendler Functions ----:
 
 function home (req, res) {
+    // const User = req.session.user;
     res.render('home.hbs');
 };
 
@@ -44,10 +45,23 @@ async function register (req, res) {
 
 };
 
+
+function logIn (req, res) {
+    const UserExist = req.session.user;
+    console.log('>>> User Try to log:', UserExist);
+    if (UserExist) {
+        res.json(UserExist);
+    } else {
+        res.json({});
+    }
+    
+};
+
 //------ Hendler Registrations ----:
 const useHandler = {
     home,
-    register
+    register,
+    logIn
 };
 
 module.exports = useHandler;

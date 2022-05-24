@@ -19,9 +19,7 @@ async function checkForUser (email, logPassword) {
     let foundUser;
 
     try {
-        foundUser = await UserModel.findOne({
-            email
-        });
+        foundUser = await UserModel.findOne({email: email});
         console.log('>>> User Found (at: services.js):', foundUser);
         await comparePasswords(logPassword, foundUser.password)
 

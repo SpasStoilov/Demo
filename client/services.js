@@ -1,4 +1,4 @@
-import {fetchME} from './fetchme.js';
+import { fetchME } from './fetchme.js';
 import { useValidator } from './validations.js';
 
 function sendRegisterInf(e){
@@ -15,9 +15,10 @@ function sendRegisterInf(e){
  
 };
 
-function sendLogInInf(e){
+function sendLogInInf (e) {
     e.preventDefault();
     let logInData = new FormData(e.currentTarget);
+    console.log('>>> Form Data Log In (at: client/services.js):', logInData)
     fetchME.sendLogInData(logInData);
 };
 
