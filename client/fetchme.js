@@ -4,7 +4,7 @@ import {render} from "./node_modules/lit-html/lit-html.js";
 
 function sendRegisterData(bodyInfo) {
 
-    fetch(`${baseURL}/users`, {
+    fetch(`${baseURL}/users/register`, {
         method: "POST",
         headers: {
             'content-type': 'application/json'
@@ -32,7 +32,22 @@ function sendRegisterData(bodyInfo) {
 };
 
 
+function sendLogInData(logInData){
+    fetch(`${baseURL}/users/login`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(logInData)
+    })
+        .then(resp => resp.json())
+        .then(result => console.log('>>> Login resp:', result))
+        .catch(err => console.log('>>> Login resp Error:', err))
+};
+
+
 
 export const fetchME = {
-    sendRegisterData
+    sendRegisterData,
+    sendLogInData,
 }

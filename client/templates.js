@@ -44,12 +44,12 @@ const registerTemp = () => html`
 
 
 const loginTemp = () => html`
-<form>
-    <label for="username">UserName:</label><br>
-    <input type="text" id="username" name="username" placeholder="Enter name"/><br>
+<form class="loginForm" @submit=${useService.sendLogInInf}>
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" placeholder="enter email"/><br>
     <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" placeholder="Enter password"/><br>
-    <input type="submit" value="Log"><br>
+    <input type="password" id="password" name="password" placeholder="enter password"/><br>
+    <input type="submit" value="Влез"><br>
 </form>`;
 
 

@@ -7,7 +7,31 @@ async function hashPassword (pass) {
     const salt = 8;
     const hashed = await bcrypt.hash(pass, salt);
     return hashed;
-}
+};
+
+async function comparePasswords (pass, hash) {
+    const result = await bcrypt.compare(pass, hash);
+    return result;
+};
+
+
+async function checkForUser (email, logPassword) {
+    let foundUser;
+
+    try {
+        foundUser = await UserModel.findOne({
+            email
+        });
+        console.log('>>> User Found (at: services.js):', foundUser);
+        await comparePasswords(logPassword, foundUser.password)
+
+    } catch (err) {
+        console.log('>>> Find User Error (at: services.js):', err.message);
+        foundUser = false;
+    };
+
+    return foundUser;
+};
 
 
 async function userCreation (email, username, password) {
@@ -32,5 +56,6 @@ async function userCreation (email, username, password) {
 
 //------ Service Registrations ----:
 module.exports = {
-    userCreation
+    userCreation,
+    checkForUser
 };

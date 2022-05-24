@@ -15,8 +15,15 @@ function sendRegisterInf(e){
  
 };
 
+function sendLogInInf(e){
+    e.preventDefault();
+    let logInData = new FormData(e.currentTarget);
+    fetchME.sendLogInData(logInData);
+};
+
 
 
 export const useService = {
-    sendRegisterInf
+    sendRegisterInf,
+    sendLogInInf,
 }
