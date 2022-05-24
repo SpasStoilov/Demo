@@ -19,8 +19,8 @@ const userSchema = new Schema({
         minLength: [3, "Min length of Username: 3 char!"],
     },
     password: {
-        type: String, 
-        minLength: [1, "Min length of pass: 1 char!"],
+        type: String,
+        minLength: [1, "Min length of Password: 1 char!"],
     }
 });
 

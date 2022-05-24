@@ -20,6 +20,7 @@ function sendLogInInf (e) {
     let logInData = new FormData(e.currentTarget);
     console.log('>>> Form Data Log In (at: client/services.js):', logInData)
     fetchME.sendLogInData(logInData);
+   
 };
 
 
