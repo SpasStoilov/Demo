@@ -29,26 +29,20 @@ const aboutTemp = () => html`<h1>2About</h1>`;
 
 const registerTemp = () => html`
 <form class="registerForm" @submit=${useService.sendRegisterInf}>
-    <label for="email">E-mail:</label><br>
-    <input type="text" id="email" name="email" placeholder="Enter email"/><br>
-    <label for="username">UserName:</label><br>
-    <input type="text" id="username" name="username" placeholder="Enter name"/><br>
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" placeholder="Enter password"/><br>
-    <label for="reppassword">Repeat Password:</label><br>
-    <input type="password" id="reppassword" name="reppassword" placeholder="Enter"/><br>
-    <input type="submit" value="Регистрирай"><br>
+    <input type="text" id="email" name="email" placeholder="Емайл"/><br>
+    <input type="text" id="username" name="username" placeholder="Име"/><br>
+    <input type="password" id="password" name="password" placeholder="Парола"/><br>
+    <input type="password" id="reppassword" name="reppassword" placeholder="Повтори парола"/><br>
+    <input type="submit" class="registerButton" value="Регистрация"><br>
 </form>`;
 
 
 
 const loginTemp = () => html`
 <form class="loginForm" @submit=${useService.sendLogInInf}>
-    <label for="email">Email:</label><br>
     <input type="text" id="email" name="email" placeholder="enter email"/><br>
-    <label for="password">Password:</label><br>
     <input type="password" id="password" name="password" placeholder="enter password"/><br>
-    <input type="submit" value="Влез"><br>
+    <input type="submit" class="loginButton" value="Влез"><br>
 </form>`;
 
 
