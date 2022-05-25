@@ -12,9 +12,6 @@ const home = (ctx, next) => {
 
 const register = (ctx, next) => {
     render(useTemplate.registerTemp(), wall);
-    // let emailInput = document.querySelector("input[name=email]");
-    // console.log(emailInput)
-    // emailInput.style.borderRadius = "5px";
 };
 
 const login = (ctx, next) => {
