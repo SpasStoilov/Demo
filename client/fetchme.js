@@ -14,24 +14,22 @@ function sendRegisterData(bodyInfo) {
     })
         .then(resp => resp.json())
         .then(result => {
+            
             console.log('>>> Register result (at: fetchme):', result);
-            if (!result.errmsg) {
-                // returns list if it has erros and obj if it not!
-                const responseErrors = result[0];
+            const wall = document.querySelector(".wall");
+            const responseErrors = result[0]; //: returns list if it has erros and obj if it not, or User exist in data base!
                 
-                if (responseErrors){
-                    useTemplate.errorHeaderResgister(result);
-                } else {
-                    const wall = document.querySelector(".wall");
-                    let checkForErrorHeader = document.querySelector('.errorHeader');
-                    if (checkForErrorHeader){
-                        wall.removeChild(checkForErrorHeader);
-                    }
-                    render(useTemplate.loginTemp(), wall);
-                };
+            if (!result.errmsg && responseErrors){
+                useTemplate.errorHeaderResgister(result);
+            } else if (!result.errmsg){
+                let checkForErrorHeader = document.querySelector('.errorHeader');
+                if (checkForErrorHeader){
+                    wall.removeChild(checkForErrorHeader);
+                }
+                render(useTemplate.loginTemp(), wall);
             } else {
                 console.log('>>> Registter Message (at: fetchme.js):', result.errmsg);
-                page.redirect('/login');
+                render(useTemplate.loginTemp(), wall);
             };
         });
 };
@@ -61,7 +59,7 @@ function sendLogInData(logInData){
             if (!User.errmsg) {
                 page.redirect('/');
             } else {
-                let logForm = document.querySelector('.loginForm');
+                let wall = document.querySelector('.wall');
                 let LogErrMsg = document.querySelector('.LogInErrHead');
                 let Msg = document.createElement('p');
                 Msg.className = 'PphLogMsgHead';
@@ -75,7 +73,7 @@ function sendLogInData(logInData){
                 
                 Msg.textContent = User.errmsg;
                 LogErrMsg.appendChild(Msg);
-                logForm.prepend(LogErrMsg);
+                wall.prepend(LogErrMsg);
             };
         });
 };

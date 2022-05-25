@@ -10,13 +10,16 @@ slider.oninput = function() {
 }
 
 // Global Middleware:
-
-function fetchRegister (ctx, next){
-    if (JSON.stringify(ctx.params) != '{}'){
-        console.log('>>>CTX.params:', ctx.params);
-    };
+function cleanWall(ctx, next){
+    let wall = document.querySelector('.wall');
+    let errHead = document.querySelector('.errorHeader');
+    if (errHead) {
+        wall.removeChild(errHead);
+    }
     next();
 };
+
+page(cleanWall);
 
 
 // Router:

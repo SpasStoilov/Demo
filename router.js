@@ -11,6 +11,7 @@ function router (server){
         body('email').notEmpty().bail().isEmail().normalizeEmail().trim(),
         body('username').notEmpty().bail().isLength({min: 3}),
         body('password').notEmpty().bail().isLength({min: 1}),
+        body('reppassword').notEmpty().bail().isLength({min: 1}),
         useLocalMiddlewere.userExistInDataBase,
         useHandler.register
     );

@@ -2,7 +2,7 @@ import {render} from "./node_modules/lit-html/lit-html.js";
 import {useTemplate} from "./templates.js";
 
 // DOM selections:
-const wall = document.querySelector(".wall");
+let wall = document.querySelector(".wall");
 
 
 // Handlers/Render:
