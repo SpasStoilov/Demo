@@ -11,12 +11,14 @@ const errorHeaderResgister = (result) => {
     resultErrors = `<div class="errorHeader">${resultErrors}</div>`;
 
     let fragErrors = document.createRange().createContextualFragment(resultErrors);
+
     const wall = document.querySelector('.wall');
     let checkForErrorHeader = document.querySelector('.errorHeader');
 
     if (checkForErrorHeader){
         wall.removeChild(checkForErrorHeader)
-    }
+    };
+
     wall.prepend(fragErrors);
 };
 

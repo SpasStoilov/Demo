@@ -57,8 +57,31 @@ function sendLogInData(logInData){
             console.log('>>> Login resp (at: client/fetchme):', User);
             console.log('>>>:', (!User.errmsg));
             if (!User.errmsg) {
-                page.redirect('/');
+
+                console.log('>>> Successesfull Login!')
+                let navBarOptions = document.querySelector('.navOptions');
+                navBarOptions.textContent = '';
+
+                let newBarOptions = {
+                    navhome: [document.createElement("a"), '/', 'Начало'],
+                    navProfile: [document.createElement("a"), '/profile', 'Профил'],
+                    navLogOut:[ document.createElement("a"), '/logout', 'Излез'],
+                };
+
+                for (let [classNameEl, value] of Object.entries(newBarOptions)) {
+                    console.log(classNameEl, value[0])
+                    let element = value[0];
+                    element.textContent = value[2]
+                    let elhref = value[1];
+                    element.className = classNameEl;
+                    element.href = elhref;
+                    navBarOptions.appendChild(element)
+                };
+
+                page.redirect('/')
+                
             } else {
+                console.log('>>> Problem with Login:')
                 let wall = document.querySelector('.wall');
                 let LogErrMsg = document.querySelector('.LogInErrHead');
                 let Msg = document.createElement('p');
