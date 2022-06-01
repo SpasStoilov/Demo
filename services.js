@@ -16,33 +16,40 @@ async function comparePasswords (pass, hash) {
 
 
 async function checkForUser (email, logPassword) {
+    console.log('S:>>> Service checkForUser acting...');
+    console.log('S:>>> Service checkForUser: Chek in UserModel for User?');
+
     let foundUser = await UserModel.findOne({email: email});
+    console.log('S:>>> Service checkForUser: Result:', foundUser);
 
     if (!foundUser) {
         foundUser = {errmsg: 'Wrong Email!'};
-        console.log('>>> ERROR (at: services.js):', foundUser.errmsg);
+        console.log('S:>>> Service checkForUser: Message:', foundUser.errmsg);
     };
     
-    console.log('>>> User BEFORE PASS (at: services.js):', foundUser);
-
     if (JSON.stringify(foundUser) !== JSON.stringify({errmsg: 'Wrong Email!'})){
         if (logPassword !== foundUser.password){
             foundUser = {errmsg: 'Wrong password!'};
-            console.log('>>> ERROR (at: services.js):', foundUser.errmsg);
+            console.log('>>> S:>>> Service checkForUser: ERROR:', foundUser.errmsg);
         };
     };
-
+    
+    console.log('S:>>> Service checkForUser: Return foundUser!');
     return foundUser;
 };
 
 
 async function userCreation (email, username, password) {
+    console.log('S:>>> Service userCreation acting...');
+
+    console.log('S:>>> Service userCreation: Creating userInstance form UserModel!');
     const userInstance = new UserModel({
         email,
         username,
         password
     });
 
+    console.log('S:>>> Service userCreation: Return Validations Creation Report');
     return useBackValidator.validateCreation(userInstance);
 }
 

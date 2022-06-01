@@ -7,12 +7,18 @@ const useBackService = require('./services.js');
 // };
 
 async function userExistInDataBase(req, res, next) {
-    console.log('>>> Req LogIN Body (at: LocalMiddwares.js):', req.body)
+    console.log('S:>>> LocalMiddlewares acting...')
+    console.log('S:>>> LocalMiddlewares:userExistInDataBase: Req Body:', req.body)
 
     let {email, password} = req.body;
+
+    console.log('S:>>> LocalMiddlewares: userExistInDataBase: Check for User');
     const result = await useBackService.checkForUser(email, password); //return: UserObj/ErrorOBJ
+
+    console.log('S:>>> LocalMiddlewares: userExistInDataBase: Save found result in req.session.user');
     req.session.user = result;
-    console.log('>>> Req User Session (at: LocalMiddwares.js):', req.session)
+    console.log('S:>>> LocalMiddlewares: userExistInDataBase: Display Session:', req.session)
+    console.log('S:>>> LocalMiddlewares: userExistInDataBase: NEXT()...')
     next();
 };
 

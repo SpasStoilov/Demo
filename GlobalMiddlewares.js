@@ -3,6 +3,8 @@ const esepressSession = require('express-session');
 
 function GlobalMidllewares(server, express) {
 
+    console.log('S:>>> GlobalMiddlewares acting...')
+
     // --------- middlewere settings -------------:
 
     const expressSessionConfig = {

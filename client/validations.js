@@ -1,5 +1,6 @@
 function register(formData){
-    
+    console.log('C:>>> Validation Register acting...');
+
     let {email, username, password, reppassword} = Object.fromEntries(formData);
     let bodyInfo = {
         'email': email,
@@ -35,6 +36,7 @@ function register(formData){
     //     value = false;
     // };
 
+    console.log('C:>>> Validation Register: Return Obj Info')
     return {value, message, bodyInfo}
 };
 

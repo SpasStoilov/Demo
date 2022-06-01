@@ -1,8 +1,10 @@
 import {html} from "./node_modules/lit-html/lit-html.js";
 import { useService } from "./services.js";
 
+console.log('C:>>> Templates acting...')
 
 const errorHeaderResgister = (result) => {
+    console.log('C:>>> Templates: Error Handers Register acting...')
 
     const errorMessages = result.map(el => `${el.param} : ${el.msg}`);
 
@@ -19,6 +21,7 @@ const errorHeaderResgister = (result) => {
         wall.removeChild(checkForErrorHeader)
     };
 
+    console.log('C:>>> Templates: Error Handers Register: Render Errors')
     wall.prepend(fragErrors);
 };
 

@@ -12,10 +12,16 @@
     <div class="navBar">
         <img src="LogoNavBar.png" alt="logo" class="Logo">
         <div class="navOptions">
-            <a href="/" class="navhome">Начало</a>
-            <a href="/register" class="navreg">Регистрация</a>
-            <a href="/login" class="navlog">Влез</a>
-            <a href="/about" class="navabout">Нашата мисия</a>
+            {{#if user}}
+                <a href="/" class="navhome">Начало</a>
+                <a href="/profile" class="navProfile">Профил</a>
+                <a href="/logout" class="navLogOut">Излез</a>
+            {{else}}
+                <a href="/" class="navhome">Начало</a>
+                <a href="/register" class="navreg">Регистрация</a>
+                <a href="/login" class="navlog">Влез</a>
+                <a href="/about" class="navabout">Нашата мисия</a>
+            {{/if}}
         </div>
     </div>
 
@@ -25,9 +31,7 @@
             {{> formsurch}}
         </div>
 
-        <div class="wall">
-            {{{body}}}
-        </div>
+        <div class="wall"></div>
 
     </div>
 

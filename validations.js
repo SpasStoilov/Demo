@@ -1,4 +1,5 @@
 async function validateCreation (userInstance) {
+    console.log('S:>>> Validations validateCreation acting...');
     
     const DataBaseErrReport = [];
 
@@ -19,6 +20,7 @@ async function validateCreation (userInstance) {
 
     };
 
+    console.log('S:>>> Validations validateCreation: Return DataBaseErros Report (List)');
     return DataBaseErrReport;
 };
 

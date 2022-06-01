@@ -5,6 +5,7 @@ const useLocalMiddlewere = require('./LocalMiddlewares.js');
 // router:
 
 function router (server){
+    console.log('S:>>> Router acting...')
 
     server.post(
         "/users/register",
@@ -21,7 +22,8 @@ function router (server){
         useLocalMiddlewere.userExistInDataBase,
         useHandler.logIn
     );
-
+    
+    server.get("/logout", useHandler.logout);
     server.get("*", useHandler.home);
 };
 

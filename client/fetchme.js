@@ -4,6 +4,7 @@ import {render} from "./node_modules/lit-html/lit-html.js";
 import page from "./node_modules/page/page.mjs";
 
 function sendRegisterData(bodyInfo) {
+    console.log('C:>>> Fetch sendRegisterData acting...')
 
     fetch(`${baseURL}/users/register`, {
         method: "POST",
@@ -15,27 +16,40 @@ function sendRegisterData(bodyInfo) {
         .then(resp => resp.json())
         .then(result => {
             
-            console.log('>>> Register result (at: fetchme):', result);
+            console.log('C:>>> Fetch sendRegisterData: Response:', result);
             const wall = document.querySelector(".wall");
             const responseErrors = result[0]; //: returns list if it has erros and obj if it not, or User exist in data base!
                 
             if (!result.errmsg && responseErrors){
+                console.log('C:>>> Fetch sendRegisterData: Some Errors found...')
                 useTemplate.errorHeaderResgister(result);
             } else if (!result.errmsg){
+                console.log('C:>>> Fetch sendRegisterData: No Errors found...')
+                console.log('C:>>> Fetch sendRegisterData: checkForErrorHeader?')
                 let checkForErrorHeader = document.querySelector('.errorHeader');
+
                 if (checkForErrorHeader){
+                    console.log('C:>>> Fetch sendRegisterData: Result: Found')
+                    console.log('C:>>> Fetch sendRegisterData: Act: Remove')
                     wall.removeChild(checkForErrorHeader);
                 }
-                render(useTemplate.loginTemp(), wall);
+
+                console.log('C:>>> Fetch sendRegisterData: Redirect to: loginTemp')
+                page.redirect('/login');
+                // render(useTemplate.loginTemp(), wall);
+
             } else {
-                console.log('>>> Registter Message (at: fetchme.js):', result.errmsg);
-                render(useTemplate.loginTemp(), wall);
+                console.log('C:>>> Fetch sendRegisterData: Registter Message:', result.errmsg);
+                console.log('C:>>> Fetch sendRegisterData: Redirect to: loginTemp')
+                page.redirect('/login');
+                // render(useTemplate.loginTemp(), wall);
             };
         });
 };
 
 
 function sendLogInData(logInData){
+    console.log('C:>>> Fetch sendLogInData acting...')
 
     let {email, password} = Object.fromEntries(logInData);
     let logInBody = {
@@ -43,7 +57,7 @@ function sendLogInData(logInData){
         'password': password,
     };
 
-    console.log('>>> Client Login Data (at: client/fetchme.js)', logInBody)
+    console.log('C:>>> Fetch sendLogInData: Client Login Data:', logInBody)
 
     fetch(`${baseURL}/users/login`, {
         method: 'POST',
@@ -54,11 +68,13 @@ function sendLogInData(logInData){
     })
         .then(resp => resp.json())
         .then(User => {
-            console.log('>>> Login resp (at: client/fetchme):', User);
-            console.log('>>>:', (!User.errmsg));
-            if (!User.errmsg) {
+            console.log('C:>>> Fetch sendLogInData: Response User:', User);
+            console.log('C:>>> Fetch sendLogInData: User ERROR message?', (!User.errmsg));
 
-                console.log('>>> Successesfull Login!')
+            if (!User.errmsg) {
+                
+                console.log('C:>>> Fetch sendLogInData: Successesfull Login!')
+                
                 let navBarOptions = document.querySelector('.navOptions');
                 navBarOptions.textContent = '';
 
@@ -78,10 +94,13 @@ function sendLogInData(logInData){
                     navBarOptions.appendChild(element)
                 };
 
-                page.redirect('/')
+                console.log('C:>>> Fetch sendLogInData: Regirect to /')
+                page.redirect('/');
                 
             } else {
-                console.log('>>> Problem with Login:')
+                console.log('C:>>> Fetch sendLogInData: Problem with Login!')
+                console.log('C:>>> Fetch sendLogInData: Loading Error Headers...')
+
                 let wall = document.querySelector('.wall');
                 let LogErrMsg = document.querySelector('.LogInErrHead');
                 let Msg = document.createElement('p');

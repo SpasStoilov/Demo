@@ -11,11 +11,12 @@ slider.oninput = function() {
 };
 
 // Global Middleware:
-
+console.log('C:>>> Global Middleware acting...')
 page(useGlobalMiddleware.cleanWallfromErrors);
 
 
 // Router:
+console.log('C:>>> Router acting...')
 
 page("/", useHandlerFor.home);
 page("/register/", useHandlerFor.register);
