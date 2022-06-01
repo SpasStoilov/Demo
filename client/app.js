@@ -19,8 +19,10 @@ page(useGlobalMiddleware.cleanWallfromErrors);
 console.log('C:>>> Router acting...')
 
 page("/", useHandlerFor.home);
-page("/register/", useHandlerFor.register);
+page("/register", useHandlerFor.register);
 page("/login", useHandlerFor.login);
 page("/about", useHandlerFor.about);
+
+page("/welcome", useHandlerFor.welcome);
 
 page.start();

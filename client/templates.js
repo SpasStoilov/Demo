@@ -50,12 +50,13 @@ const loginTemp = () => html`
     <input type="submit" class="loginButton" value="Влез"><br>
 </form>`;
 
-
+const welcome = () => html`<h1>Welcome :)</h1>`
 
 export const useTemplate = {
     homeTemp,
     loginTemp,
     registerTemp,
     aboutTemp,
-    errorHeaderResgister
+    errorHeaderResgister,
+    welcome
 };

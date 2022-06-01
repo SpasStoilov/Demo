@@ -58,7 +58,6 @@ function sendLogInData(logInData){
     };
 
     console.log('C:>>> Fetch sendLogInData: Client Login Data:', logInBody)
-
     fetch(`${baseURL}/users/login`, {
         method: 'POST',
         headers: {
@@ -72,31 +71,9 @@ function sendLogInData(logInData){
             console.log('C:>>> Fetch sendLogInData: User ERROR message?', (!User.errmsg));
 
             if (!User.errmsg) {
-                
                 console.log('C:>>> Fetch sendLogInData: Successesfull Login!')
-                
-                let navBarOptions = document.querySelector('.navOptions');
-                navBarOptions.textContent = '';
-
-                let newBarOptions = {
-                    navhome: [document.createElement("a"), '/', 'Начало'],
-                    navProfile: [document.createElement("a"), '/profile', 'Профил'],
-                    navLogOut:[ document.createElement("a"), '/logout', 'Излез'],
-                };
-
-                for (let [classNameEl, value] of Object.entries(newBarOptions)) {
-                    console.log(classNameEl, value[0])
-                    let element = value[0];
-                    element.textContent = value[2]
-                    let elhref = value[1];
-                    element.className = classNameEl;
-                    element.href = elhref;
-                    navBarOptions.appendChild(element)
-                };
-
-                console.log('C:>>> Fetch sendLogInData: Regirect to /')
-                page.redirect('/');
-                
+                console.log('C:>>> Fetch sendLogInData: Regirect to /welcome')
+                page.redirect('/welcome');
             } else {
                 console.log('C:>>> Fetch sendLogInData: Problem with Login!')
                 console.log('C:>>> Fetch sendLogInData: Loading Error Headers...')
@@ -126,3 +103,34 @@ export const fetchME = {
     sendRegisterData,
     sendLogInData,
 }
+
+
+
+/// Trash :
+
+                //USED IN sendLogInData FETCH//
+
+    // this part is repeated in server file main.hbs ///////////
+    // it's changes navbar options !
+
+    // let navBarOptions = document.querySelector('.navOptions');
+    // navBarOptions.textContent = '';
+
+    // let newBarOptions = {
+    //     navhome: [document.createElement("a"), '/', 'Начало'],
+    //     navProfile: [document.createElement("a"), '/profile', 'Профил'],
+    //     navLogOut:[ document.createElement("a"), '/logout', 'Излез'],
+    // };
+
+    // for (let [classNameEl, value] of Object.entries(newBarOptions)) {
+    //     console.log(classNameEl, value[0])
+    //     let element = value[0];
+    //     element.textContent = value[2]
+    //     let elhref = value[1];
+    //     element.className = classNameEl;
+    //     element.href = elhref;
+    //     navBarOptions.appendChild(element)
+    // };
+
+    // console.log('C:>>> Fetch sendLogInData: Regirect to /')
+    // page.redirect('/');

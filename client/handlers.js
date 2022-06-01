@@ -34,10 +34,15 @@ const about = (ctx, next) => {
     render(useTemplate.aboutTemp(), wall);
 };
 
+function welcome (ctx, next) {
+    location.replace("/");
+}
+
 
 export const useHandlerFor = {
     home,
     about,
     register,
-    login
+    login,
+    welcome
 };
