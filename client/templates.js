@@ -42,7 +42,6 @@ const registerTemp = () => html`
 </form>`;
 
 
-
 const loginTemp = () => html`
 <form class="loginForm" @submit=${useService.sendLogInInf}>
     <input type="text" id="email" name="email" placeholder="enter email"/><br>
@@ -50,7 +49,15 @@ const loginTemp = () => html`
     <input type="submit" class="loginButton" value="Влез"><br>
 </form>`;
 
-const welcome = () => html`<h1>Welcome :)</h1>`
+const profileTemp = () => html`
+<div class="profileBar">
+    <a href="/profile/settings" class="profileSettings">Настройки</a>
+    <a href="/profile/vrtours" class="profileVrTours">Моите Обяви</a>
+</div>
+<div class="profileBody"><div>
+`;
+
+
 
 export const useTemplate = {
     homeTemp,
@@ -58,5 +65,5 @@ export const useTemplate = {
     registerTemp,
     aboutTemp,
     errorHeaderResgister,
-    welcome
+    profileTemp
 };
