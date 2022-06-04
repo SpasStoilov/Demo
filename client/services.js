@@ -21,20 +21,28 @@ function sendRegisterInf(e){
 };
 
 function sendLogInInf (e) {
-    console.log('C:>>> Service sendLogInInf acting...')
-    console.log('C:>>> Service sendLogInInf: Extract FormData...')
+    console.log('C:>>> Service sendLogInInf acting...');
+    console.log('C:>>> Service sendLogInInf: Extract FormData...');
 
     e.preventDefault();
     let logInData = new FormData(e.currentTarget);
 
-    console.log('C:>>> Service sendLogInInf: Send FormData To Server:', logInData)
+    console.log('C:>>> Service sendLogInInf: Send FormData To Server:', logInData);
     fetchME.sendLogInData(logInData);
    
 };
+
+function getUserData (){
+    console.log('C:>>> Service getUserData...');
+    let result =  fetchME.userDataRegistrations(); // return UserData or epmpy obj
+    console.log('C:>>> Service getUserData: RESULT: ', result);
+    return result;
+}
 
 
 
 export const useService = {
     sendRegisterInf,
     sendLogInInf,
+    getUserData
 }

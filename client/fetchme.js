@@ -97,11 +97,15 @@ function sendLogInData(logInData){
         });
 };
 
-
+function userDataRegistrations() {
+    console.log('C:>>> fetchME userDataRegistrations...')
+    return fetch(`${baseURL}/user/data`);
+}
 
 export const fetchME = {
     sendRegisterData,
     sendLogInData,
+    userDataRegistrations
 }
 
 

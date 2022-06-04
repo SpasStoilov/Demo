@@ -1,4 +1,4 @@
-import {html} from "./node_modules/lit-html/lit-html.js";
+import {html, render} from "./node_modules/lit-html/lit-html.js";
 import { useService } from "./services.js";
 
 console.log('C:>>> Templates acting...')
@@ -58,20 +58,42 @@ const profileTemp = () => html`
 `;
 
 function profileSettingsTemp(){
-    
-    console.log('C:>>> profile Handler: Profile Settings load...')
+
+    console.log('C:>>> profileSettingsTemp load...')
     let settingsHolder = document.createElement('div');
     settingsHolder.className = 'settingsHolder'
     settingsHolder.style.display = 'block';
     settingsHolder.style.backgroundColor = 'red'
     settingsHolder.style.width = '800px';
     settingsHolder.style.height = '600px';
+    
+    let userData = useService.getUserData()
+    userData
+        .then(resp => resp.json())
+        .then(rslt => {
+            let Userer = rslt
+            console.log('C:>>> profileSettingsTemp: Fill UserData', Userer);
+            let userEmail = Userer.email;
+            let userName = Userer.username;
+            let userPass = Userer.password;
+            const UserDataTemp = () => html`
+            <ul class="settingsInformation">
+                <li class="settingEmail">Email: ${userEmail}</li>
+                <li class="settingName">UserName: ${userName}</li>
+                <li class="settingPass">Password: ${userPass}</li>
+            </ul>
+            `;
+            render(UserDataTemp(), settingsHolder);
+        })
+        .catch(err => console.log(err))
+
     console.log(settingsHolder)
     return settingsHolder
 };
 
 function profileVrToursTemp(){
-    console.log('C:>>> profile Handler: Profile VrTours load...')
+    console.log('C:>>> profileVrToursTemp load...')
+
     let VrToursHolder = document.createElement('div');
     VrToursHolder.className = 'VrToursHolder'
     VrToursHolder.style.display = 'block';

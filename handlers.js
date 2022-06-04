@@ -89,12 +89,19 @@ function logout (req, res) {
     res.redirect('/');
 }
 
+function extractingUserDataRegistration(req, res) {
+    console.log('S:>>> extractingUserDataRegistration Handler acting...');
+    console.log('S:>>> extractingUserDataRegistration Handler: RETURN USER:', req.session.user)
+    res.json(req.session.user)
+}
+
 //------ Hendler Registrations ----:
 const useHandler = {
     home,
     register,
     logIn,
-    logout
+    logout,
+    extractingUserDataRegistration
 };
 
 module.exports = useHandler;
