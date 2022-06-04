@@ -47,33 +47,19 @@ function profile (ctx, next) {
     console.log('C:>>> profile Handler: Adding Events...')
     let profileBody = document.querySelector('.profileBody');
     wall.addEventListener('click', onClick);
+    profileBody.appendChild(useTemplate.profileSettingsTemp());
     
     function onClick (e) {
         e.preventDefault();
         console.log('C:>>> profile Handler: Event is Trigered...')
-        profileBody.textContent = '';
 
         if (e.target.className === 'profileSettings'){
-            console.log('C:>>> profile Handler: Profile Settings load...')
-            let settingsHolder = document.createElement('div');
-            settingsHolder.className = 'settingsHolder'
-            settingsHolder.style.display = 'block';
-            settingsHolder.style.backgroundColor = 'red'
-            settingsHolder.style.width = '800px';
-            settingsHolder.style.height = '600px';
-            console.log(settingsHolder)
-            profileBody.appendChild(settingsHolder);
+            profileBody.textContent = '';
+            profileBody.appendChild(useTemplate.profileSettingsTemp());
 
         } else if (e.target.className === 'profileVrTours'){
-            console.log('C:>>> profile Handler: Profile VrTours load...')
-            let VrToursHolder = document.createElement('div');
-            VrToursHolder.className = 'VrToursHolder'
-            VrToursHolder.style.display = 'block';
-            VrToursHolder.style.backgroundColor = 'blue'
-            VrToursHolder.style.width = '800px';
-            VrToursHolder.style.height = '600px';
-            console.log(VrToursHolder)
-            profileBody.appendChild(VrToursHolder);
+            profileBody.textContent = '';
+            profileBody.appendChild(useTemplate.profileVrToursTemp());
         };
     }
 }

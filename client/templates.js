@@ -57,6 +57,30 @@ const profileTemp = () => html`
 <div class="profileBody"><div>
 `;
 
+function profileSettingsTemp(){
+    
+    console.log('C:>>> profile Handler: Profile Settings load...')
+    let settingsHolder = document.createElement('div');
+    settingsHolder.className = 'settingsHolder'
+    settingsHolder.style.display = 'block';
+    settingsHolder.style.backgroundColor = 'red'
+    settingsHolder.style.width = '800px';
+    settingsHolder.style.height = '600px';
+    console.log(settingsHolder)
+    return settingsHolder
+};
+
+function profileVrToursTemp(){
+    console.log('C:>>> profile Handler: Profile VrTours load...')
+    let VrToursHolder = document.createElement('div');
+    VrToursHolder.className = 'VrToursHolder'
+    VrToursHolder.style.display = 'block';
+    VrToursHolder.style.backgroundColor = 'blue'
+    VrToursHolder.style.width = '800px';
+    VrToursHolder.style.height = '600px';
+    console.log(VrToursHolder)
+    return VrToursHolder
+};
 
 
 export const useTemplate = {
@@ -65,5 +89,7 @@ export const useTemplate = {
     registerTemp,
     aboutTemp,
     errorHeaderResgister,
-    profileTemp
+    profileTemp,
+    profileSettingsTemp,
+    profileVrToursTemp,
 };
