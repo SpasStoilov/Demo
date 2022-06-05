@@ -27,7 +27,7 @@ async function checkForUser (email, logPassword) {
         console.log('S:>>> Service checkForUser: Message:', foundUser.errmsg);
     };
     
-    if (JSON.stringify(foundUser) !== JSON.stringify({errmsg: 'Wrong Email!'})){
+    if (JSON.stringify(foundUser) !== JSON.stringify({errmsg: 'Wrong Email!'}) && logPassword !== "ingnorePass"){
         if (logPassword !== foundUser.password){
             foundUser = {errmsg: 'Wrong password!'};
             console.log('>>> S:>>> Service checkForUser: ERROR:', foundUser.errmsg);

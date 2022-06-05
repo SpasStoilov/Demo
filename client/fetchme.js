@@ -105,12 +105,12 @@ function userDataRegistrations() {
 // new:
 function sendSettingsData(bodyInfo) {
 
-    console.log('C:>>> fetchME sendSettingsData...')
+    console.log('C:>>> fetchME sendSettingsData...: ', bodyInfo)
 
     return fetch(`${baseURL}/user/change`, {
         method: "PUT",
         headers: {
-            'content-type': "applicaitons/json"
+            'Content-Type': "application/json"
         },
         body: JSON.stringify(bodyInfo)
     });

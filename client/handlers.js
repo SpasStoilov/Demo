@@ -47,7 +47,8 @@ function profile (ctx, next) {
 
     console.log('C:>>> profile Handler: Adding Events...')
     let profileBody = document.querySelector('.profileBody');
-    wall.addEventListener('click', onClick);
+    let profileBar = document.querySelector('.profileBar');
+    profileBar.addEventListener('click', onClick);
 
     profileBody.appendChild(useTemplate.profileSettingsTemp());
     

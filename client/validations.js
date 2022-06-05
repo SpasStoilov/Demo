@@ -9,6 +9,8 @@ function register(formData){
         'reppassword': reppassword
     };
 
+    console.log('C:>>> Validation Register: Render Body Data: ', bodyInfo)
+
     let message = "ok";
     let value = true;
     

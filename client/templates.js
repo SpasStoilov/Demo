@@ -78,14 +78,14 @@ function profileSettingsTemp(){
             const UserDataTemp = () => html`
             <ul class="settingsErrosHead" style="display: none;"></ul>
             <form class="settingsInformation">
-                <label for="settingEmail">Email</label><br>
-                <input name="settingEmail" type="text" value="${userEmail}"><br>
-                <label for="settingName">Name</label><br>
-                <input name="settingName" type="text" value="${userName}"><br>
-                <label for="settingPass">Password</label><br>
-                <input name="settingPass" type="text" value="${userPass}"><br>
-                <label for="settingRepPass">Repeat Password</label><br>
-                <input name="settingRepPass" type="text" value="${userPass}"><br>
+                <label for="email">Email</label><br>
+                <input name="email" type="text" value="${userEmail}"><br>
+                <label for="username">Name</label><br>
+                <input name="username" type="text" value="${userName}"><br>
+                <label for="password">Password</label><br>
+                <input name="password" type="text" value="${userPass}"><br>
+                <label for="reppassword">Repeat Password</label><br>
+                <input name="reppassword" type="text" value="${userPass}"><br>
                 <input type="submit" class="saveSettings" value="Запази">
             </form>
             `;

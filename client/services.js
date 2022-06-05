@@ -42,10 +42,9 @@ function getUserData (){
 /// new?
 function sumbitNewSettingData (e) {
     console.log('C:>>> Service sumbitNewSettingData acting...')
-    console.log('C:>>> Service sumbitNewSettingData: Extract FormData...')
-    
+  
     let formSettingsData = new FormData(e.currentTarget);
-
+    console.log('C:>>> Service sumbitNewSettingData: Extract FormData...:', formSettingsData)
     console.log('C:>>> Service sumbitNewSettingData: Use Validator...');
     //FrontEnd Validations
     const validator = useValidator.register(formSettingsData); // return {value, message, bodyInfo}
@@ -54,7 +53,7 @@ function sumbitNewSettingData (e) {
     if (!validator.value) {
         alert(validator.message);
     } else {
-        console.log('C:>>> Service sumbitNewSettingData: Send FormData To Server...')
+        console.log('C:>>> Service sumbitNewSettingData: Send FormData To Server...: ', validator.bodyInfo)
         fetchME.sendSettingsData(validator.bodyInfo)
             .then(resp => resp.json())
             .then(result => {
@@ -66,10 +65,10 @@ function sumbitNewSettingData (e) {
                 //result: [ {value:'...', msg:'...', param:'...', locations:'...'} , ...] / User
                 if (!result.msg) {
                     console.log('C:>>> Service sumbitNewSettingData: New Values Atach to settings Inputs...')
-                    document.querySelector('input[name=settingEmail]').value = result.email
-                    document.querySelector('input[name=settingName]').value = result.username
-                    document.querySelector('input[name=settingPass]').value = result.password
-                    document.querySelector('input[name=settingRepPass]').value = result.password
+                    document.querySelector('.settingsInformation input[name=email]').value = result.email
+                    document.querySelector('.settingsInformation input[name=username]').value = result.username
+                    document.querySelector('.settingsInformation input[name=password]').value = result.password
+                    document.querySelector('.settingsInformation input[name=reppassword]').value = result.password
                 } else {
                     // [ {value:'...', msg:'...', param:'...', locations:'...'} , ...]
                     console.log('C:>>> Service sumbitNewSettingData: Errors from Server: ', result)

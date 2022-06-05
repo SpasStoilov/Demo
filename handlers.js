@@ -99,21 +99,21 @@ function extractingUserDataRegistration(req, res) {
 
 async function settingsDataChange (req, res) {
 
-    console.log('S:>>> settingsDataChange acting...');
-    console.log('S:>>> settingsDataChange: New User Settings ->', req.body)
-    console.log('S:>>> settingsDataChange: Current User in Session ->', req.session.user)
+    console.log('S:>>> Handler settingsDataChange acting...');
+    console.log('S:>>> Handler settingsDataChange: New User Settings ->', req.body)
+    console.log('S:>>> Handler settingsDataChange: Current User in Session ->', req.session.user)
     
-    console.log('S:>>> settingsDataChange: Chek Server Validations...')
+    console.log('S:>>> Handler settingsDataChange: Chek Server Validations...')
 
     // if enter dontExist new dataSettings:
     if (req.chekUserExist.errmsg) {
-        console.log('S:>>> settingsDataChange: Settings DONT Exist in DataBase!:');
+        console.log('S:>>> Handler settingsDataChange: Settings DONT Exist in DataBase!:');
         const ServerErrReport = validationResult(req).errors;
         
-        console.log('S:>>> settingsDataChange: CHek Errors:...');
+        console.log('S:>>> Handler settingsDataChange: CHek Errors:...');
         if (JSON.stringify(ServerErrReport) !== '[]') {
-            console.log('S:>>> settingsDataChange: SEVER ERRORS FOUND:', ServerErrReport);
-            console.log('S:>>> settingsDataChange: Response ServerErrReport');
+            console.log('S:>>> Handler settingsDataChange: SEVER ERRORS FOUND:', ServerErrReport);
+            console.log('S:>>> Handler settingsDataChange: Response ServerErrReport');
             res.json(ServerErrReport); // return [ {value:'...', msg:'...', param:'...', locations:'...'} , ...]
         } else {
             try {
