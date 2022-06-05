@@ -60,7 +60,7 @@ img {
     border-radius: 10px;
 }
 
-.loginForm > input {
+.loginForm > input, .settingsInformation > input {
     border-radius: 2px;
     border: 2px solid rgb(236, 236, 236);
     height: 50px;
@@ -99,8 +99,8 @@ p {
     margin-bottom: 20px
 };
 
-/* .settingsHolder, .VrToursHolder {
-    display: block;
-    width: 800px;
-    height: 800px;
-} */
+.profileSettings, .profileVrTours {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-decoration: none;
+    padding: 10px 20px 10px 20px;
+}

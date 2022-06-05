@@ -72,7 +72,7 @@ function sumbitNewSettingData (e) {
                 } else {
                     // [ {value:'...', msg:'...', param:'...', locations:'...'} , ...]
                     console.log('C:>>> Service sumbitNewSettingData: Errors from Server: ', result)
-                    ulErrorsHead.style.display = 'block';
+                    ulErrorsHead.style.display = 'flex';
                     for (let errObj of result) {
                         let li = document.createElement('li')
                         li.textContent = `${errObj.param}: ${errObj.msg}`

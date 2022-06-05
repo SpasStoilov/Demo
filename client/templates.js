@@ -62,8 +62,10 @@ function profileSettingsTemp(){
     console.log('C:>>> profileSettingsTemp load...')
     let settingsHolder = document.createElement('div');
     settingsHolder.className = 'settingsHolder'
-    settingsHolder.style.display = 'block';
-    settingsHolder.style.backgroundColor = 'red'
+    settingsHolder.style.display = 'flex';
+    settingsHolder.style.alignItems = 'center';
+    settingsHolder.style.justifyContent = 'center';
+    settingsHolder.style.backgroundColor = 'none';
     settingsHolder.style.width = '800px';
     settingsHolder.style.height = '600px';
     
@@ -78,14 +80,14 @@ function profileSettingsTemp(){
             const UserDataTemp = () => html`
             <ul class="settingsErrosHead" style="display: none;"></ul>
             <form class="settingsInformation">
-                <label for="email">Email</label><br>
-                <input name="email" type="text" value="${userEmail}"><br>
-                <label for="username">Name</label><br>
-                <input name="username" type="text" value="${userName}"><br>
-                <label for="password">Password</label><br>
-                <input name="password" type="text" value="${userPass}"><br>
-                <label for="reppassword">Repeat Password</label><br>
-                <input name="reppassword" type="text" value="${userPass}"><br>
+                <label for="email">Имейл</label><br>
+                <input name="email" class="settingsEmail" type="text" value="${userEmail}"><br>
+                <label for="username">Име</label><br>
+                <input name="username" class="settingsUsername" type="text" value="${userName}"><br>
+                <label for="password">Парола</label><br>
+                <input name="password" class="settingsPassword" type="text" value="${userPass}"><br>
+                <label for="reppassword">Повтори паролата</label><br>
+                <input name="reppassword" class="settingsReppassword" type="text" value="${userPass}"><br>
                 <input type="submit" class="saveSettings" value="Запази">
             </form>
             `;

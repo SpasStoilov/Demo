@@ -46,6 +46,7 @@ function profile (ctx, next) {
     render(useTemplate.profileTemp(), wall);
 
     console.log('C:>>> profile Handler: Adding Events...')
+
     let profileBody = document.querySelector('.profileBody');
     let profileBar = document.querySelector('.profileBar');
     profileBar.addEventListener('click', onClick);
@@ -66,20 +67,6 @@ function profile (ctx, next) {
         };
     }
 }
-
-// function profileSettings (ctx, next) {
-//     onsole.log('C:>>> profileSettings Handler:')
-//     console.log('C:>>> profileSettings Handler: CTX:', ctx)
-//     console.log('C:>>> profileSettings Handler: Render profileTemp')
-//     render(useTemplate.profileSettingsTemp(), wall);
-// }
-// function profileVrTours (ctx, next) {
-//     onsole.log('C:>>> profileVrTours Handler:')
-//     console.log('C:>>> profileVrTours Handler: CTX:', ctx)
-//     console.log('C:>>> profileVrTours Handler: Render profileTemp')
-//     render(useTemplate.profileVrToursTemp(), wall);
-// }
-
 
 export const useHandlerFor = {
     home,
