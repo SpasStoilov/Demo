@@ -67,8 +67,7 @@ function profileSettingsTemp(){
     settingsHolder.style.width = '800px';
     settingsHolder.style.height = '600px';
     
-    let userData = useService.getUserData()
-    userData
+    useService.getUserData()
         .then(resp => resp.json())
         .then(rslt => {
             let Userer = rslt
@@ -77,16 +76,34 @@ function profileSettingsTemp(){
             let userName = Userer.username;
             let userPass = Userer.password;
             const UserDataTemp = () => html`
-            <ul class="settingsInformation">
-                <li class="settingEmail">Email: ${userEmail}</li>
-                <li class="settingName">UserName: ${userName}</li>
-                <li class="settingPass">Password: ${userPass}</li>
-            </ul>
+            <ul class="settingsErrosHead" style="display: none;"></ul>
+            <form class="settingsInformation">
+                <label for="settingEmail">Email</label><br>
+                <input name="settingEmail" type="text" value="${userEmail}"><br>
+                <label for="settingName">Name</label><br>
+                <input name="settingName" type="text" value="${userName}"><br>
+                <label for="settingPass">Password</label><br>
+                <input name="settingPass" type="text" value="${userPass}"><br>
+                <label for="settingRepPass">Repeat Password</label><br>
+                <input name="settingRepPass" type="text" value="${userPass}"><br>
+                <input type="submit" class="saveSettings" value="Запази">
+            </form>
             `;
             render(UserDataTemp(), settingsHolder);
-        })
-        .catch(err => console.log(err))
 
+            console.log('C:>>> profileSettingsTemp: Add Serves/Event: Submit')
+            let settingsForm = document.querySelector('.settingsInformation');
+            console.log("C:>>> profileSettingsTemp: Settings Form Element: ", settingsForm)
+            settingsForm.addEventListener('submit',  onSubmit);
+
+            function onSubmit (e) {
+                e.preventDefault();
+                useService.sumbitNewSettingData(e)
+            };
+
+        })
+        .catch(err => console.log(err));
+    
     console.log(settingsHolder)
     return settingsHolder
 };

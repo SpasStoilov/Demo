@@ -22,8 +22,21 @@ async function userExistInDataBase(req, res, next) {
     next();
 };
 
+//new
+
+async function verifyNewSettings (req, res, next){
+    console.log('S:>>> LocalMiddlewares: verifyNewSettings acting...')
+    console.log('S:>>> LocalMiddlewares: verifyNewSettings: userExistInDataBase: Req Body:', req.body)
+    let {email, password} = req.body;
+
+    console.log('S:>>> LocalMiddlewares: verifyNewSettings: Check for User');
+    const result = await useBackService.checkForUser(email, password); //return: User Obj / {errmsg: '...'}
+    req.chekUserExist = result
+    next()
+}
 
 module.exports = {
-    // logValidation,
     userExistInDataBase,
+    verifyNewSettings
+
 }

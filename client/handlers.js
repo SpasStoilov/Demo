@@ -1,5 +1,6 @@
 import {render} from "./node_modules/lit-html/lit-html.js";
 import {useTemplate} from "./templates.js";
+import {useService} from "./services.js"
 
 // DOM selections:
 let wall = document.querySelector(".wall");

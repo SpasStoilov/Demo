@@ -100,41 +100,25 @@ function sendLogInData(logInData){
 function userDataRegistrations() {
     console.log('C:>>> fetchME userDataRegistrations...')
     return fetch(`${baseURL}/user/data`);
-}
+};
+
+// new:
+function sendSettingsData(bodyInfo) {
+
+    console.log('C:>>> fetchME sendSettingsData...')
+
+    return fetch(`${baseURL}/user/change`, {
+        method: "PUT",
+        headers: {
+            'content-type': "applicaitons/json"
+        },
+        body: JSON.stringify(bodyInfo)
+    });
+};
 
 export const fetchME = {
     sendRegisterData,
     sendLogInData,
-    userDataRegistrations
+    userDataRegistrations,
+    sendSettingsData
 }
-
-
-
-/// Trash :
-
-                //USED IN sendLogInData FETCH//
-
-    // this part is repeated in server file main.hbs ///////////
-    // it's changes navbar options !
-
-    // let navBarOptions = document.querySelector('.navOptions');
-    // navBarOptions.textContent = '';
-
-    // let newBarOptions = {
-    //     navhome: [document.createElement("a"), '/', 'Начало'],
-    //     navProfile: [document.createElement("a"), '/profile', 'Профил'],
-    //     navLogOut:[ document.createElement("a"), '/logout', 'Излез'],
-    // };
-
-    // for (let [classNameEl, value] of Object.entries(newBarOptions)) {
-    //     console.log(classNameEl, value[0])
-    //     let element = value[0];
-    //     element.textContent = value[2]
-    //     let elhref = value[1];
-    //     element.className = classNameEl;
-    //     element.href = elhref;
-    //     navBarOptions.appendChild(element)
-    // };
-
-    // console.log('C:>>> Fetch sendLogInData: Regirect to /')
-    // page.redirect('/');

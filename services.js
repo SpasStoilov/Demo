@@ -53,9 +53,26 @@ async function userCreation (email, username, password) {
     return useBackValidator.validateCreation(userInstance);
 }
 
+///new
+async function updateUserSettings (oldUser, newUser) {
+    console.log('S:>>> updateUserSettings acting...');
+    try {
+        let foundUser = await UserModel.findOne({email: oldUser.email, username: oldUser.username, password: oldUser.password});
+        foundUser.email = newUser.email
+        foundUser.username = newUser.username
+        foundUser.password = newUser.password
+        await  foundUser.save();
+        return foundUser;
+
+    } catch (err) {
+        console.log(err.message)
+    };
+};
+
 
 //------ Service Registrations ----:
 module.exports = {
     userCreation,
-    checkForUser
+    checkForUser,
+    updateUserSettings
 };

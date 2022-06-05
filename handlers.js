@@ -24,13 +24,13 @@ async function register (req, res) {
 
     console.log('S:>>> RegisterHandler: Try Register User:', user);
 
-    //  if defind go in = user not found
+    //  if defined go in = user not found
     if (user.errmsg) {
 
         console.log('S:>>> RegisterHandler: User Not found!');
         
         let {email, username, password} = req.body;
-        const [...ServerErrReport] = validationResult(req).errors;
+        const ServerErrReport = validationResult(req).errors;
         
         console.log('S:>>> RegisterHandler: REQUEST Body:', req.body);
 
@@ -95,13 +95,54 @@ function extractingUserDataRegistration(req, res) {
     res.json(req.session.user)
 }
 
+///new?
+
+async function settingsDataChange (req, res) {
+
+    console.log('S:>>> settingsDataChange acting...');
+    console.log('S:>>> settingsDataChange: New User Settings ->', req.body)
+    console.log('S:>>> settingsDataChange: Current User in Session ->', req.session.user)
+    
+    console.log('S:>>> settingsDataChange: Chek Server Validations...')
+
+    // if enter dontExist new dataSettings:
+    if (req.chekUserExist.errmsg) {
+        console.log('S:>>> settingsDataChange: Settings DONT Exist in DataBase!:');
+        const ServerErrReport = validationResult(req).errors;
+        
+        console.log('S:>>> settingsDataChange: CHek Errors:...');
+        if (JSON.stringify(ServerErrReport) !== '[]') {
+            console.log('S:>>> settingsDataChange: SEVER ERRORS FOUND:', ServerErrReport);
+            console.log('S:>>> settingsDataChange: Response ServerErrReport');
+            res.json(ServerErrReport); // return [ {value:'...', msg:'...', param:'...', locations:'...'} , ...]
+        } else {
+            try {
+                let updatedUser =  await useBackService.updateUserSettings(req.session.user, req.body);
+                req.session.user = updatedUser;
+                res.status(200);
+                res.json(updatedUser);
+            } catch (err) {
+                console.log(err.message)
+            };
+            
+        };
+
+    } else {
+        console.log('S:>>> settingsDataChange: Settings Exist in DataBase!:');
+        res.status(304);
+        res.end();
+    };
+
+}
+
 //------ Hendler Registrations ----:
 const useHandler = {
     home,
     register,
     logIn,
     logout,
-    extractingUserDataRegistration
+    extractingUserDataRegistration,
+    settingsDataChange
 };
 
 module.exports = useHandler;
