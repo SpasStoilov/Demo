@@ -10,10 +10,14 @@ async function userExistInDataBase(req, res, next) {
     console.log('S:>>> LocalMiddlewares acting...')
     console.log('S:>>> LocalMiddlewares:userExistInDataBase: Req Body:', req.body)
 
-    let {email, password} = req.body;
+    let {email, password, reppassword} = req.body;
 
     console.log('S:>>> LocalMiddlewares: userExistInDataBase: Check for User');
-    const result = await useBackService.checkForUser(email, password); //return: UserObj/ErrorOBJ
+    let result = await useBackService.checkForUser(email, password); //return: UserObj/ErrorOBJ
+
+    if (reppassword !== password) {
+        result = {errmsg: 'Passwords do not match!'}
+    }
 
     console.log('S:>>> LocalMiddlewares: userExistInDataBase: Save found result in req.session.user');
     req.session.user = result;

@@ -11,8 +11,14 @@ function sendRegisterInf(e){
     console.log('C:>>> Service sendRegisterInfo: Use Validator...')
     const validator = useValidator.register(formData); // return {value, message, bodyInfo}
 
+    let spanError = document.querySelector('.spanErrorRegister');
+    spanError.style.display = 'none';
+    spanError.textContent = '';
+    
     if (!validator.value) {
-        alert(validator.message);
+        console.log('C:>>> Service sendRegisterInfo: Front End Error!')
+        spanError.style.display = 'block';
+        spanError.textContent = `${validator.message}!`;
     } else {
         console.log('C:>>> Service sendRegisterInfo: Send FormData To Server...')
         fetchME.sendRegisterData(validator.bodyInfo);
@@ -44,23 +50,33 @@ function sumbitNewSettingData (e) {
     console.log('C:>>> Service sumbitNewSettingData acting...')
   
     let formSettingsData = new FormData(e.currentTarget);
+
     console.log('C:>>> Service sumbitNewSettingData: Extract FormData...:', formSettingsData)
     console.log('C:>>> Service sumbitNewSettingData: Use Validator...');
+
+    let ulErrorsHead = document.querySelector('.settingsErrosHead')
+    ulErrorsHead.style.display = 'none';
+    ulErrorsHead.textContent = '';
+
     //FrontEnd Validations
     const validator = useValidator.register(formSettingsData); // return {value, message, bodyInfo}
 
-
     if (!validator.value) {
-        alert(validator.message);
+
+        console.log('C:>>> Service sumbitNewSettingData: alert(validator.message):')
+        let li = document.createElement('li')
+        li.textContent = `${validator.message}!`
+        ulErrorsHead.appendChild(li)
+        ulErrorsHead.style.display = 'flex';
+
     } else {
+        
         console.log('C:>>> Service sumbitNewSettingData: Send FormData To Server...: ', validator.bodyInfo)
         fetchME.sendSettingsData(validator.bodyInfo)
             .then(resp => resp.json())
             .then(result => {
+                
                 console.log('C:>>> Service sumbitNewSettingData: Data Received:', result)
-                let ulErrorsHead = document.querySelector('.settingsErrosHead')
-                ulErrorsHead.textContent = ''
-                ulErrorsHead.style.display = 'none';
 
                 //result: [ {value:'...', msg:'...', param:'...', locations:'...'} , ...] / User
                 if (!result.msg) {
@@ -75,7 +91,7 @@ function sumbitNewSettingData (e) {
                     ulErrorsHead.style.display = 'flex';
                     for (let errObj of result) {
                         let li = document.createElement('li')
-                        li.textContent = `${errObj.param}: ${errObj.msg}`
+                        li.textContent = `${errObj.param}: ${errObj.msg}.`
                         ulErrorsHead.appendChild(li)
                     };
                 };

@@ -1,6 +1,4 @@
 const baseURL = "http://localhost:3000";
-import {useTemplate} from './templates.js';
-import {render} from "./node_modules/lit-html/lit-html.js";
 import page from "./node_modules/page/page.mjs";
 
 function sendRegisterData(bodyInfo) {
@@ -17,39 +15,43 @@ function sendRegisterData(bodyInfo) {
         .then(result => {
             
             console.log('C:>>> Fetch sendRegisterData: Response:', result);
-            const wall = document.querySelector(".wall");
-            const responseErrors = result[0]; //: returns list if it has erros and obj if it not, or User exist in data base!
+            let spanError = document.querySelector('.spanErrorRegister');
+
+            //result: returns list if it has erros and obj if it not, or User exist in data base!
                 
-            if (!result.errmsg && responseErrors){
+            if (!result.errmsg && result[0]){
                 console.log('C:>>> Fetch sendRegisterData: Some Errors found...')
-                useTemplate.errorHeaderResgister(result);
-            } else if (!result.errmsg){
-                console.log('C:>>> Fetch sendRegisterData: No Errors found...')
-                console.log('C:>>> Fetch sendRegisterData: checkForErrorHeader?')
-                let checkForErrorHeader = document.querySelector('.errorHeader');
+                spanError.style.display = 'block'
 
-                if (checkForErrorHeader){
-                    console.log('C:>>> Fetch sendRegisterData: Result: Found')
-                    console.log('C:>>> Fetch sendRegisterData: Act: Remove')
-                    wall.removeChild(checkForErrorHeader);
-                }
+                for (let el of result) {
+                    let li = document.createElement('li')
+                    li.textContent = `${el.param} : ${el.msg}`
+                    spanError.appendChild(li)
+                };
 
-                console.log('C:>>> Fetch sendRegisterData: Redirect to: loginTemp')
-                page.redirect('/login');
-                // render(useTemplate.loginTemp(), wall);
-
+            } else if (result.errmsg){
+                console.log('C:>>> Fetch sendRegisterData: Pass Dont match!')
+                spanError.style.display = 'block'
+                let li = document.createElement('li')
+                li.textContent = `Error: ${result.errmsg}`
+                spanError.appendChild(li)
+                
             } else {
                 console.log('C:>>> Fetch sendRegisterData: Registter Message:', result.errmsg);
+                console.log('C:>>> Fetch sendRegisterData: No Errors found...')
                 console.log('C:>>> Fetch sendRegisterData: Redirect to: loginTemp')
                 page.redirect('/login');
-                // render(useTemplate.loginTemp(), wall);
             };
+
         });
 };
 
 
 function sendLogInData(logInData){
     console.log('C:>>> Fetch sendLogInData acting...')
+    let LogErrMsg = document.querySelector('.LogInErrHead');
+    LogErrMsg.textContent = "";
+    LogErrMsg.style.display = 'none';
 
     let {email, password} = Object.fromEntries(logInData);
     let logInBody = {
@@ -67,6 +69,7 @@ function sendLogInData(logInData){
     })
         .then(resp => resp.json())
         .then(User => {
+
             console.log('C:>>> Fetch sendLogInData: Response User:', User);
             console.log('C:>>> Fetch sendLogInData: User ERROR message?', (!User.errmsg));
 
@@ -77,22 +80,8 @@ function sendLogInData(logInData){
             } else {
                 console.log('C:>>> Fetch sendLogInData: Problem with Login!')
                 console.log('C:>>> Fetch sendLogInData: Loading Error Headers...')
-
-                let wall = document.querySelector('.wall');
-                let LogErrMsg = document.querySelector('.LogInErrHead');
-                let Msg = document.createElement('p');
-                Msg.className = 'PphLogMsgHead';
-
-                if (LogErrMsg){
-                    LogErrMsg.textContent = '';
-                } else {
-                    LogErrMsg = document.createElement('div');
-                    LogErrMsg.className = 'LogInErrHead';
-                };
-                
-                Msg.textContent = User.errmsg;
-                LogErrMsg.appendChild(Msg);
-                wall.prepend(LogErrMsg);
+                LogErrMsg.textContent = User.errmsg;
+                LogErrMsg.style.display = 'block';
             };
         });
 };

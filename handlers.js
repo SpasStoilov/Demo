@@ -25,7 +25,7 @@ async function register (req, res) {
     console.log('S:>>> RegisterHandler: Try Register User:', user);
 
     //  if defined go in = user not found
-    if (user.errmsg) {
+    if (user.errmsg && user.errmsg !== 'Passwords do not match!') {
 
         console.log('S:>>> RegisterHandler: User Not found!');
         
@@ -53,6 +53,10 @@ async function register (req, res) {
     } 
     //  if undefind go in = user found
     else {
+        if (user.errmsg === 'Passwords do not match!'){
+            console.log('S:>>> RegisterHandler: Response Message - Passwords dont match!');
+            res.json({errmsg: user.errmsg});
+        }
         console.log('S:>>> RegisterHandler: User FOUND!');
         console.log('S:>>> RegisterHandler: Response Message - User Exist!');
         res.json({errmsg: 'User Exist'});
@@ -72,10 +76,7 @@ function logIn (req, res) {
     if (user.errmsg) {
         console.log('S:>>> LogIN Handler: Delete User');
         delete req.session.user;
-    } else {
-        // add accessToken to user:
-        // req.session.user.accessToken = "somthing";
-    };
+    }
 
     console.log('S:>>> LogIN Handler: Response User!');
     res.json(user);
@@ -105,7 +106,6 @@ async function settingsDataChange (req, res) {
     
     console.log('S:>>> Handler settingsDataChange: Chek Server Validations...')
 
-    // if enter dontExist new dataSettings:
     if (req.chekUserExist.errmsg) {
         console.log('S:>>> Handler settingsDataChange: Settings DONT Exist in DataBase!:');
         const ServerErrReport = validationResult(req).errors;
@@ -129,8 +129,9 @@ async function settingsDataChange (req, res) {
 
     } else {
         console.log('S:>>> settingsDataChange: Settings Exist in DataBase!:');
-        res.status(304);
-        res.end();
+        res.json(
+            [{value:'...', msg:'Съществуващ Емейл!', param:'Email', locations:'...'}]
+        );
     };
 
 }

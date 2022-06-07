@@ -3,36 +3,13 @@ import { useService } from "./services.js";
 
 console.log('C:>>> Templates acting...')
 
-const errorHeaderResgister = (result) => {
-    console.log('C:>>> Templates: Error Handers Register acting...')
-
-    const errorMessages = result.map(el => `${el.param} : ${el.msg}`);
-
-    let resultErrors = '';
-    errorMessages.forEach(element => resultErrors +=`<p class="errorMsgRegister">${element}</p>`);
-    resultErrors = `<div class="errorHeader">${resultErrors}</div>`;
-
-    let fragErrors = document.createRange().createContextualFragment(resultErrors);
-
-    const wall = document.querySelector('.wall');
-    let checkForErrorHeader = document.querySelector('.errorHeader');
-
-    if (checkForErrorHeader){
-        wall.removeChild(checkForErrorHeader)
-    };
-
-    console.log('C:>>> Templates: Error Handers Register: Render Errors')
-    wall.prepend(fragErrors);
-};
-
-
 const homeTemp = () => html`<h1>HOME</h1>`;
-
 
 const aboutTemp = () => html`<h1>2About</h1>`;
 
 
 const registerTemp = () => html`
+<ul class="spanErrorRegister"></ul>
 <form class="registerForm" @submit=${useService.sendRegisterInf}>
     <input type="text" id="email" name="email" placeholder="Емайл"/><br>
     <input type="text" id="username" name="username" placeholder="Име"/><br>
@@ -43,6 +20,7 @@ const registerTemp = () => html`
 
 
 const loginTemp = () => html`
+<li class="LogInErrHead"></li>
 <form class="loginForm" @submit=${useService.sendLogInInf}>
     <input type="text" id="email" name="email" placeholder="enter email"/><br>
     <input type="password" id="password" name="password" placeholder="enter password"/><br>
@@ -54,6 +32,7 @@ const profileTemp = () => html`
     <a href="/profile/settings" class="profileSettings">Настройки</a>
     <a href="/profile/vrtours" class="profileVrTours">Моите Обяви</a>
 </div>
+<ul class="settingsErrosHead"></ul>
 <div class="profileBody"><div>
 `;
 
@@ -62,12 +41,6 @@ function profileSettingsTemp(){
     console.log('C:>>> profileSettingsTemp load...')
     let settingsHolder = document.createElement('div');
     settingsHolder.className = 'settingsHolder'
-    settingsHolder.style.display = 'flex';
-    settingsHolder.style.alignItems = 'center';
-    settingsHolder.style.justifyContent = 'center';
-    settingsHolder.style.backgroundColor = 'none';
-    settingsHolder.style.width = '800px';
-    settingsHolder.style.height = '600px';
     
     useService.getUserData()
         .then(resp => resp.json())
@@ -78,7 +51,6 @@ function profileSettingsTemp(){
             let userName = Userer.username;
             let userPass = Userer.password;
             const UserDataTemp = () => html`
-            <ul class="settingsErrosHead" style="display: none;"></ul>
             <form class="settingsInformation">
                 <label for="email">Имейл</label><br>
                 <input name="email" class="settingsEmail" type="text" value="${userEmail}"><br>
@@ -129,7 +101,6 @@ export const useTemplate = {
     loginTemp,
     registerTemp,
     aboutTemp,
-    errorHeaderResgister,
     profileTemp,
     profileSettingsTemp,
     profileVrToursTemp,
