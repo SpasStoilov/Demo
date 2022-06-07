@@ -50,6 +50,7 @@ function sumbitNewSettingData (e) {
     console.log('C:>>> Service sumbitNewSettingData acting...')
   
     let formSettingsData = new FormData(e.currentTarget);
+    // formSettingsData.flag = 'settings';
 
     console.log('C:>>> Service sumbitNewSettingData: Extract FormData...:', formSettingsData)
     console.log('C:>>> Service sumbitNewSettingData: Use Validator...');
@@ -67,7 +68,7 @@ function sumbitNewSettingData (e) {
         let li = document.createElement('li')
         li.textContent = `${validator.message}!`
         ulErrorsHead.appendChild(li)
-        ulErrorsHead.style.display = 'flex';
+        ulErrorsHead.style.display = 'block';
 
     } else {
         
@@ -75,25 +76,27 @@ function sumbitNewSettingData (e) {
         fetchME.sendSettingsData(validator.bodyInfo)
             .then(resp => resp.json())
             .then(result => {
-                
+
                 console.log('C:>>> Service sumbitNewSettingData: Data Received:', result)
 
                 //result: [ {value:'...', msg:'...', param:'...', locations:'...'} , ...] / User
-                if (!result.msg) {
+                
+                if (!result[0]) {
                     console.log('C:>>> Service sumbitNewSettingData: New Values Atach to settings Inputs...')
-                    document.querySelector('.settingsInformation input[name=email]').value = result.email
-                    document.querySelector('.settingsInformation input[name=username]').value = result.username
-                    document.querySelector('.settingsInformation input[name=password]').value = result.password
-                    document.querySelector('.settingsInformation input[name=reppassword]').value = result.password
+                    document.querySelector('.settingsInformation input[name=email]').value = result.email;
+                    document.querySelector('.settingsInformation input[name=username]').value = result.username;
+                    document.querySelector('.settingsInformation input[name=password]').value = result.password;
+                    // document.querySelector('.settingsInformation input[name=reppassword]').value = '';
                 } else {
                     // [ {value:'...', msg:'...', param:'...', locations:'...'} , ...]
                     console.log('C:>>> Service sumbitNewSettingData: Errors from Server: ', result)
-                    ulErrorsHead.style.display = 'flex';
+                    ulErrorsHead.style.display = 'block';
                     for (let errObj of result) {
                         let li = document.createElement('li')
                         li.textContent = `${errObj.param}: ${errObj.msg}.`
                         ulErrorsHead.appendChild(li)
                     };
+                    console.log('C:>>> Service sumbitNewSettingData: ErrorsHead: ', ulErrorsHead)
                 };
 
             })

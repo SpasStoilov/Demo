@@ -58,8 +58,8 @@ function profileSettingsTemp(){
                 <input name="username" class="settingsUsername" type="text" value="${userName}"><br>
                 <label for="password">Парола</label><br>
                 <input name="password" class="settingsPassword" type="text" value="${userPass}"><br>
-                <label for="reppassword">Повтори паролата</label><br>
-                <input name="reppassword" class="settingsReppassword" type="text" value="${userPass}"><br>
+                <!-- <label for="reppassword">Повтори паролата</label><br> -->
+                <!-- <input name="reppassword" class="settingsReppassword" type="text"><br>--->
                 <input type="submit" class="saveSettings" value="Запази">
             </form>
             `;

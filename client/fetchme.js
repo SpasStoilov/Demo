@@ -3,6 +3,7 @@ import page from "./node_modules/page/page.mjs";
 
 function sendRegisterData(bodyInfo) {
     console.log('C:>>> Fetch sendRegisterData acting...')
+    bodyInfo['flag'] = 'register';
 
     fetch(`${baseURL}/users/register`, {
         method: "POST",
@@ -57,6 +58,7 @@ function sendLogInData(logInData){
     let logInBody = {
         'email': email,
         'password': password,
+        'flag': 'login'
     };
 
     console.log('C:>>> Fetch sendLogInData: Client Login Data:', logInBody)

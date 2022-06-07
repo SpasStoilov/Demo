@@ -15,7 +15,7 @@ async function comparePasswords (pass, hash) {
 };
 
 
-async function checkForUser (email, logPassword) {
+async function checkForUser (email, logPassword, flag) {
     console.log('S:>>> Service checkForUser acting...');
     console.log('S:>>> Service checkForUser: Chek in UserModel for User?');
 
@@ -26,14 +26,16 @@ async function checkForUser (email, logPassword) {
         foundUser = {errmsg: 'Wrong Email!'};
         console.log('S:>>> Service checkForUser: Message:', foundUser.errmsg);
     };
-    
-    if (JSON.stringify(foundUser) !== JSON.stringify({errmsg: 'Wrong Email!'}) && logPassword !== "ingnorePass"){
+       
+    if (!foundUser.hasOwnProperty('errmsg') && flag === 'login') {
+
         if (logPassword !== foundUser.password){
             foundUser = {errmsg: 'Wrong password!'};
             console.log('>>> S:>>> Service checkForUser: ERROR:', foundUser.errmsg);
         };
-    };
-    
+
+    }
+
     console.log('S:>>> Service checkForUser: Return foundUser!');
     return foundUser;
 };
