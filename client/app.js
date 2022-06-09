@@ -23,11 +23,6 @@ page("/register", useHandlerFor.register);
 page("/login", useHandlerFor.login);
 page("/about", useHandlerFor.about);
 page("/profile", useHandlerFor.profile);
-
-// page("/profile/settings", useHandlerFor.profileSettings);
-// page("/profile/vrtours", useHandlerFor.profileVrTours);
-
-
 page("/welcome", useHandlerFor.welcome);
 
 page.start();

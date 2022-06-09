@@ -30,7 +30,7 @@ const loginTemp = () => html`
 const profileTemp = () => html`
 <div class="profileBar">
     <a href="/profile/settings" class="profileSettings">Настройки</a>
-    <a href="/profile/vrtours" class="profileVrTours">Моите Обяви</a>
+    <a href="/profile/vrtours" class="profileVrTours">Мойте Обяви</a>
 </div>
 <ul class="settingsErrosHead"></ul>
 <div class="profileBody"><div>
@@ -88,13 +88,12 @@ function profileVrToursTemp(){
     let VrToursHolder = document.createElement('div');
     VrToursHolder.className = 'VrToursHolder'
     VrToursHolder.style.display = 'block';
-    VrToursHolder.style.backgroundColor = 'blue'
+    VrToursHolder.style.backgroundColor = 'white'
     VrToursHolder.style.width = '800px';
     VrToursHolder.style.height = '600px';
     console.log(VrToursHolder)
     return VrToursHolder
 };
-
 
 export const useTemplate = {
     homeTemp,

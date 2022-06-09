@@ -50,6 +50,9 @@ function profile (ctx, next) {
     let profileBody = document.querySelector('.profileBody');
     profileBody.textContent = '';
 
+    let settingBTN = document.querySelector('.profileSettings')
+    let vrBTN = document.querySelector('.profileVrTours')
+
     let profileBar = document.querySelector('.profileBar');
 
     profileBar.addEventListener('click', onClick);
@@ -60,11 +63,19 @@ function profile (ctx, next) {
         console.log('C:>>> profile Handler: Event is Trigered...')
 
         if (e.target.className === 'profileSettings'){
+            // some setup:
+            e.target.style.backgroundColor = '#48b664';
+            vrBTN.style.backgroundColor = '#cacaca';
             profileBody.textContent = '';
+            // render:
             profileBody.appendChild(useTemplate.profileSettingsTemp());
 
         } else if (e.target.className === 'profileVrTours'){
+            // some setup:
+            e.target.style.backgroundColor = '#48b664';
+            settingBTN.style.backgroundColor = '#cacaca';
             profileBody.textContent = '';
+            // render:
             profileBody.appendChild(useTemplate.profileVrToursTemp());
         };
     }
