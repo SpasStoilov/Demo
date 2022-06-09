@@ -42,13 +42,27 @@ img {
 .FormConteiner {
     display: inline-flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    background-color: #DBDBDB;
+    background-color: #ffffff;
     width: 300px;
-    border-radius: 10px;
+    height: 800px;
+    border-radius: 5px;
     margin-right: 20px;
 }
+
+.FormConteiner > .frommessage {
+    margin-top: 20px;
+}
+
+.FormConteiner > form {
+    margin-top: 30px;
+}
+
+.FormConteiner > form > select, input[type="checkbox"] {
+    margin-bottom: 20px;
+}
+
 
 .wall {
     background-color: white;
@@ -80,7 +94,7 @@ img {
 
 p {
     margin: 0px, 0px, 0px, 0px;
-    color: beige;
+    color: rgb(2, 2, 2);
     font-size: medium;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

@@ -51,7 +51,7 @@ function profile (ctx, next) {
     profileBody.textContent = '';
 
     let profileBar = document.querySelector('.profileBar');
-    
+
     profileBar.addEventListener('click', onClick);
     profileBody.appendChild(useTemplate.profileSettingsTemp());
     
@@ -77,6 +77,4 @@ export const useHandlerFor = {
     login,
     welcome,
     profile,
-    // profileSettings,
-    // profileVrTours
 };
