@@ -35,6 +35,7 @@ function router (server){
 
     server.get('/user/data', useHandler.extractingUserDataRegistration)
     server.get("/logout", useHandler.logout);
+
     server.get("*", useHandler.home);
 };
 

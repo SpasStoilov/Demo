@@ -82,18 +82,17 @@ function profileSettingsTemp(){
     return settingsHolder
 };
 
-function profileVrToursTemp(){
-    console.log('C:>>> profileVrToursTemp load...')
 
-    let VrToursHolder = document.createElement('div');
-    VrToursHolder.className = 'VrToursHolder'
-    VrToursHolder.style.display = 'block';
-    VrToursHolder.style.backgroundColor = 'white'
-    VrToursHolder.style.width = '800px';
-    VrToursHolder.style.height = '600px';
-    console.log(VrToursHolder)
-    return VrToursHolder
-};
+const profileVrToursTemp = () => `
+<div class="VrToursHolder">
+    <button class="creatVr">Създай Обява</button>
+    <ul class="userVrToursList"></ul>
+</div>
+`;
+
+const vrFormTemplate = () => `
+<div class="vrForm"></div>
+`;
 
 export const useTemplate = {
     homeTemp,
@@ -103,4 +102,5 @@ export const useTemplate = {
     profileTemp,
     profileSettingsTemp,
     profileVrToursTemp,
+    vrFormTemplate
 };
