@@ -50,7 +50,6 @@ function sumbitNewSettingData (e) {
     console.log('C:>>> Service sumbitNewSettingData acting...')
   
     let formSettingsData = new FormData(e.currentTarget);
-    // formSettingsData.flag = 'settings';
 
     console.log('C:>>> Service sumbitNewSettingData: Extract FormData...:', formSettingsData)
     console.log('C:>>> Service sumbitNewSettingData: Use Validator...');
@@ -59,10 +58,22 @@ function sumbitNewSettingData (e) {
     ulErrorsHead.style.display = 'none';
     ulErrorsHead.textContent = '';
 
+    // setting default borders to input settings:
+    for (let field of Object.keys(Object.fromEntries(formSettingsData))){
+        document.querySelector(`.settingsInformation > input[name=${field}]`).style.borderColor = '#ECECEC';
+    }
+
     //FrontEnd Validations
     const validator = useValidator.register(formSettingsData); // return {value, message, bodyInfo}
-
     if (!validator.value) {
+
+        for (let [field, value] of Object.entries(validator.bodyInfo)){
+            let inputField = document.querySelector(`.settingsInformation > input[name=${field}]`);
+            inputField.style.borderColor = '#ECECEC'
+            if (!value) {
+                inputField.style.borderColor = 'red';
+            }
+        }
 
         console.log('C:>>> Service sumbitNewSettingData: alert(validator.message):')
         let li = document.createElement('li')
@@ -86,7 +97,7 @@ function sumbitNewSettingData (e) {
                     document.querySelector('.settingsInformation input[name=email]').value = result.email;
                     document.querySelector('.settingsInformation input[name=username]').value = result.username;
                     document.querySelector('.settingsInformation input[name=password]').value = result.password;
-                    // document.querySelector('.settingsInformation input[name=reppassword]').value = '';
+                    document.querySelector('.settingsInformation input[name=reppassword]').value = '';
                 } else {
                     // [ {value:'...', msg:'...', param:'...', locations:'...'} , ...]
                     console.log('C:>>> Service sumbitNewSettingData: Errors from Server: ', result)
