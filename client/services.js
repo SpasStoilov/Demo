@@ -1,5 +1,6 @@
 import { fetchME } from './fetchme.js';
 import { useValidator } from './validations.js';
+import {useTemplate} from "./templates.js";
 
 function sendRegisterInf(e){
     console.log('C:>>> Service sendRegisterInfo acting...')
@@ -117,9 +118,126 @@ function sumbitNewSettingData (e) {
 }
 
 
+function trigerProfileSettingsAndVrTourLogic () {
+
+    console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Adding Events...')
+
+    let profileBody = document.querySelector('.profileBody');
+    profileBody.textContent = '';
+
+    let settingBTN = document.querySelector('.profileSettings')
+    let vrBTN = document.querySelector('.profileVrTours')
+
+    let profileBar = document.querySelector('.profileBar');
+
+    profileBar.addEventListener('click', onClick);
+    profileBody.appendChild(useTemplate.profileSettingsTemp());
+    
+    function onClick (e) {
+        e.preventDefault();
+        console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Event is Trigered...')
+        profileBody.textContent = '';
+
+        if (e.target.className === 'profileSettings'){
+            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Settings btn is cliked!')
+            // some setup:
+            e.target.style.backgroundColor = '#48b664';
+            vrBTN.style.backgroundColor = '#cacaca';
+            
+            // render:
+            profileBody.appendChild(useTemplate.profileSettingsTemp());
+
+        } else if (e.target.className === 'profileVrTours'){
+
+            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: My Vrs btn is cliked!')
+            // some setup:
+            e.target.style.backgroundColor = '#48b664';
+            settingBTN.style.backgroundColor = '#cacaca';
+          
+            // render:
+            let frag = document.createRange().createContextualFragment(useTemplate.profileVrToursTemp())
+            profileBody.appendChild(frag)
+
+            // selections:
+            const btnCreatVr = document.querySelector('.creatVr');
+            const VrToursHolderBody = document.querySelector('.VrToursHolder');
+            const userVrToursList = document.querySelector('.userVrToursList');
+            // here we must fetch all User Vr's and apended in '.userVrToursList !!! //
+
+            btnCreatVr.addEventListener('click', onClickCreatVr)
+            function onClickCreatVr (e) {
+                console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Event Creat VR is trigert!')
+                // here we must fetch all User Vr's and apended in '.userVrToursList !!! //
+
+                let vrFormFragment;
+
+                // new idea:
+                console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Creat Vr is trigerd!')
+                e.target.textContent = 'Запази';
+                vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
+                VrToursHolderBody.prepend(vrFormFragment)
+
+                let inputImageVrForm = document.querySelector('input[name=inputImageVrForm]')
+                inputImageVrForm.addEventListener('change', onChangeHeadPiv)
+                function onChangeHeadPiv(){
+
+                    let reader = new FileReader()
+                    reader.addEventListener('load', () => {
+                        inputImageVrForm.style.backgroundImage = `url(${reader.result})`
+                    })
+
+                    reader.readAsDataURL(this.files[0]);
+                };
+
+                let vrCreatForm = document.querySelector('.vrCreatForm');
+                vrCreatForm.addEventListener('submit', onSubmitNewVr)
+                function onSubmitNewVr (e) {
+                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Save Vr is trigerd!')
+
+        
+                    // here we must save the new Vr in data base !!! //
+
+                    // first way, to refresh the page.
+
+                    // second way, to see the resut of the fetch for errors, if ther is none (fetch will return info from vrForm)
+                    // => we must fill a new VrLookTemplate and prepend in '.userVrToursList
+                    // if ther is errors we must diplay them
+                };
+
+                // ends here!
+
+
+                // if (e.target.textContent === 'Създай Обява') {
+                //     console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Creat Vr is trigerd!')
+
+                //     e.target.textContent = 'Запази';
+                //     vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
+                //     VrToursHolderBody.prepend(vrFormFragment)
+
+                // } else if (e.target.textContent === 'Запази'){
+                //     console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Save Vr is trigerd!')
+
+                //     // here we must save the new Vr in data base !!! //
+
+                //     // displaing new Vr:
+                //     e.target.textContent = 'Създай Обява';
+                //     const li = document.createElement('li');
+                //     vrFormFragment = document.querySelector('.vrForm');
+                //     li.appendChild(vrFormFragment);
+                //     userVrToursList.prepend(li);
+                // };
+
+            };
+
+        };
+    }
+};
+
+
 export const useService = {
     sendRegisterInf,
     sendLogInInf,
     getUserData,
-    sumbitNewSettingData
+    sumbitNewSettingData,
+    trigerProfileSettingsAndVrTourLogic
 }

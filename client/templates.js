@@ -91,7 +91,19 @@ const profileVrToursTemp = () => `
 `;
 
 const vrFormTemplate = () => `
-<div class="vrForm"></div>
+<div class="vrForm">
+    <button class="closeVrForm">X</button><br>
+    <form class="vrCreatForm" enctype="multipart/form-data">
+        <div>
+            <button class="addImageInput">+</button>
+            <input name="inputImageVrForm" type="file">
+            <button class="deleteImageInput">-</button><br>
+        </div>
+
+        <input class=".uploadVrBtn" type="submit" value="Запази">
+    </form>
+
+</div>
 `;
 
 export const useTemplate = {
