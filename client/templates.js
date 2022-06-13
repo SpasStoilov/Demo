@@ -92,18 +92,99 @@ const profileVrToursTemp = () => `
 
 const vrFormTemplate = () => `
 <div class="vrForm">
+
     <button class="btnCloseVrForm">X</button><br>
+
     <form class="vrCreatForm" enctype="multipart/form-data">
 
         <div class="formInputImageHolder">
             <input name="inputImageVrForm" type="file"></input>
         </div>
-        <br>
+        
         <div>
             <button class="btnDeleteImageInput">-</button>
             <button class="btnAddImageInput">+</button>
         </div>
-        <br>
+        
+        <label for="type-VrForm">Тип обява *</label>
+        <div class="Radio-Btn-holder-VrForm">
+            <label>Продажба</label>
+            <input type="radio" name="RadioBtnVrForm" value="Sale">
+            <label>Наем</label>
+            <input type="radio" name="RadioBtnVrForm" value="Apartment">
+            <label>Замяна</label>
+            <input type="radio" name="RadioBtnVrForm" value="Replace">
+        </div>
+      
+        <label for="TypeApartment-VrForm">Вид на имота *</label>
+        <div>
+            <select name="TypeApartment-VrForm" id="">
+                <option value="All-VrForm">Всички</option>
+                <option value="OneRoom-VrForm">Едностаен</option>
+                <option value="TwoRooms-VrForm">Двустаен</option>
+                <option value="ThreeRooms-VrForm">Тристаен</option>
+                <option value="ManyRooms-VrForm">Многостаен</option>
+                <option value="Penthouse-VrForm">Мезонет</option>
+                <option value="House-VrForm">Къща</option>
+                <option value="ParkingSpace-VrForm">Паркомясто</option>
+                <option value="Basement-VrForm">Мазе</option>
+                <option value="Studio-VrForm">Ателие</option>
+                <option value="Shop-VrForm">Магазин</option>
+            </select>
+        </div>
+        
+        <label for="Location-VrForm">Адрес на имота *</label>
+        <input type="text" name="Location-VrForm">
+        
+        <label for="property-floor-VrForm">Етаж на апартамента *</label>
+        <input type="text" name="property-floor-VrForm">
+        
+        <label for="area-common-parts-VrForm">Площ с общи части *</label>
+        <input type="text" name="area-common-parts-VrForm">
+        
+        <label for="area-none-common-parts-VrForm">Площ без общи части *</label>
+        <input type="text" name="area-none-common-parts-VrForm">
+
+        <label for="price-VrForm">Цена/кв.м.*</label>
+        <input type="text" name="price-VrForm">
+
+        <label for="year-construction-VrForm">Година на строеж</label>
+        <input type="text" name="year-construction-VrForm">
+        
+        <label for="building-size-VrForm">Етаж на сграда</label>
+        <input type="text" name="building-size-VrForm">
+
+        <label for="furniture-VrForm">Обзавеждане</label>
+        <select name="furniture-VrForm">
+            <option value="furnished-VrForm">Обзаведен</option>
+            <option value="semi-furnished-VrForm">Полуобзаведен</option>
+            <option value="unfurnished-VrForm">Необзаведен</option>
+        </select>
+        
+
+        <label for="construction-VrForm">Вид Конструкция</label>
+        <select name="construction-VrForm">
+            <option value="none-construction-VrForm">Друго</option>
+            <option value="panels-VrForm">Панел</option>
+            <option value="semi-furnished-VrForm">Тухла</option>
+        </select>
+        
+
+        <label for="heating-VrForm">Отопление</label>
+        <select name="heating-VrForm" id="">
+            <option value="none-heating-VrForm">Друго</option>
+            <option value="gas-VrForm">Газ</option>
+            <option value="electricity-furnished-VrForm">Електричество</option>
+            <option value="district-heating-VrForm">Топлофикация</option>
+            <option value="solar-panels-heating-VrForm">Соларни Панели</option>
+        </select>
+        
+        
+        <label for="Complex-VrForm">Допълнителна информация</label>
+        <textarea name="more-info-VrForm"></textarea>
+
+        <label for="Complex-VrForm">Затворен Комплекс</label>
+        <input type="checkbox" name="Complex-VrForm" id="" value="Complex">
 
         <input class=".uploadVrBtn" type="submit" value="Запази">
     </form>

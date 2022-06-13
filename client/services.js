@@ -150,7 +150,7 @@ function trigerProfileSettingsAndVrTourLogic () {
         } else if (e.target.className === 'profileVrTours'){
 
             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: My Vrs btn is cliked!')
-            // some setup:
+            // some setup:t
             e.target.style.backgroundColor = '#48b664';
             settingBTN.style.backgroundColor = '#cacaca';
           
@@ -160,7 +160,7 @@ function trigerProfileSettingsAndVrTourLogic () {
 
             // selections:
             const btnCreatVr = document.querySelector('.creatVr');
-            const VrToursHolderBody = document.querySelector('.VrToursHolder');
+            const VrToursHolder = document.querySelector('.VrToursHolder');
             const userVrToursList = document.querySelector('.userVrToursList');
             // here we must fetch all User Vr's and apended in '.userVrToursList !!! //
 
@@ -171,11 +171,18 @@ function trigerProfileSettingsAndVrTourLogic () {
 
                 let vrFormFragment;
 
+
                 // new idea:
                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Creat Vr is trigerd!')
-                e.target.textContent = 'Запази';
                 vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
-                VrToursHolderBody.prepend(vrFormFragment)
+                VrToursHolder.prepend(vrFormFragment)
+
+                // delete VrForm:
+                const btnCloseVrForm = document.querySelector('.btnCloseVrForm')
+                btnCloseVrForm.addEventListener('click', onDeleteVrForm);
+                function onDeleteVrForm(){
+                    VrToursHolder.removeChild(btnCloseVrForm.parentElement)
+                }
 
 
                 // addInputImage:
@@ -204,8 +211,6 @@ function trigerProfileSettingsAndVrTourLogic () {
           
 
                 // full pic input background:
-
-                // let inputImageVrForm = document.querySelector('input[name=inputImageVrForm]')
                 formInputImageHolder.addEventListener('change', onChangePicInput)
                 function onChangePicInput(e){
                     if (e.target.nodeName == "INPUT"){
@@ -222,9 +227,8 @@ function trigerProfileSettingsAndVrTourLogic () {
                         reader.readAsDataURL(e.target.files[0]);
                     }
                 };
-
-
                 //---------------------
+
 
                 let vrCreatForm = document.querySelector('.vrCreatForm');
                 vrCreatForm.addEventListener('submit', onSubmitNewVr)
@@ -249,7 +253,7 @@ function trigerProfileSettingsAndVrTourLogic () {
 
                 //     e.target.textContent = 'Запази';
                 //     vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
-                //     VrToursHolderBody.prepend(vrFormFragment)
+                //     VrToursHolder.prepend(vrFormFragment)
 
                 // } else if (e.target.textContent === 'Запази'){
                 //     console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Save Vr is trigerd!')
