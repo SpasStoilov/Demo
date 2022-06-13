@@ -177,17 +177,54 @@ function trigerProfileSettingsAndVrTourLogic () {
                 vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
                 VrToursHolderBody.prepend(vrFormFragment)
 
-                let inputImageVrForm = document.querySelector('input[name=inputImageVrForm]')
-                inputImageVrForm.addEventListener('change', onChangeHeadPiv)
-                function onChangeHeadPiv(){
 
-                    let reader = new FileReader()
-                    reader.addEventListener('load', () => {
-                        inputImageVrForm.style.backgroundImage = `url(${reader.result})`
-                    })
+                // addInputImage:
+                let btnAddImageInput = document.querySelector(".btnAddImageInput")
+                btnAddImageInput.addEventListener('click', onClickBtnInputImg);
 
-                    reader.readAsDataURL(this.files[0]);
+                let btnDeleteImageInput = document.querySelector(".btnDeleteImageInput")
+                btnDeleteImageInput.addEventListener('click', onClickBtnInputImg);
+
+                let formInputImageHolder = document.querySelector(".formInputImageHolder")
+
+                function onClickBtnInputImg(e){
+                    e.preventDefault()
+                    console.log(e.target.className)
+
+                    if (e.target.className === 'btnAddImageInput'){
+                        let inputImageVrForm = document.createElement('input')
+                        inputImageVrForm.className = 'inputImageVrForm'
+                        inputImageVrForm.type = 'file'
+                        formInputImageHolder.appendChild(inputImageVrForm)
+
+                    } else if (e.target.className === 'btnDeleteImageInput'){
+                        formInputImageHolder.removeChild(formInputImageHolder.lastChild)
+                    }
+                }
+          
+
+                // full pic input background:
+
+                // let inputImageVrForm = document.querySelector('input[name=inputImageVrForm]')
+                formInputImageHolder.addEventListener('change', onChangePicInput)
+                function onChangePicInput(e){
+                    if (e.target.nodeName == "INPUT"){
+
+                        let reader = new FileReader()
+                        reader.addEventListener('load', () => {
+                            console.log(reader.result)
+                            e.target.style.backgroundImage = `url(${reader.result})`
+                        })
+
+                        console.log("CTX: ", e.target)
+                        console.log("CTX: ", e.target.files)
+                        console.log("INF about pic upload: ", e.target.files[0])
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
                 };
+
+
+                //---------------------
 
                 let vrCreatForm = document.querySelector('.vrCreatForm');
                 vrCreatForm.addEventListener('submit', onSubmitNewVr)

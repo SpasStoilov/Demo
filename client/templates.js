@@ -92,13 +92,18 @@ const profileVrToursTemp = () => `
 
 const vrFormTemplate = () => `
 <div class="vrForm">
-    <button class="closeVrForm">X</button><br>
+    <button class="btnCloseVrForm">X</button><br>
     <form class="vrCreatForm" enctype="multipart/form-data">
-        <div>
-            <button class="addImageInput">+</button>
-            <input name="inputImageVrForm" type="file">
-            <button class="deleteImageInput">-</button><br>
+
+        <div class="formInputImageHolder">
+            <input name="inputImageVrForm" type="file"></input>
         </div>
+        <br>
+        <div>
+            <button class="btnDeleteImageInput">-</button>
+            <button class="btnAddImageInput">+</button>
+        </div>
+        <br>
 
         <input class=".uploadVrBtn" type="submit" value="Запази">
     </form>
