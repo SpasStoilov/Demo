@@ -154,6 +154,7 @@ p {
 }
 
 .creatVr {
+    margin-bottom: 20px;
     width: 350px;
     height: 50px;
     background-color: #f8f8f8;
@@ -174,7 +175,7 @@ p {
     align-items: center;
 }
 
-.vrForm, .vrCreatForm {
+.vrForm {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -191,7 +192,12 @@ p {
 }
 
 .vrCreatForm {
-    border: 2px solid black;
+    display: flex;
+    width: 700px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* border: 2px solid black; */
 }
 
 .vrCreatForm > input, .vrCreatForm > select, .vrCreatForm > textarea {

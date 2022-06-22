@@ -117,21 +117,20 @@ const vrFormTemplate = () => `
         </div>
       
         <label for="TypeApartment-VrForm">Вид на имота *</label>
-        <div>
-            <select name="TypeApartment-VrForm" id="">
-                <option value="All-VrForm">Всички</option>
-                <option value="OneRoom-VrForm">Едностаен</option>
-                <option value="TwoRooms-VrForm">Двустаен</option>
-                <option value="ThreeRooms-VrForm">Тристаен</option>
-                <option value="ManyRooms-VrForm">Многостаен</option>
-                <option value="Penthouse-VrForm">Мезонет</option>
-                <option value="House-VrForm">Къща</option>
-                <option value="ParkingSpace-VrForm">Паркомясто</option>
-                <option value="Basement-VrForm">Мазе</option>
-                <option value="Studio-VrForm">Ателие</option>
-                <option value="Shop-VrForm">Магазин</option>
-            </select>
-        </div>
+        <select name="TypeApartment-VrForm" id="">
+            <option value="All-VrForm">Всички</option>
+            <option value="OneRoom-VrForm">Едностаен</option>
+            <option value="TwoRooms-VrForm">Двустаен</option>
+            <option value="ThreeRooms-VrForm">Тристаен</option>
+            <option value="ManyRooms-VrForm">Многостаен</option>
+            <option value="Penthouse-VrForm">Мезонет</option>
+            <option value="House-VrForm">Къща</option>
+            <option value="ParkingSpace-VrForm">Паркомясто</option>
+            <option value="Basement-VrForm">Мазе</option>
+            <option value="Studio-VrForm">Ателие</option>
+            <option value="Shop-VrForm">Магазин</option>
+        </select>
+        
         
         <label for="Location-VrForm">Адрес на имота *</label>
         <input type="text" name="Location-VrForm">
