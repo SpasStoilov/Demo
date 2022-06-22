@@ -239,9 +239,17 @@ function trigerProfileSettingsAndVrTourLogic () {
                     e.preventDefault()
                     console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Save Vr is trigerd!')
 
-                    let data = new FormData(e.currentTarget);
-                    console.log('C:>>> Form Data:', Object.fromEntries(data))
+                    let vrFormCreationDATA = new FormData(e.currentTarget);
+                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data:', Object.fromEntries(vrFormCreationDATA))
 
+                    //frontValidation:
+                                      // returns: {field: errMessage}
+                    let errorMessenger = useValidator.vrFormCreationValidation(vrFormCreationDATA)
+                    if (Object.keys(errorMessenger).length === 0){
+
+                    } else {
+                        
+                    }
 
                     // here we must save the new Vr in data base !!! //
 

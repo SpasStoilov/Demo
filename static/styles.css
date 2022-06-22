@@ -217,12 +217,12 @@ p {
     margin-bottom: 5px;
 }
 
-.Radio-Btn-holder-VrForm > input[type="radio"] {
+.RadioBtnHolderVrForm > input[type="radio"] {
     width: 20px;
     height: 20px;
 }
 
-.Radio-Btn-holder-VrForm > label {
+.RadioBtnHolderVrForm > label {
     font-size: 20px;
 }
 

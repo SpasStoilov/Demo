@@ -45,6 +45,63 @@ function register(formData){
 };
 
 
+function vrFormCreationValidation(vrFormCreationDATA){
+
+    let requiredFields = [
+        'LocationVrForm', 
+        'propertyfloorVrForm', 
+        'areaCommonPartsVrForm', 
+        'areaNoneCommonPartsVrForm', 
+        'priceVrForm', 
+    ]
+
+    let numericRequiredFields = [
+        'propertyfloorVrForm', 
+        'areaCommonPartsVrForm', 
+        'areaNoneCommonPartsVrForm', 
+        'priceVrForm', 
+    ]
+
+    let errorMessenger = {};
+  
+    for (let field of vrFormCreationDATA){
+        let [name, value] = field;
+       
+        if (requiredFields.includes(name) || name.startsWith('inputImageVrForm')){
+            console.log(name)
+            document.querySelector(`input[name=${name}]`).style.borderColor = '#ECECEC'
+        }
+
+        if (requiredFields.includes(name) && (value === "" || value === 'Задължително поле!')){
+            errorMessenger[name] = 'Задължително поле!';
+            document.querySelector(`input[name=${name}]`).style.borderColor = 'red'
+            document.querySelector(`input[name=${name}]`).value = 'Задължително поле!'
+        }
+
+        else if (name.startsWith('inputImageVrForm') && value.name === ""){
+            errorMessenger[name] = 'Липсва снимка!';
+            document.querySelector(`input[name=${name}]`).style.borderColor = 'red'
+        } 
+
+        else if (name.startsWith('inputImageVrForm') && !value.name.endsWith('.jpg') && !value.name.endsWith('.png') ){
+            errorMessenger[name] = 'Файлове с разширение .JPG или .PNG!';
+            document.querySelector(`input[name=${name}]`).style.borderColor = 'red'
+        }
+
+        else if (numericRequiredFields.includes(name) && !Number(value)){
+            errorMessenger[name] = 'Въведете число!';
+            document.querySelector(`input[name=${name}]`).style.borderColor = 'red'
+            document.querySelector(`input[name=${name}]`).value = 'Въведете число!'
+        }
+
+
+    }
+
+    return errorMessenger
+
+}
+
 export const useValidator = {
-    register
+    register,
+    vrFormCreationValidation
 }
