@@ -76,10 +76,11 @@ async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
 
     let objVr = fields
     objVr.imgs = imgsNewPaths
-    console.log(objVr)
+    //objVr.filesForSale = [here we have to append corect files for sale of the propartie (paths from static files)......]
 
+    console.log('S:>>> creatVrAndAppendToUser -> Fields', objVr)
 
-    try{
+    try {
 
         let vr = new vrModel(objVr)
         vr.save()
@@ -87,6 +88,9 @@ async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
         let user = await UserModel.findOne({email, username})
         user.vrs.push(vr)
         user.save()
+
+        console.log('S:>>> creatVrAndAppendToUser -> Return User:', user)
+        return user
         
     } catch (err){
         console.log(err.message)

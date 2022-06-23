@@ -185,7 +185,7 @@ function trigerProfileSettingsAndVrTourLogic () {
                     VrToursHolder.removeChild(btnCloseVrForm.parentElement)
                 }
 
-                // adding and removing InputImage:
+                // adding and removing InputImage and IMGs id logic:
                 let btnAddImageInput = document.querySelector(".btnAddImageInput")
                 btnAddImageInput.addEventListener('click', onClickBtnInputImg);
 
@@ -214,7 +214,6 @@ function trigerProfileSettingsAndVrTourLogic () {
                 }
                 //--------------------------------------------------------
           
-
                 // inputImage background logic:
                 formInputImageHolder.addEventListener('change', onChangePicInput)
                 function onChangePicInput(e){
@@ -254,23 +253,24 @@ function trigerProfileSettingsAndVrTourLogic () {
 
                         console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data: NO ERRORS');
                         btnCreatVr.style.display = '';
-                        fetchME.sendVrFormCreationDATA(vrFormCreationDATA);
-                        
+                        VrToursHolder.removeChild(vrCreatForm.parentElement)
+
+                        // returns: newUser {}
+                        fetchME.sendVrFormCreationDATA(vrFormCreationDATA)
+                            .then((result) => result.json())
+                            .then((newUser) => {
+
+                                console.log(newUser)
+                                // fill the VRform and atoch to userVrToursList (it is selectet somewere up)
+
+                            })
+                            .catch((err) => console.log(err.message))
+ 
                     } else {
                         console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data -> ERRORS:', errorMessenger);
                     };
-
-                    // here we must save the new Vr in data base !!! //
-
-                    // first way, to refresh the page.
-
-                    // second way, to see the resut of the fetch for errors, if ther is none (fetch will return info from vrForm)
-                    // => we must fill a new VrLookTemplate and prepend in '.userVrToursList
-                    // if ther is errors we must diplay them
                 };
-
             };
-
         };
     }
 };

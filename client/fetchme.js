@@ -111,7 +111,8 @@ function sendSettingsData(bodyInfo) {
 // new:
 function sendVrFormCreationDATA(vrFormCreationDATA){
     console.log('C:>>> fetchME -> sendVrFormCreationDATA...: ', vrFormCreationDATA)
-    fetch(`${baseURL}/user/vruploads`, {
+    
+    return fetch(`${baseURL}/user/vruploads`, {
         method: "POST",
         body: vrFormCreationDATA
     })

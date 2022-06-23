@@ -169,13 +169,13 @@ async function vrFormCreation(req, res){
                 console.log(err.message);
             };
         }
-        
-        
-        useBackService.creatVrAndAppendToUser(req.session.user.email, req.session.user.username, imgsNewPaths, fields)
-        
-        console.log(imgsNewPaths)
-        res.end();
 
+        console.log('S:>>> Handler vrFormCreation: New Imgs Paths:', imgsNewPaths)
+        
+        let newUser = await useBackService.creatVrAndAppendToUser(req.session.user.email, req.session.user.username, imgsNewPaths, fields);
+        
+        res.json(newUser)
+        
     })
 
 };
