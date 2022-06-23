@@ -95,7 +95,7 @@ const vrFormTemplate = () => `
 
     <button class="btnCloseVrForm">X</button><br>
 
-    <form class="vrCreatForm" enctype="multipart/form-data">
+    <form class="vrCreatForm">
 
         <div class="formInputImageHolder">
             <input name="inputImageVrForm" type="file"></input>

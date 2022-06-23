@@ -168,6 +168,8 @@ function trigerProfileSettingsAndVrTourLogic () {
 
             function onClickCreatVr (e) {
                 e.preventDefault()
+                btnCreatVr.style.display = 'none';
+
                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Event Creat VR is trigert!')
                 // here we must fetch all User Vr's and apended in '.userVrToursList !!! //
 
@@ -179,6 +181,7 @@ function trigerProfileSettingsAndVrTourLogic () {
                 const btnCloseVrForm = document.querySelector('.btnCloseVrForm')
                 btnCloseVrForm.addEventListener('click', onDeleteVrForm);
                 function onDeleteVrForm(){
+                    btnCreatVr.style.display = '';
                     VrToursHolder.removeChild(btnCloseVrForm.parentElement)
                 }
 
@@ -242,14 +245,21 @@ function trigerProfileSettingsAndVrTourLogic () {
                     let vrFormCreationDATA = new FormData(e.currentTarget);
                     console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data:', Object.fromEntries(vrFormCreationDATA))
 
-                    //frontValidation:
-                                      // returns: {field: errMessage}
-                    let errorMessenger = useValidator.vrFormCreationValidation(vrFormCreationDATA)
+                    //frontValidation--------------------------------------------:
+
+                    // returns: {field: errMessage}
+                    let errorMessenger = useValidator.vrFormCreationValidation(vrFormCreationDATA);
+
                     if (Object.keys(errorMessenger).length === 0){
 
-                    } else {
+                        console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data: NO ERRORS');
                         
-                    }
+                        btnCreatVr.style.display = '';
+                        fetchME.sendVrFormCreationDATA(Object.fromEntries(vrFormCreationDATA));
+                        
+                    } else {
+                        console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data -> ERRORS:', errorMessenger);
+                    };
 
                     // here we must save the new Vr in data base !!! //
 

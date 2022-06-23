@@ -7,6 +7,9 @@ const useLocalMiddlewere = require('./LocalMiddlewares.js');
 function router (server){
     console.log('S:>>> Router acting...')
 
+    //new:
+    server.post("/user/vruploads", useHandler.vrFormCreation)
+
     server.post(
         "/users/register",
         body('email').notEmpty().bail().isEmail().normalizeEmail().trim(),
@@ -17,7 +20,6 @@ function router (server){
         useHandler.register
     );
     
-    //neww
     server.put('/user/change', 
     body('email').notEmpty().bail().isEmail().normalizeEmail().trim(),
     body('username').notEmpty().bail().isLength({min: 3}),

@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const useBackService = require('./services.js');
+const formidable = require("formidable");
 
 //------ Request Hendler Functions ----:
 
@@ -96,7 +97,6 @@ function extractingUserDataRegistration(req, res) {
     res.json(req.session.user)
 }
 
-///new?
 
 async function settingsDataChange (req, res) {
 
@@ -134,7 +134,30 @@ async function settingsDataChange (req, res) {
         );
     };
 
-}
+};
+
+
+// new:
+
+function vrFormCreation(req, res){
+
+    console.log('S:>>> Handler vrFormCreation acting...');
+    console.log('S:>>> Handler vrFormCreation: Current User in Session ->', req.session.user)
+    console.log('S:>>> Handler vrFormCreation: REQ BODY ->', req.body)
+
+    const formData = new formidable.IncomingForm();
+    console.log('S:>>> Handler vrFormCreation: FORMDATA:', formData)
+    
+    formData.parse(req, (err, fields, files) => {
+        console.log('S:>>> Handler vrFormCreation: FIELDS:', err)
+        console.log('S:>>> Handler vrFormCreation: FIELDS:', fields)
+        console.log('S:>>> Handler vrFormCreation: FILES:', files)
+    })
+
+};
+
+
+
 
 //------ Hendler Registrations ----:
 const useHandler = {
@@ -143,31 +166,8 @@ const useHandler = {
     logIn,
     logout,
     extractingUserDataRegistration,
-    settingsDataChange
+    settingsDataChange,
+    vrFormCreation
 };
 
 module.exports = useHandler;
-
-
-
-
-
-
-
-
-
-//JUNK
-
-// const FILTERDServerErrReport = ServerErrReport.filter( err => {
-//     let found = repeatErrors.find( field => {
-//         return err.param === field;
-//     });
-
-//     if (!found) {
-//         repeatErrors.push(err.param)
-//         return true  
-//     };
-//     return false
-// });
-
-// console.log('>>> FILTERED ERRORS:', FILTERDServerErrReport);
