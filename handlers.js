@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const useBackService = require('./services.js');
 const formidable = require("formidable");
+const fs = require("fs/promises");
 
 //------ Request Hendler Functions ----:
 
@@ -139,19 +140,40 @@ async function settingsDataChange (req, res) {
 
 // new:
 
-function vrFormCreation(req, res){
+async function vrFormCreation(req, res){
 
     console.log('S:>>> Handler vrFormCreation acting...');
     console.log('S:>>> Handler vrFormCreation: Current User in Session ->', req.session.user)
-    console.log('S:>>> Handler vrFormCreation: REQ BODY ->', req.body)
 
     const formData = new formidable.IncomingForm();
     console.log('S:>>> Handler vrFormCreation: FORMDATA:', formData)
     
     formData.parse(req, (err, fields, files) => {
-        console.log('S:>>> Handler vrFormCreation: FIELDS:', err)
+
+        console.log('S:>>> Handler vrFormCreation: ERRORS:', err)
         console.log('S:>>> Handler vrFormCreation: FIELDS:', fields)
         console.log('S:>>> Handler vrFormCreation: FILES:', files)
+        console.log('S:>>> Handler vrFormCreation: FILES Keys:', Object.keys(files))
+
+        let imgsNewPaths = []
+
+        for (let Img of Object.keys(files)){
+            const oldPath = files[Img].filepath;
+            const name = files[Img].originalFilename;
+            const newPath = './static/useruploads/' + name
+
+            try {
+                fs.copyFile(oldPath, newPath)
+                imgsNewPaths.push(newPath)
+            } catch (err) {
+                console.log(err.message)
+            }
+            
+        }
+
+        console.log(imgsNewPaths)
+        res.end();
+
     })
 
 };

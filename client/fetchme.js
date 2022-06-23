@@ -113,11 +113,7 @@ function sendVrFormCreationDATA(vrFormCreationDATA){
     console.log('C:>>> fetchME -> sendVrFormCreationDATA...: ', vrFormCreationDATA)
     fetch(`${baseURL}/user/vruploads`, {
         method: "POST",
-        headers: {
-            'Content-Type': "application/json",
-        },
-        
-        body: JSON.stringify(vrFormCreationDATA)
+        body: vrFormCreationDATA
     })
 }
 

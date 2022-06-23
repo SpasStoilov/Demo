@@ -253,9 +253,8 @@ function trigerProfileSettingsAndVrTourLogic () {
                     if (Object.keys(errorMessenger).length === 0){
 
                         console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data: NO ERRORS');
-                        
                         btnCreatVr.style.display = '';
-                        fetchME.sendVrFormCreationDATA(Object.fromEntries(vrFormCreationDATA));
+                        fetchME.sendVrFormCreationDATA(vrFormCreationDATA);
                         
                     } else {
                         console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data -> ERRORS:', errorMessenger);
