@@ -160,17 +160,19 @@ async function vrFormCreation(req, res){
         for (let Img of Object.keys(files)){
             const oldPath = files[Img].filepath;
             const name = files[Img].originalFilename;
-            const newPath = './static/useruploads/' + name
+            const newPath = './static/useruploads/' + name;
 
             try {
-                fs.copyFile(oldPath, newPath)
-                imgsNewPaths.push(newPath)
+                fs.copyFile(oldPath, newPath);
+                imgsNewPaths.push(newPath);
             } catch (err) {
-                console.log(err.message)
-            }
-            
+                console.log(err.message);
+            };
         }
-
+        
+        
+        useBackService.creatVrAndAppendToUser(req.session.user.email, req.session.user.username, imgsNewPaths, fields)
+        
         console.log(imgsNewPaths)
         res.end();
 

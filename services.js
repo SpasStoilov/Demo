@@ -1,4 +1,5 @@
 const UserModel = require("./Models/users.js");
+const vrModel = require("./Models/vrform.js");
 const useBackValidator = require('./validations.js');
 const bcrypt = require('bcrypt');
 
@@ -55,7 +56,7 @@ async function userCreation (email, username, password) {
     return useBackValidator.validateCreation(userInstance);
 }
 
-///new
+
 async function updateUserSettings (oldUser, newUser) {
     console.log('S:>>> updateUserSettings acting...');
     try {
@@ -71,10 +72,50 @@ async function updateUserSettings (oldUser, newUser) {
     };
 };
 
+async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
+
+    let objVr = fields
+    objVr.imgs = imgsNewPaths
+    console.log(objVr)
+
+
+    try{
+
+        let vr = new vrModel(objVr)
+        vr.save()
+
+        let user = await UserModel.findOne({email, username})
+        user.vrs.push(vr)
+        user.save()
+        
+    } catch (err){
+        console.log(err.message)
+    }
+
+}
 
 //------ Service Registrations ----:
 module.exports = {
     userCreation,
     checkForUser,
-    updateUserSettings
+    updateUserSettings,
+    creatVrAndAppendToUser
 };
+
+
+
+        // RadioBtnVrForm: ,
+        // TypeApartmentVrForm: ,
+        // LocationVrForm: ,
+        // propertyfloorVrForm: ,
+        // areaCommonPartsVrForm: ,
+        // areaNoneCommonPartsVrForm: ,
+        // priceVrForm: ,
+        // yearConstructionVrForm: ,
+        // buildingSizeVrForm: ,
+        // furnitureVrForm: ,
+        // constructionVrForm: ,
+        // heatingVrForm: ,
+        // moreInfoVrForm: ,
+        // ComplexVrForm: ,
+        // imgs: imgsNewPaths

@@ -21,7 +21,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         minLength: [1, "Min length of Password: 1 char!"],
-    }
+    },
+
+    vrs: [{type: Schema.Types.ObjectId, ref: "VR"}]
+
 });
 
 // Model = Collection creation:
