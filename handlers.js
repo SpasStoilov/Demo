@@ -147,15 +147,14 @@ async function vrFormCreation(req, res){
 
     const formData = new formidable.IncomingForm();
     console.log('S:>>> Handler vrFormCreation: FORMDATA:', formData)
-    
+    let imgsNewPaths = []
+  
     formData.parse(req, (err, fields, files) => {
 
         console.log('S:>>> Handler vrFormCreation: ERRORS:', err)
         console.log('S:>>> Handler vrFormCreation: FIELDS:', fields)
         console.log('S:>>> Handler vrFormCreation: FILES:', files)
         console.log('S:>>> Handler vrFormCreation: FILES Keys:', Object.keys(files))
-
-        let imgsNewPaths = []
 
         for (let Img of Object.keys(files)){
             const oldPath = files[Img].filepath;
@@ -171,12 +170,25 @@ async function vrFormCreation(req, res){
         }
 
         console.log('S:>>> Handler vrFormCreation: New Imgs Paths:', imgsNewPaths)
+
+        async function newUserer (){
+            return await useBackService.creatVrAndAppendToUser(req.session.user.email, req.session.user.username, imgsNewPaths, fields);
+        }
         
-        let newUser = await useBackService.creatVrAndAppendToUser(req.session.user.email, req.session.user.username, imgsNewPaths, fields);
-        
-        res.json(newUser)
+        newUserer()
+            .then((result) => {
+
+                let newUser = result
+                console.log('S:>>> Handler vrFormCreation: New Userer:', newUser)
+                res.json(newUser)
+
+            })
+            .catch((err) => console.log(err))
+
         
     })
+
+
 
 };
 

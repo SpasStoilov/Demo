@@ -263,6 +263,30 @@ function trigerProfileSettingsAndVrTourLogic () {
                                 console.log(newUser)
                                 // fill the VRform and atoch to userVrToursList (it is selectet somewere up)
 
+
+                                // {_id: '62b5b8c4323ccf634d992b50', email: 'c8pensil@gmail.com', username: 
+                                //'SpasPStoilov',  password: '123', vrs: Array(1), …}
+
+                                // email: "c8pensil@gmail.com"
+                                // password: "123"
+                                // username: "SpasPStoilov"
+                                // vrs: Array(1)
+                                    // 0:
+                                        // LocationVrForm: "1"
+                                        // RadioBtnVrForm: "Sale"
+                                        // TypeApartmentVrForm: "OneRoomVrForm"
+                                        // areaCommonPartsVrForm: 1
+                                        // areaNoneCommonPartsVrForm: 1
+                                        // buildingSizeVrForm: null
+                                        // constructionVrForm: "noneConstructionVrForm"
+                                        // furnitureVrForm: "otherFurnishedVrForm"
+                                        // heatingVrForm: "noneHeatingVrForm"
+                                        // imgs: ['./static/useruploads/IronmanWallpaper.jpg']
+                                        // moreInfoVrForm: ""
+                                        // priceVrForm: 1
+                                        // propertyfloorVrForm: 1
+                                        // yearConstructionVrForm: 1
+                              
                             })
                             .catch((err) => console.log(err.message))
  
