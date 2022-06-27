@@ -191,6 +191,56 @@ const vrFormTemplate = () => `
 </div>
 `;
 
+
+function vrFormInputImgTempAndLogic() {
+
+    let btnAddImageInput = document.querySelector(".btnAddImageInput")
+    btnAddImageInput.addEventListener('click', onClickBtnInputImg);
+
+    let btnDeleteImageInput = document.querySelector(".btnDeleteImageInput")
+    btnDeleteImageInput.addEventListener('click', onClickBtnInputImg);
+
+    let formInputImageHolder = document.querySelector(".formInputImageHolder")
+    let countId = 0
+
+    function onClickBtnInputImg(e){
+        e.preventDefault()
+        console.log(e.target.className)
+
+        if (e.target.className === 'btnAddImageInput'){
+            countId += 1
+            let inputImageVrForm = document.createElement('input')
+            inputImageVrForm.className = `inputImageVrForm-${countId}`
+            inputImageVrForm.name = `inputImageVrForm-${countId}`
+            inputImageVrForm.type = 'file'
+            formInputImageHolder.appendChild(inputImageVrForm)
+
+        } else if (e.target.className === 'btnDeleteImageInput' && countId > 0){
+            countId -= 1
+            formInputImageHolder.removeChild(formInputImageHolder.lastChild)
+        }
+    }
+    //--------------------------------------------------------
+
+    // inputImage background logic:
+    formInputImageHolder.addEventListener('change', onChangePicInput)
+    function onChangePicInput(e){
+        if (e.target.nodeName == "INPUT"){
+
+            let reader = new FileReader()
+            reader.addEventListener('load', () => {
+                console.log(reader.result)
+                e.target.style.backgroundImage = `url(${reader.result})`
+            })
+
+            console.log("CTX: ", e.target)
+            console.log("CTX: ", e.target.files)
+            console.log("INF about pic upload: ", e.target.files[0])
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    };
+}
+
 export const useTemplate = {
     homeTemp,
     loginTemp,
@@ -199,5 +249,6 @@ export const useTemplate = {
     profileTemp,
     profileSettingsTemp,
     profileVrToursTemp,
-    vrFormTemplate
+    vrFormTemplate,
+    vrFormInputImgTempAndLogic
 };

@@ -46,7 +46,7 @@ function getUserData (){
     return result;
 }
 
-/// new?
+
 function sumbitNewSettingData (e) {
     console.log('C:>>> Service sumbitNewSettingData acting...')
   
@@ -115,6 +115,101 @@ function sumbitNewSettingData (e) {
             .catch(err => console.log(err));
     };
 
+};
+
+
+function closeVrUserForm(btnCreatVr, VrToursHolder){
+
+    const btnCloseVrForm = document.querySelector('.btnCloseVrForm')
+
+    btnCloseVrForm.addEventListener('click', onDeleteVrForm);
+    function onDeleteVrForm(){
+        btnCreatVr.style.display = '';
+        VrToursHolder.removeChild(btnCloseVrForm.parentElement)
+    };
+
+};
+
+
+function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
+
+    console.log('C:>>> vrDataFormSubmition -> acting...:');
+
+    // selections:
+    const vrCreatForm = document.querySelector('.vrCreatForm');
+    //----------------------------------------------------------------
+
+    vrCreatForm.addEventListener('submit', onSubmitNewVr)
+
+    function onSubmitNewVr (e) {
+        e.preventDefault()
+
+        console.log('C:>>> vrDataFormSubmition: Button Save Vr is trigerd!')
+        
+        // selections:
+        let vrFormCreationDATA = new FormData(e.currentTarget);
+        console.log('C:>>> vrDataFormSubmition -> Form Data:', Object.fromEntries(vrFormCreationDATA))
+        //----------------------------------------------------------------
+
+        //frontValidation--------------------------------------------:
+        let errorMessenger = useValidator.vrFormCreationValidation(vrFormCreationDATA); // returns: {field: errMessage}
+        //-----------------------------------------------------------
+
+        // Check for Errors:
+        if (Object.keys(errorMessenger).length === 0){
+
+            // returns -> newUser object:
+            fetchME.sendVrFormCreationDATA(vrFormCreationDATA)
+                .then((result) => result.json())
+                .then((newUser) => {
+
+                    console.log('C:>>> vrDataFormSubmition -> New Userer:', newUser)
+
+                    if (!newUser.email){
+                        console.log('C:>>> vrDataFormSubmition -> We have Server Errors!');
+                        useValidator.vrFormCreationValidation(Object.entries(newUser))
+                    }
+                    else {
+                        console.log('C:>>> vrDataFormSubmition -> NO Server ERRORS!');
+                        btnCreatVr.style.display = '';
+                        VrToursHolder.removeChild(vrCreatForm.parentElement)
+                    }
+ 
+                    // fill the VRform and atoch to userVrToursList (it is selectet somewere up)
+
+
+                    // {_id: '62b5b8c4323ccf634d992b50', email: 'c8pensil@gmail.com', username: 
+                    //'SpasPStoilov',  password: '123', vrs: Array(1), …}
+
+                    // email: "c8pensil@gmail.com"
+                    // password: "123"
+                    // username: "SpasPStoilov"
+                    // vrs: Array(1)
+                        // 0:
+                            // LocationVrForm: "1"
+                            // RadioBtnVrForm: "Sale"
+                            // TypeApartmentVrForm: "OneRoomVrForm"
+                            // areaCommonPartsVrForm: 1
+                            // areaNoneCommonPartsVrForm: 1
+                            // buildingSizeVrForm: null
+                            // constructionVrForm: "noneConstructionVrForm"
+                            // furnitureVrForm: "otherFurnishedVrForm"
+                            // heatingVrForm: "noneHeatingVrForm"
+                            // imgs: ['./static/useruploads/IronmanWallpaper.jpg']
+                            // moreInfoVrForm: ""
+                            // priceVrForm: 1
+                            // propertyfloorVrForm: 1
+                            // yearConstructionVrForm: 1
+                  
+                })
+                .catch((err) => console.log(err))
+            //--------------------------------------------------------------------
+
+        } else {
+            console.log('C:>>> vrDataFormSubmition -> We have Front End ERRORS!:', errorMessenger);
+        };
+
+    };
 }
 
 
@@ -122,184 +217,91 @@ function trigerProfileSettingsAndVrTourLogic () {
 
     console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Adding Events...')
 
+    // Selections:
     let profileBody = document.querySelector('.profileBody');
-    profileBody.textContent = '';
-
-    let settingBTN = document.querySelector('.profileSettings')
-    let vrBTN = document.querySelector('.profileVrTours')
-
+    let settingBTN = document.querySelector('.profileSettings');
+    let vrBTN = document.querySelector('.profileVrTours');
     let profileBar = document.querySelector('.profileBar');
+    //--------------------------------------------------------------------------
 
-    profileBar.addEventListener('click', onClick);
+    // styles:
+    profileBody.textContent = '';
     profileBody.appendChild(useTemplate.profileSettingsTemp());
-    
+    profileBar.addEventListener('click', onClick);
+    //--------------------------------------------------------------------------
+  
     function onClick (e) {
         e.preventDefault();
+
         console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Event is Trigered...')
+
+        // Clearing profileBody content:
         profileBody.textContent = '';
+        //----------------------------------------------------------------------
 
         if (e.target.className === 'profileSettings'){
+
             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Settings btn is cliked!')
-            // some setup:
+
+            // styles:
             e.target.style.backgroundColor = '#48b664';
             vrBTN.style.backgroundColor = '#cacaca';
+            //-------------------------------------------------------------------
             
-            // render:
+            // Atouching the profileSettingsTemp to profileBody:
             profileBody.appendChild(useTemplate.profileSettingsTemp());
+            //-------------------------------------------------------------------
 
         } else if (e.target.className === 'profileVrTours'){
 
             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: My Vrs btn is cliked!')
-            // some setup:
+
+            // styles:
             e.target.style.backgroundColor = '#48b664';
             settingBTN.style.backgroundColor = '#cacaca';
+            //-------------------------------------------------------------------
           
-            // render:
+            // Atouching the profileVrToursTemp to profileBoddy:
             let frag = document.createRange().createContextualFragment(useTemplate.profileVrToursTemp())
             profileBody.appendChild(frag)
+            //-------------------------------------------------------------------
 
             // selections:
             const btnCreatVr = document.querySelector('.creatVr');
             const VrToursHolder = document.querySelector('.VrToursHolder');
             const userVrToursList = document.querySelector('.userVrToursList');
-            // here we must fetch all User Vr's and apended in '.userVrToursList !!! //
+            //--------------------------------------------------------------------
+
+            // here we must fetch all User Vr's and apended in '.userVrToursList !!! 
+            //--------------------------------------------------------------------
 
             btnCreatVr.addEventListener('click', onClickCreatVr)
 
             function onClickCreatVr (e) {
                 e.preventDefault()
-                btnCreatVr.style.display = 'none';
-
-                console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Event Creat VR is trigert!')
-                // here we must fetch all User Vr's and apended in '.userVrToursList !!! //
 
                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Creat Vr is trigerd!')
+
+                //styles:
+                btnCreatVr.style.display = 'none';
+                //--------------------------------------------------------------------
+
+                //selections:
                 let vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
                 btnCreatVr.after(vrFormFragment)
+                //--------------------------------------------------------------------
                 
-                // delete VrForm:
-                const btnCloseVrForm = document.querySelector('.btnCloseVrForm')
-                btnCloseVrForm.addEventListener('click', onDeleteVrForm);
-                function onDeleteVrForm(){
-                    btnCreatVr.style.display = '';
-                    VrToursHolder.removeChild(btnCloseVrForm.parentElement)
-                }
+                // Delete VrForm:
+                closeVrUserForm(btnCreatVr, VrToursHolder);
+                //--------------------------------------------------------------------
 
-                // adding and removing InputImage and IMGs id logic:
-                let btnAddImageInput = document.querySelector(".btnAddImageInput")
-                btnAddImageInput.addEventListener('click', onClickBtnInputImg);
+                // Adding and removing Input Images:
+                useTemplate.vrFormInputImgTempAndLogic()
+                //--------------------------------------------------------------------
 
-                let btnDeleteImageInput = document.querySelector(".btnDeleteImageInput")
-                btnDeleteImageInput.addEventListener('click', onClickBtnInputImg);
-
-                let formInputImageHolder = document.querySelector(".formInputImageHolder")
-                let countId = 0
-
-                function onClickBtnInputImg(e){
-                    e.preventDefault()
-                    console.log(e.target.className)
-        
-                    if (e.target.className === 'btnAddImageInput'){
-                        countId += 1
-                        let inputImageVrForm = document.createElement('input')
-                        inputImageVrForm.className = `inputImageVrForm-${countId}`
-                        inputImageVrForm.name = `inputImageVrForm-${countId}`
-                        inputImageVrForm.type = 'file'
-                        formInputImageHolder.appendChild(inputImageVrForm)
-
-                    } else if (e.target.className === 'btnDeleteImageInput' && countId > 0){
-                        countId -= 1
-                        formInputImageHolder.removeChild(formInputImageHolder.lastChild)
-                    }
-                }
-                //--------------------------------------------------------
-          
-                // inputImage background logic:
-                formInputImageHolder.addEventListener('change', onChangePicInput)
-                function onChangePicInput(e){
-                    if (e.target.nodeName == "INPUT"){
-
-                        let reader = new FileReader()
-                        reader.addEventListener('load', () => {
-                            console.log(reader.result)
-                            e.target.style.backgroundImage = `url(${reader.result})`
-                        })
-
-                        console.log("CTX: ", e.target)
-                        console.log("CTX: ", e.target.files)
-                        console.log("INF about pic upload: ", e.target.files[0])
-                        reader.readAsDataURL(e.target.files[0]);
-                    }
-                };
-                //----------------------------------------------------------
-
-                // data sumbmition:
-                let vrCreatForm = document.querySelector('.vrCreatForm');
-
-                vrCreatForm.addEventListener('submit', onSubmitNewVr)
-                function onSubmitNewVr (e) {
-                    e.preventDefault()
-                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Button Save Vr is trigerd!')
-
-                    let vrFormCreationDATA = new FormData(e.currentTarget);
-                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data:', Object.fromEntries(vrFormCreationDATA))
-
-                    //frontValidation--------------------------------------------:
-
-                    // returns: {field: errMessage}
-                    let errorMessenger = {} // useValidator.vrFormCreationValidation(vrFormCreationDATA);
-
-                    if (Object.keys(errorMessenger).length === 0){
-
-                        // returns: newUser {}
-                        fetchME.sendVrFormCreationDATA(vrFormCreationDATA)
-                            .then((result) => result.json())
-                            .then((newUser) => {
-
-                                console.log(newUser)
-                                if (!newUser.email){
-                                    useValidator.vrFormCreationValidation(Object.entries(newUser))
-                                }
-                                else {
-                                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data: NO ERRORS');
-                                    btnCreatVr.style.display = '';
-                                    VrToursHolder.removeChild(vrCreatForm.parentElement)
-                                }
-
-                                
-                                // fill the VRform and atoch to userVrToursList (it is selectet somewere up)
-
-
-                                // {_id: '62b5b8c4323ccf634d992b50', email: 'c8pensil@gmail.com', username: 
-                                //'SpasPStoilov',  password: '123', vrs: Array(1), …}
-
-                                // email: "c8pensil@gmail.com"
-                                // password: "123"
-                                // username: "SpasPStoilov"
-                                // vrs: Array(1)
-                                    // 0:
-                                        // LocationVrForm: "1"
-                                        // RadioBtnVrForm: "Sale"
-                                        // TypeApartmentVrForm: "OneRoomVrForm"
-                                        // areaCommonPartsVrForm: 1
-                                        // areaNoneCommonPartsVrForm: 1
-                                        // buildingSizeVrForm: null
-                                        // constructionVrForm: "noneConstructionVrForm"
-                                        // furnitureVrForm: "otherFurnishedVrForm"
-                                        // heatingVrForm: "noneHeatingVrForm"
-                                        // imgs: ['./static/useruploads/IronmanWallpaper.jpg']
-                                        // moreInfoVrForm: ""
-                                        // priceVrForm: 1
-                                        // propertyfloorVrForm: 1
-                                        // yearConstructionVrForm: 1
-                              
-                            })
-                            .catch((err) => console.log(err))
- 
-                    } else {
-                        console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data -> ERRORS:', errorMessenger);
-                    };
-                };
+                // Data sumbmition to server:
+                vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList)
+                //--------------------------------------------------------------------
             };
         };
     }
@@ -311,5 +313,7 @@ export const useService = {
     sendLogInInf,
     getUserData,
     sumbitNewSettingData,
-    trigerProfileSettingsAndVrTourLogic
+    trigerProfileSettingsAndVrTourLogic,
+    closeVrUserForm,
+    vrDataFormSubmition
 }
