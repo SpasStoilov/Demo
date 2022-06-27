@@ -33,7 +33,7 @@ async function userExistInDataBase(req, res, next) {
     next();
 };
 
-//new:
+
 async function verifyNewSettings (req, res, next){
     console.log('S:>>> LocalMiddlewares: verifyNewSettings acting...')
     console.log('S:>>> LocalMiddlewares: verifyNewSettings: userExistInDataBase: Req Body:', req.body)
@@ -51,8 +51,9 @@ async function verifyNewSettings (req, res, next){
     next()
 }
 
+
+
 module.exports = {
     userExistInDataBase,
-    verifyNewSettings
-
+    verifyNewSettings,
 }

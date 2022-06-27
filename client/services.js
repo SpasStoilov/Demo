@@ -247,13 +247,9 @@ function trigerProfileSettingsAndVrTourLogic () {
                     //frontValidation--------------------------------------------:
 
                     // returns: {field: errMessage}
-                    let errorMessenger = useValidator.vrFormCreationValidation(vrFormCreationDATA);
+                    let errorMessenger = {} // useValidator.vrFormCreationValidation(vrFormCreationDATA);
 
                     if (Object.keys(errorMessenger).length === 0){
-
-                        console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data: NO ERRORS');
-                        btnCreatVr.style.display = '';
-                        VrToursHolder.removeChild(vrCreatForm.parentElement)
 
                         // returns: newUser {}
                         fetchME.sendVrFormCreationDATA(vrFormCreationDATA)
@@ -261,6 +257,16 @@ function trigerProfileSettingsAndVrTourLogic () {
                             .then((newUser) => {
 
                                 console.log(newUser)
+                                if (!newUser.email){
+                                    useValidator.vrFormCreationValidation(Object.entries(newUser))
+                                }
+                                else {
+                                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data: NO ERRORS');
+                                    btnCreatVr.style.display = '';
+                                    VrToursHolder.removeChild(vrCreatForm.parentElement)
+                                }
+
+                                
                                 // fill the VRform and atoch to userVrToursList (it is selectet somewere up)
 
 
@@ -288,7 +294,7 @@ function trigerProfileSettingsAndVrTourLogic () {
                                         // yearConstructionVrForm: 1
                               
                             })
-                            .catch((err) => console.log(err.message))
+                            .catch((err) => console.log(err))
  
                     } else {
                         console.log('C:>>> trigerProfileSettingsAndVrTourLogic -> Form Data -> ERRORS:', errorMessenger);

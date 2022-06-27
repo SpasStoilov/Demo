@@ -8,7 +8,10 @@ function router (server){
     console.log('S:>>> Router acting...')
 
     //new:
-    server.post("/user/vruploads", useHandler.vrFormCreation)
+    server.post(
+        "/user/vruploads",
+        useHandler.vrFormCreation
+    );
 
     server.post(
         "/users/register",

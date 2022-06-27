@@ -26,7 +26,49 @@ async function validateCreation (userInstance) {
 
 
 
+function verifyVrUserFormData (fields, files){
+
+    console.log('S:>>> validations -> verifyVrUserFormData -> acting...');
+
+    let requiredFields = [
+        'LocationVrForm', 
+        'propertyfloorVrForm', 
+        'areaCommonPartsVrForm', 
+        'areaNoneCommonPartsVrForm', 
+        'priceVrForm', 
+    ]
+
+    let errorMessenger = {};
+  
+    for (let field of Object.entries(fields)){
+        let [name, value] = field;
+       
+        if (requiredFields.includes(name) && (value === "" || value === 'Задължително поле!')){
+            errorMessenger[name] = value;
+        }
+
+        else if (requiredFields.includes(name) && name !== 'LocationVrForm' && !Number(value)){
+            errorMessenger[name] = value;
+        }
+
+    }
+
+    for (let Img of Object.keys(files)){
+
+        const originalName = files[Img].originalFilename;
+
+        if (!originalName || (!originalName.endsWith('.jpg') && !originalName.endsWith('.png'))){
+            errorMessenger[Img] = {name: 'Img Required!'};
+        }
+       
+    };
+
+    return errorMessenger
+}
+
+
 //------ Validator Registrations ----:
 module.exports = {
     validateCreation,
+    verifyVrUserFormData
 };

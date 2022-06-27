@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const useBackService = require('./services.js');
 const formidable = require("formidable");
 const fs = require("fs/promises");
+const useBackValidator = require('./validations.js');
 
 //------ Request Hendler Functions ----:
 
@@ -143,52 +144,57 @@ async function settingsDataChange (req, res) {
 async function vrFormCreation(req, res){
 
     console.log('S:>>> Handler vrFormCreation acting...');
-    console.log('S:>>> Handler vrFormCreation: Current User in Session ->', req.session.user)
+    console.log('S:>>> Handler vrFormCreation: Current User in Session ->', req.session.user);
+    console.log('S:>>> Handler vrFormCreation: Current Req BODY ->', req.body);
 
     const formData = new formidable.IncomingForm();
-    console.log('S:>>> Handler vrFormCreation: FORMDATA:', formData)
-    let imgsNewPaths = []
+    console.log('S:>>> Handler vrFormCreation: FORMDATA:', formData);
+    let imgsNewPaths = [];
   
     formData.parse(req, (err, fields, files) => {
 
-        console.log('S:>>> Handler vrFormCreation: ERRORS:', err)
-        console.log('S:>>> Handler vrFormCreation: FIELDS:', fields)
-        console.log('S:>>> Handler vrFormCreation: FILES:', files)
-        console.log('S:>>> Handler vrFormCreation: FILES Keys:', Object.keys(files))
+        console.log('S:>>> Handler vrFormCreation: ERRORS:', err);
+        console.log('S:>>> Handler vrFormCreation: FIELDS:', fields);
+        console.log('S:>>> Handler vrFormCreation: FILES:', files);
+        console.log('S:>>> Handler vrFormCreation: FILES Keys:', Object.keys(files));
 
-        for (let Img of Object.keys(files)){
-            const oldPath = files[Img].filepath;
-            const name = files[Img].originalFilename;
-            const newPath = './static/useruploads/' + name;
+        let errorMessenger = useBackValidator.verifyVrUserFormData(fields, files) //returns errObj: {...}
 
-            try {
-                fs.copyFile(oldPath, newPath);
-                imgsNewPaths.push(newPath);
-            } catch (err) {
-                console.log(err.message);
+        if (Object.keys(errorMessenger).length !== 0){
+            res.json(errorMessenger)
+        }
+        else {
+
+            for (let Img of Object.keys(files)){
+                const oldPath = files[Img].filepath;
+                const name = files[Img].originalFilename;
+                const newPath = './static/useruploads/' + name;
+
+                try {
+                    fs.copyFile(oldPath, newPath);
+                    imgsNewPaths.push(newPath);
+                } catch (err) {
+                    console.log(err.message);
+                };
             };
+
+            console.log('S:>>> Handler vrFormCreation: New Imgs Paths:', imgsNewPaths);
+
+            async function newUserer (){
+                return await useBackService.creatVrAndAppendToUser(req.session.user.email, req.session.user.username, imgsNewPaths, fields);
+            };
+            newUserer()
+                .then((result) => {
+
+                    let newUser = result;
+                    console.log('S:>>> Handler vrFormCreation: New Userer:', newUser);
+                    res.json(newUser);
+
+                })
+                .catch((err) => console.log(err));
         }
 
-        console.log('S:>>> Handler vrFormCreation: New Imgs Paths:', imgsNewPaths)
-
-        async function newUserer (){
-            return await useBackService.creatVrAndAppendToUser(req.session.user.email, req.session.user.username, imgsNewPaths, fields);
-        }
-        
-        newUserer()
-            .then((result) => {
-
-                let newUser = result
-                console.log('S:>>> Handler vrFormCreation: New Userer:', newUser)
-                res.json(newUser)
-
-            })
-            .catch((err) => console.log(err))
-
-        
     })
-
-
 
 };
 

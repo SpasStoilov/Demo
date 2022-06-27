@@ -98,12 +98,14 @@ async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
 
 }
 
+
+
 //------ Service Registrations ----:
 module.exports = {
     userCreation,
     checkForUser,
     updateUserSettings,
-    creatVrAndAppendToUser
+    creatVrAndAppendToUser,
 };
 
 
