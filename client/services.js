@@ -173,13 +173,13 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
                         console.log('C:>>> vrDataFormSubmition -> NO Server ERRORS!');
                         btnCreatVr.style.display = '';
                         VrToursHolder.removeChild(vrCreatForm.parentElement)
+                        let newVrObjToAppend = newUser.vrs[0]
                     }
  
                     // fill the VRform and atoch to userVrToursList (it is selectet somewere up)
 
 
-                    // {_id: '62b5b8c4323ccf634d992b50', email: 'c8pensil@gmail.com', username: 
-                    //'SpasPStoilov',  password: '123', vrs: Array(1), …}
+                    // {_id: '62b5b8c4323ccf634d992b50', email: 'c8pensil@gmail.com', username: 'SpasPStoilov',  password: '123', vrs: Array(1), …}
 
                     // email: "c8pensil@gmail.com"
                     // password: "123"
@@ -210,6 +210,17 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
         };
 
     };
+}
+
+
+function fillUserVrToursList(user, userVrToursList){
+    console.log("C:>>> fillUserVrToursList -> User", user);
+    console.log("C:>>> fillUserVrToursList -> LastTour", user.vrs[0]);
+    console.log("C:>>> fillUserVrToursList -> userVrToursList", userVrToursList);
+
+    if (user.vrs.length !== 0){
+        
+    }
 }
 
 
@@ -272,7 +283,13 @@ function trigerProfileSettingsAndVrTourLogic () {
             const userVrToursList = document.querySelector('.userVrToursList');
             //--------------------------------------------------------------------
 
-            // here we must fetch all User Vr's and apended in '.userVrToursList !!! 
+            // here we fetch all User Vr's and apended in '.userVrToursList !!!
+             fetchME.userVrs()
+                .then(resp => resp.json())
+                .then(user => {
+                    fillUserVrToursList(user, userVrToursList)
+                })
+                .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs():", err.message))
             //--------------------------------------------------------------------
 
             btnCreatVr.addEventListener('click', onClickCreatVr)

@@ -128,10 +128,18 @@ const vrFormTemplate = () => `
             <option value="BasementVrForm">Мазе</option>
             <option value="StudioVrForm">Ателие</option>
             <option value="ShopVrForm">Магазин</option>
+            <option value="GroundVrForm">Земя</option>
         </select>
         
-        
-        <label for="LocationVrForm">Адрес на имота *</label>
+        <label for="imgs-googleLocationDescription">Google Адрес на имота *</label>
+        <div class="imgs-googleLocationDescription">
+            <img src="/googleLocationDescription/step1.jpg" alt="pichere">
+            <img src="/googleLocationDescription/step2.jpg" alt="pichere">
+            <img src="/googleLocationDescription/step3.jpg" alt="pichere">
+            <img src="/googleLocationDescription/step4.jpg" alt="pichere">
+        </div>
+
+        <label for="LocationVrForm">Поставете копирания адрес в полето:</label>
         <input type="text" name="LocationVrForm">
         
         <label for="propertyfloorVrForm">Етаж на апартамента *</label>
@@ -145,6 +153,12 @@ const vrFormTemplate = () => `
 
         <label for="priceVrForm">Цена/кв.м.*</label>
         <input type="text" name="priceVrForm">
+        
+        <label for="curuncyVrForm">Валута</label>
+        <select name="curuncyVrForm">
+            <option value="EURO">Евро</option>
+            <option value="BGN">Лева</option>
+        </select>
 
         <label for="yearConstructionVrForm">Година на строеж</label>
         <input type="text" name="yearConstructionVrForm">
@@ -240,6 +254,7 @@ function vrFormInputImgTempAndLogic() {
         }
     };
 }
+
 
 export const useTemplate = {
     homeTemp,

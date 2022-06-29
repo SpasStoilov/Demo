@@ -273,3 +273,152 @@ p {
     /* box-shadow: 0px 1px 5px rgb(161, 161, 161); */
 }
 
+.imgs-googleLocationDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+}
+
+.imgs-googleLocationDescription > img {
+    width: 600px;
+    height: 500px;
+}
+
+
+
+
+
+
+
+/* formalForm styles */
+
+.formalVrFormHolder{
+    display: inline-flex;
+    flex-direction: column;
+    width: 800px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgb(134, 134, 134);
+    padding-bottom: 5px;
+}
+
+.buttonViews-VrFormalForm, #pano, .buttonInformation {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonViews-VrFormalForm, .buttonInformation, #pano{
+    position: relative;
+}
+
+.title-VrFormalForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 800px;
+    height: 100px;
+    /* background-color: antiquewhite; */
+}
+
+.price-curency-title-vrFormalForm, .typeProp-typeVr-title-vrFormalForm {
+    margin: 5px 0px 5px 25px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.typeProp-typeVr-title-vrFormalForm {
+    font-weight: lighter;
+}
+
+#pano{
+    width: 800px;
+    height: 400px;
+}
+
+.buttonViews-VrFormalForm > button, .buttonInformation > button {
+    padding: 7px 10px 7px 10px;
+    width: auto;
+    height: auto;
+    background: none;
+    border: 2px solid rgb(207, 207, 207);
+    border-radius: 12px;
+}
+
+.manuHolder-VrFormalForm {
+    display: flex;
+    justify-content: end;
+    border-bottom: 2px solid rgb(231, 231, 231);
+    /* background-color: rgb(218, 218, 218);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%; */
+}
+
+.btnManu-VrFormalForm {
+    width: auto;
+    height: auto;
+    padding: 0px;
+    background: none;
+    border: none;
+    font-size: 25px;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: gray;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+span {
+    font-weight: bold;
+}
+
+.buyerInformation-VrFormalForm > ol > p, .sellarInformation-VrFormalForm > ol > p {
+    font-size: 17px;
+}
+.buyerInformation-VrFormalForm, .sellarInformation-VrFormalForm {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.buyerInformation-VrFormalForm > h2, .sellarInformation-VrFormalForm > h2 {
+    text-align: center;
+}
+
+.description-VrFormalForm,
+.GoogleAdress-VrFormalForm,
+.buyerInformation-VrFormalForm,
+.sellarInformation-VrFormalForm {
+    display: none;
+}
+
+.block-description-VrFormalForm {
+    width: 800px;
+    display: flex;
+    position: relative;
+    background-color: aqua;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-holder-description-VrFormalForm, .title-description-VrFormalForm {
+    width: 400px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.text-holder-description-VrFormalForm {
+    inline-size: 400px;
+    overflow-wrap: break-word;
+}
+.moreinfo-description-VrFormalForm {
+    inline-size: 600px;
+    overflow-wrap: break-word;
+}
+
+.moreinfo-description-VrFormalForm {
+    margin-left: 100px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px solid rgb(231, 231, 231);
+    border-bottom: 2px solid rgb(231, 231, 231);
+}
+

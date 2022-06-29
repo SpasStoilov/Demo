@@ -4,6 +4,7 @@ const formidable = require("formidable");
 const fs = require("fs/promises");
 const useBackValidator = require('./validations.js');
 
+
 //------ Request Hendler Functions ----:
 
 function home (req, res) {
@@ -166,9 +167,14 @@ async function vrFormCreation(req, res){
         else {
 
             for (let Img of Object.keys(files)){
+
+                
                 const oldPath = files[Img].filepath;
                 const name = files[Img].originalFilename;
-                const newPath = './static/useruploads/' + name;
+
+                let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
+
+                const newPath = './static/useruploads/'+ `ID-${ID}-` + name;
 
                 try {
                     fs.copyFile(oldPath, newPath);
@@ -187,6 +193,7 @@ async function vrFormCreation(req, res){
                 .then((result) => {
 
                     let newUser = result;
+                    req.session.user= newUser;
                     console.log('S:>>> Handler vrFormCreation: New Userer:', newUser);
                     res.json(newUser);
 
@@ -198,7 +205,11 @@ async function vrFormCreation(req, res){
 
 };
 
-
+function getUserVrs(req, res) {
+    console.log("S:>>> getUserVrs acting...");
+    console.log("S:>>> getUserVrs -> res.session.user:", req.session.user);
+    res.json(req.session.user);
+};
 
 
 //------ Hendler Registrations ----:
@@ -209,7 +220,8 @@ const useHandler = {
     logout,
     extractingUserDataRegistration,
     settingsDataChange,
-    vrFormCreation
+    vrFormCreation,
+    getUserVrs
 };
 
 module.exports = useHandler;

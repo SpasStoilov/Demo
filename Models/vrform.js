@@ -8,6 +8,7 @@ const vrSchema = new Schema({
     areaCommonPartsVrForm: Number,
     areaNoneCommonPartsVrForm: Number,
     priceVrForm: Number,
+    curuncyVrForm: String,
     yearConstructionVrForm: Number,
     buildingSizeVrForm: Number,
     furnitureVrForm: String,
@@ -16,7 +17,6 @@ const vrSchema = new Schema({
     moreInfoVrForm: String,
     ComplexVrForm: String,
     imgs: Array,
-    //filesForSale: Array,
 })
 
 const vrModel = model('VR', vrSchema);

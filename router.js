@@ -7,7 +7,7 @@ const useLocalMiddlewere = require('./LocalMiddlewares.js');
 function router (server){
     console.log('S:>>> Router acting...')
 
-    //new:
+
     server.post(
         "/user/vruploads",
         useHandler.vrFormCreation
@@ -40,6 +40,9 @@ function router (server){
 
     server.get('/user/data', useHandler.extractingUserDataRegistration)
     server.get("/logout", useHandler.logout);
+
+    // new:
+    server.get("/user/vrs", useHandler.getUserVrs)
 
     server.get("*", useHandler.home);
 };

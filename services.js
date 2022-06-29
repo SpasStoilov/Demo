@@ -4,16 +4,16 @@ const useBackValidator = require('./validations.js');
 const bcrypt = require('bcrypt');
 
 
-async function hashPassword (pass) {
-    const salt = 8;
-    const hashed = await bcrypt.hash(pass, salt);
-    return hashed;
-};
+// async function hashPassword (pass) {
+//     const salt = 8;
+//     const hashed = await bcrypt.hash(pass, salt);
+//     return hashed;
+// };
 
-async function comparePasswords (pass, hash) {
-    const result = await bcrypt.compare(pass, hash);
-    return result;
-};
+// async function comparePasswords (pass, hash) {
+//     const result = await bcrypt.compare(pass, hash);
+//     return result;
+// };
 
 
 async function checkForUser (email, logPassword, flag) {
@@ -76,8 +76,7 @@ async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
 
     let objVr = fields
     objVr.imgs = imgsNewPaths
-    //objVr.filesForSale = [here we have to append corect files for sale of the propartie (paths from static files)......]
-
+    
     console.log('S:>>> creatVrAndAppendToUser -> Fields', objVr)
 
     try {

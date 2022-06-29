@@ -118,10 +118,15 @@ function sendVrFormCreationDATA(vrFormCreationDATA){
     })
 }
 
+function userVrs() {
+    return fetch(`${baseURL}/user/vrs`)
+}
+
 export const fetchME = {
     sendRegisterData,
     sendLogInData,
     userDataRegistrations,
     sendSettingsData,
-    sendVrFormCreationDATA
+    sendVrFormCreationDATA,
+    userVrs
 }
