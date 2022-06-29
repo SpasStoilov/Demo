@@ -1,6 +1,8 @@
 import { fetchME } from './fetchme.js';
 import { useValidator } from './validations.js';
 import {useTemplate} from "./templates.js";
+import {render} from "./node_modules/lit-html/lit-html.js";
+import {goMarzipano} from "./formalVrTemplateLogic.js";
 
 function sendRegisterInf(e){
     console.log('C:>>> Service sendRegisterInfo acting...')
@@ -219,7 +221,8 @@ function fillUserVrToursList(user, userVrToursList){
     console.log("C:>>> fillUserVrToursList -> userVrToursList", userVrToursList);
 
     if (user.vrs.length !== 0){
-        
+        render(useTemplate.formalVrTemplate(), userVrToursList)
+        goMarzipano();
     }
 }
 
