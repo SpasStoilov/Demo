@@ -1,4 +1,3 @@
-
 export function goMarzipano(){
 
   let viewer = new Marzipano.Viewer(document.getElementById('pano'));

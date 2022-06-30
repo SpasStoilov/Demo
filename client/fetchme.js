@@ -108,7 +108,6 @@ function sendSettingsData(bodyInfo) {
 };
 
 
-// new:
 function sendVrFormCreationDATA(vrFormCreationDATA){
     console.log('C:>>> fetchME -> sendVrFormCreationDATA...: ', vrFormCreationDATA)
     

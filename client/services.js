@@ -217,13 +217,19 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
 
 function fillUserVrToursList(user, userVrToursList){
     console.log("C:>>> fillUserVrToursList -> User", user);
-    console.log("C:>>> fillUserVrToursList -> LastTour", user.vrs[0]);
+    console.log("C:>>> fillUserVrToursList -> LastTour", user.vrs[0].curuncyVrForm);
     console.log("C:>>> fillUserVrToursList -> userVrToursList", userVrToursList);
 
-    if (user.vrs.length !== 0){
-        render(useTemplate.formalVrTemplate(), userVrToursList)
-        goMarzipano();
-    }
+    // if (user.vrs.length !== 0){
+    //     const vrsList = user.vrs
+
+    //     for (let vr of vrsList){
+
+    //         render(useTemplate.formalVrTemplate(), userVrToursList)
+    //         goMarzipano();
+    //     }
+        
+    // }
 }
 
 
@@ -292,7 +298,7 @@ function trigerProfileSettingsAndVrTourLogic () {
                 .then(user => {
                     fillUserVrToursList(user, userVrToursList)
                 })
-                .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs():", err.message))
+                .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs() -> ERRORS", err.message))
             //--------------------------------------------------------------------
 
             btnCreatVr.addEventListener('click', onClickCreatVr)

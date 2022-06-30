@@ -77,7 +77,7 @@ async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
     let objVr = fields
     objVr.imgs = imgsNewPaths
     
-    console.log('S:>>> creatVrAndAppendToUser -> Fields', objVr)
+    console.log('S:>>> Service -> creatVrAndAppendToUser -> Fields', objVr)
 
     try {
 
@@ -88,8 +88,8 @@ async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
         user.vrs.push(vr)
         user.save()
 
-        console.log('S:>>> creatVrAndAppendToUser -> Return User:', user)
-        return user
+        console.log('S:>>> Service -> creatVrAndAppendToUser -> Return User:', user.populate('vrs'))
+        return user.populate('vrs')
         
     } catch (err){
         console.log(err.message)
@@ -97,7 +97,17 @@ async function creatVrAndAppendToUser(email, username, imgsNewPaths, fields){
 
 }
 
-
+async function getUser(user){
+    let obj = {email: user.email, username: user.username}
+    try {
+        let user = await UserModel.findOne(obj).populate('vrs')
+        console.log('S:>>> Service -> getUser -> Return User:', user)
+        return user
+        
+    } catch (err){
+        console.log('S:>>> Service -> getUser -> ERROR:', err.message)
+    }
+}
 
 //------ Service Registrations ----:
 module.exports = {
@@ -105,6 +115,7 @@ module.exports = {
     checkForUser,
     updateUserSettings,
     creatVrAndAppendToUser,
+    getUser
 };
 
 

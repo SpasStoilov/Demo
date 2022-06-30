@@ -205,10 +205,11 @@ async function vrFormCreation(req, res){
 
 };
 
-function getUserVrs(req, res) {
-    console.log("S:>>> getUserVrs acting...");
-    console.log("S:>>> getUserVrs -> res.session.user:", req.session.user);
-    res.json(req.session.user);
+async function getUserVrs(req, res) {
+    console.log("S:>>> Handler -> getUserVrs acting...");
+    console.log("S:>>> Handler -> getUserVrs -> res.session.user:", req.session.user);
+    let user = await useBackService.getUser(req.session.user)
+    res.json(user);
 };
 
 
