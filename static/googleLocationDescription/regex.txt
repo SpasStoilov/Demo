@@ -1,7 +1,5 @@
 src="[a-zA-Z0-9://.?=!% ";-]+
 
-
-
 test:
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2931.6120991320854!2d23.295940815756097!3d42.71193362079911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8554cc760fab%3A0x5edeaaefe065ac51!2s1309%20Sveta%20Troitsa%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1656494095206!5m2!1sen!2sbg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

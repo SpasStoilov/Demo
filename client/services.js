@@ -4,6 +4,44 @@ import {useTemplate} from "./templates.js";
 import {render} from "./node_modules/lit-html/lit-html.js";
 import {goMarzipano} from "./formalVrTemplateLogic.js";
 
+
+const defaultLocation = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.2986166567994!2d23.31935981575583!3d42.697397421723046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa856ec8633e15%3A0xbb095af9967ad612!2sbulevard%20%22Knyaginya%20Maria%20Luiza%22%202%2C%201000%20Sofia%20Center%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1656494888255!5m2!1sen!2sbg";
+
+const dictionaryValues = {
+    Sale:'Продажба',
+    Apartment: "Наем",
+    Replace: "Замяна",
+
+    OneRoomVrForm: "Едностаен",
+    TwoRoomsVrForm: "Двустаен",
+    ThreeRoomsVrForm: "Тристаен",
+    ManyRoomsVrForm: "Многостаен",
+    PenthouseVrForm: "Мезонет",
+    HouseVrForm: "Къща",
+    ParkingSpaceVrForm: "Паркомясто",
+    BasementVrForm: "Мазе",
+    StudioVrForm: "Ателие",
+    ShopVrForm: "Магазин",
+    GroundVrForm: "Земя",
+
+    otherFurnishedVrForm: "Друго",
+    furnishedVrForm: "Обзаведен",
+    semiFurnishedVrForm: "Полуобзаведен",
+    unfurnishedVrForm: "Необзаведен",
+
+    noneConstructionVrForm: "Друго",
+    newConstructionVrForm: "Ново строителство",
+    oldConstructionVrForm: "Старо строителство",
+    complexConstructionVrForm: "Комплекс",
+
+    noneHeatingVrForm: "Друго",
+    gasVrForm: "Газ",
+    electricityFurnishedVrForm: "Електричество",
+    districtHeatingVrForm: "Топлофикация",
+    solarPanelsHeatingVrForm: "Соларни Панели"
+}
+
+
 function sendRegisterInf(e){
     console.log('C:>>> Service sendRegisterInfo acting...')
     console.log('C:>>> Service sendRegisterInfo: Extract FormData...')
@@ -216,20 +254,52 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
 
 
 function fillUserVrToursList(user, userVrToursList){
-    console.log("C:>>> fillUserVrToursList -> User", user);
-    console.log("C:>>> fillUserVrToursList -> LastTour", user.vrs[0].curuncyVrForm);
-    console.log("C:>>> fillUserVrToursList -> userVrToursList", userVrToursList);
+    console.log("C:>>> Service -> fillUserVrToursList -> User", user);
+    console.log("C:>>> Service -> fillUserVrToursList -> userVrToursList", userVrToursList);
 
-    // if (user.vrs.length !== 0){
-    //     const vrsList = user.vrs
+    if (user.vrs.length !== 0){
+        const vrsList = user.vrs
+        const patternLocation = /(?<=src=")[a-zA-Z0-9://.?=!% ";-]+(?=")/
 
-    //     for (let vr of vrsList){
+        for (let vr of vrsList){
 
-    //         render(useTemplate.formalVrTemplate(), userVrToursList)
-    //         goMarzipano();
-    //     }
+            let newvr = vr
+
+            for (let [vrField, vrFieldValue] of Object.entries(vr)){
+
+                console.log("C:>>> Service -> fillUserVrToursList -> vr -> field:", vrField);
+                console.log("C:>>> Service -> fillUserVrToursList -> vr -> value:", vrFieldValue);
+
+                if (vrField === 'LocationVrForm'){
+                    let matchValue = vrFieldValue.match(patternLocation)
+                    if (!matchValue) {
+                        newvr.vrField = defaultLocation
+                    } else {
+                        newvr.vrField = matchValue[0]
+                    }
+                }
+                else if (!vrFieldValue && vrField !== "_id"){
+                    console.log("C:>>> Service -> fillUserVrToursList -> Field Empty -> value:", vrFieldValue)
+                    newvr.vrField = " "
+                }
+                else if (Object.keys(dictionaryValues).includes(vrFieldValue)){
+                    console.log("C:>>> Service -> fillUserVrToursList -> dictionaryValues -> value:", dictionaryValues[vrFieldValue]);
+                    newvr[vrField] = dictionaryValues[vrFieldValue]
+                }
+            };
+                
+            console.log("C:>>> Service -> fillUserVrToursList -> vr", newvr);
+            let frag = document.createRange().createContextualFragment(useTemplate.formalVrTemplate(newvr));
+            userVrToursList.appendChild(frag);
+
+            // goMarzipano(vr.imgs, userVrToursList);
+            
+        }
         
-    // }
+    }
+    else {
+        console.log("C:>>> fillUserVrToursList -> No VR's found!")
+    }
 }
 
 

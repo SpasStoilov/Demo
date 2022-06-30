@@ -174,7 +174,7 @@ async function vrFormCreation(req, res){
 
                 let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
 
-                const newPath = './static/useruploads/'+ `ID-${ID}-` + name;
+                const newPath = './static/useruploads/'+ `ID-${ID}-end$` + name;
 
                 try {
                     fs.copyFile(oldPath, newPath);

@@ -15,7 +15,6 @@ const vrSchema = new Schema({
     constructionVrForm: String,
     heatingVrForm: String,
     moreInfoVrForm: String,
-    ComplexVrForm: String,
     imgs: Array,
 })
 

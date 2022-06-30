@@ -175,11 +175,12 @@ const vrFormTemplate = () => `
         </select>
         
 
-        <label for="constructionVrForm">Вид Конструкция</label>
+        <label for="constructionVrForm">Строителство</label>
         <select name="constructionVrForm">
             <option value="noneConstructionVrForm">Друго</option>
-            <option value="panelsVrForm">Панел</option>
-            <option value="semiFurnishedVrForm">Тухла</option>
+            <option value="newConstructionVrForm">Ново строителство</option>
+            <option value="oldConstructionVrForm">Старо строителство</option>
+            <option value="complexConstructionVrForm">Комплекс</option>
         </select>
         
 
@@ -192,18 +193,18 @@ const vrFormTemplate = () => `
             <option value="solarPanelsHeatingVrForm">Соларни Панели</option>
         </select>
         
-        
-        <label for="ComplexVrForm">Допълнителна информация</label>
+        <label for="moreInfoVrForm">Допълнителна информация</label>
         <textarea name="moreInfoVrForm"></textarea>
 
-        <label for="ComplexVrForm">Затворен Комплекс</label>
-        <input type="checkbox" name="ComplexVrForm" id="" value="Complex">
-
         <input class=".uploadVrBtn" type="submit" value="Запази">
+
     </form>
 
 </div>
 `;
+
+// <label for="ComplexVrForm">Затворен Комплекс</label>
+// <input type="checkbox" name="ComplexVrForm" id="" value="Complex">
 
 
 function vrFormInputImgTempAndLogic() {
@@ -255,7 +256,7 @@ function vrFormInputImgTempAndLogic() {
     };
 }
 
-const formalVrTemplate = () => html`
+const formalVrTemplate = (vr) => {return `
 <div class="formalVrFormHolder">
 
     <div class="manuHolder-VrFormalForm">
@@ -264,20 +265,18 @@ const formalVrTemplate = () => html`
 
     <div class="buttonViews-VrFormalForm">
         
-            <button>angra</button>
+            <!-- <button>angra</button>
             <button>pic</button>
             <button>big</button>
-            <button>bigsea</button> 
+            <button>bigsea</button>  -->
        
     </div>
 
     <div id="pano"></div>
 
     <div class="title-VrFormalForm">
-        <!-- <span>RadioBtnVrForm</span> || TypeApartmentVrForm</h2> -->
-        <h2 class="typeProp-typeVr-title-vrFormalForm"></h2>
-        <!-- priceVrForm curuncyVrForm/кв.м. -->
-        <h2 class="price-curency-title-vrFormalForm"></h2>
+        <h2 class="typeProp-typeVr-title-vrFormalForm"><span>${vr.RadioBtnVrForm}</span> || ${vr.TypeApartmentVrForm}</h2>
+        <h2 class="price-curency-title-vrFormalForm">${vr.priceVrForm} ${vr.curuncyVrForm}/кв.м.</h2>
     </div>
     
     <div class="buttonInformation">
@@ -290,7 +289,7 @@ const formalVrTemplate = () => html`
     <div class="description-VrFormalForm">
 
         <div class="moreinfo-description-VrFormalForm">
-            <!-- moreInfoVrForm: String, -->
+            ${vr.moreInfoVrForm}
         </div>
 
         <!-- reuse logic here-->
@@ -315,7 +314,7 @@ const formalVrTemplate = () => html`
     
     <div class="GoogleAdress-VrFormalForm">
         <!-- src = LocationVrForm -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.2986166567994!2d23.31935981575583!3d42.697397421723046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa856ec8633e15%3A0xbb095af9967ad612!2sbulevard%20%22Knyaginya%20Maria%20Luiza%22%202%2C%201000%20Sofia%20Center%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1656494888255!5m2!1sen!2sbg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="${vr.LocationVrForm}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
 
@@ -434,6 +433,7 @@ const formalVrTemplate = () => html`
 
 </div>
 `
+}
 
 export const useTemplate = {
     homeTemp,
