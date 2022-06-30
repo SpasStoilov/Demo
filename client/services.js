@@ -343,7 +343,9 @@ function fillUserVrToursList(user, userVrToursList){
 
             
             for (let [field, value] of Object.entries(newvr)){
+
                 console.log("XXXXX description-VrFormalForm and block-description-VrFormalForm")
+
                 if (Object.keys(fieldsOfIntrest).includes(field)){
                     let frag = document.createRange().createContextualFragment(useTemplate.blockDescriptionVrFormalForm(fieldsOfIntrest[field], value));
                     descriptionVrFormalForm.appendChild(frag);
@@ -352,6 +354,7 @@ function fillUserVrToursList(user, userVrToursList){
             }
 
             const allFieldOfIntrest = descriptionVrFormalForm.querySelectorAll('.block-description-VrFormalForm:nth-child(2n)')
+
             for (let fieldIn of allFieldOfIntrest) {
                 console.log("YYYYYY description-VrFormalForm and block-description-VrFormalForm")
                 fieldIn.style.backgroundColor = "#7ADFDF"
@@ -378,7 +381,7 @@ function fillUserVrToursList(user, userVrToursList){
                 btn.textContent = imgName;
 
                 if (count == 1){
-                btn.style.backgroundColor = 'green';
+                btn.style.backgroundColor = '#CFCFCF';
                 }
 
                 buttonsHolder.appendChild(btn);
@@ -394,7 +397,7 @@ function fillUserVrToursList(user, userVrToursList){
             console.log("C:>>> C:>>> Service -> fillUserVrToursList -> IMG -> name, ID, Ex:", imgNameAndID);
             console.log("C:>>> C:>>> Service -> fillUserVrToursList -> IMG -> firstImgLocation:", firstImgLocation);
 
-            // goMarzipano(firstImgLocation, pano, imgNameAndID, buttonsHolder);
+            goMarzipano(firstImgLocation, pano, imgNameAndID, buttonsHolder);
             
         }
 
@@ -468,13 +471,56 @@ function trigerProfileSettingsAndVrTourLogic () {
              fetchME.userVrs()
                 .then(resp => resp.json())
                 .then(user => {
-                    fillUserVrToursList(user, userVrToursList)
+                    fillUserVrToursList(user, userVrToursList);
                 })
                 .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs() -> ERRORS", err.message))
             //--------------------------------------------------------------------
+            
+            //btn Descriptors logic:
+            const BtnDescriptors = {
+                '.btnDescription-VrFormalForm': '.description-VrFormalForm',
+                '.btnAdress-VrFormalForm': '.GoogleAdress-VrFormalForm',
+                '.btnBuyerInformation-VrFormalForm': '.buyerInformation-VrFormalForm',
+                '.btnSellarInformation-VrFormalForm': '.sellarInformation-VrFormalForm',
+            };
 
-            btnCreatVr.addEventListener('click', onClickCreatVr)
+            VrToursHolder.addEventListener('click', onClickVrToursHolder);
 
+            function onClickVrToursHolder(e){
+                e.preventDefault()
+                console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder is clicked at:', e.target);
+              
+                if (e.target.nodeName === "BUTTON" && Object.keys(BtnDescriptors).includes('.' + e.target.className) || e.target.className === "show-Less-VrFormalForm"){
+
+                    const buttonInformation = e.target.parentElement;
+                    buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = "block"
+                    const formalVrFormHolder = buttonInformation.parentElement;
+
+                    // btn Decriptors backgroundColor chnage:
+                    for (let [btnClasName, fieldToExpandClassName] of Object.entries(BtnDescriptors)){
+                        console.log(buttonInformation)
+                        buttonInformation.querySelector(btnClasName).style.backgroundColor = '';
+                        formalVrFormHolder.querySelector(fieldToExpandClassName).style.display = 'none';
+                    };
+
+                    console.log(e.target.className)
+
+                    if (e.target.className !== "show-Less-VrFormalForm"){
+                        e.target.style.backgroundColor = "#CFCFCF"
+                        formalVrFormHolder.querySelector(BtnDescriptors['.' + e.target.className]).style.display = 'block';
+                    }
+                    else{
+                        buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = 'none'
+                    }
+               
+                    //----------------------------------------
+                };
+
+            };
+
+            //----------------------------------------------------------------------------------------------
+
+            btnCreatVr.addEventListener('click', onClickCreatVr);
             function onClickCreatVr (e) {
                 e.preventDefault()
 

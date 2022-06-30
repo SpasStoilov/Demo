@@ -286,19 +286,19 @@ let formalVrTemplate = (vr) => {return `
         <button class="btnAdress-VrFormalForm">Google Адрес</button>
         <button class="btnBuyerInformation-VrFormalForm">Документи за Продавача</button>
         <button class="btnSellarInformation-VrFormalForm">Документи за Купувача</button>
+        <button class="show-Less-VrFormalForm">Скрий</button>
     </div>
 
     <div class="description-VrFormalForm">
 
         <div class="moreinfo-description-VrFormalForm">
-            ${vr.moreInfoVrForm}
+            ${vr.moreInfoVrForm ? vr.moreInfoVrForm:""}
         </div>
         <div class="block-description-VrFormalForm"></div>
-        
     </div>
     
     <div class="GoogleAdress-VrFormalForm">
-        <iframe width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src=${vr.LocationVrForm} width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
 
@@ -412,7 +412,6 @@ let formalVrTemplate = (vr) => {return `
             <li><h3>Удостоверение за семейно положение (Искане удостоверение за семейно положение)</h3></li>
             <label for="">Искане удостоверение за семейно положение:</label>
         </ol>
-        
     </div>
 
 </div>

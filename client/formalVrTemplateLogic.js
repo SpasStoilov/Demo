@@ -32,39 +32,50 @@ export function goMarzipano(firstImgLocation, pano, imgNameAndID, buttonsHolder)
   });
   //----------------------------------------------------------------------------
 
-  // // Event:
-  // buttonsHolder.addEventListener('click', (e) => {
-  //   e.preventDefault()
+  // Event:
+  buttonsHolder.addEventListener('click', (e) => {
+    e.preventDefault()
 
-  //   console.log("C:>>> goMarzipano -> userVrToursList is clicked at:", e.target)
+    console.log("C:>>> goMarzipano -> userVrToursList is clicked at:", e.target)
 
-  //   if (e.target.nodeName === "BUTTON" && Object.keys(imgNameAndID).includes(e.target.textContent)){
-  //     const ImgName = e.target.textContent;
-  //     const ImgID = imgNameAndID[ImgName][0];
-  //     const ImgEx = imgNameAndID[ImgName][1];
-  //     const ImgLocation = `useruploads/${ImgID}${ImgName}${ImgEx}`;
 
-  //     console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> Name:", ImgName);
-  //     console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> ID:", ImgID);
-  //     console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> Ex:", ImgEx);
-  //     console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> Location:", ImgLocation);
 
-  //     let source = Marzipano.ImageUrlSource.fromString(ImgLocation);
+    if (e.target.nodeName === "BUTTON" && Object.keys(imgNameAndID).includes(e.target.textContent)){
+
+      // seting all btn background to none:
+      const allbtns = buttonsHolder.querySelectorAll("button")
+      for (let b of allbtns){
+        b.style.backgroundColor = "";
+      }
+      //----------------------------------------------------------------------------------------
+
+      e.target.style.backgroundColor = '#CFCFCF';
+      const ImgName = e.target.textContent;
+      const ImgID = imgNameAndID[ImgName][0];
+      const ImgEx = imgNameAndID[ImgName][1];
+      const ImgLocation = `useruploads/${ImgID}${ImgName}${ImgEx}`;
+
+      console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> Name:", ImgName);
+      console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> ID:", ImgID);
+      console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> Ex:", ImgEx);
+      console.log("C:>>> goMarzipano -> buttonsHolder -> e.target -> Location:", ImgLocation);
+
+      let source = Marzipano.ImageUrlSource.fromString(ImgLocation);
     
-  //     let scene = viewer.createScene({
-  //       source: source,
-  //       geometry: geometry,
-  //       view: view,
-  //       pinFirstLevel: true
-  //     });
+      let scene = viewer.createScene({
+        source: source,
+        geometry: geometry,
+        view: view,
+        pinFirstLevel: true
+      });
     
-  //     // Display new scene.
-  //     scene.switchTo();
-  //     //----------------------------------------------------------------------------
+      // Display new scene.
+      scene.switchTo();
+      //----------------------------------------------------------------------------
   
-  //   };
+    };
   
-  // });
+  });
 
   //----------------------------------------------------------------------------
 

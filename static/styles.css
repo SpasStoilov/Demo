@@ -344,6 +344,7 @@ p {
     background: none;
     border: 2px solid rgb(207, 207, 207);
     border-radius: 12px;
+    margin: 2px;
 }
 
 .manuHolder-VrFormalForm {
@@ -383,11 +384,11 @@ span {
     text-align: center;
 }
 
-.description-VrFormalForm,
 .GoogleAdress-VrFormalForm,
+.description-VrFormalForm,
 .buyerInformation-VrFormalForm,
 .sellarInformation-VrFormalForm {
-    display: block;
+    display: none;
 }
 
 .block-description-VrFormalForm {
@@ -399,6 +400,9 @@ span {
     align-items: center;
 }
 
+.show-Less-VrFormalForm{
+    display: none;
+}
 .text-holder-description-VrFormalForm, .title-description-VrFormalForm {
     width: 400px;
     text-align: center;
