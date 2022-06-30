@@ -259,11 +259,12 @@ function fillUserVrToursList(user, userVrToursList){
 
     if (user.vrs.length !== 0){
         const vrsList = user.vrs
-        const patternLocation = /(?<=src=")[a-zA-Z0-9://.?=!% ";-]+(?=")/
+        console.log("C:>>> Service -> fillUserVrToursList -> user.vrs", user.vrs);
+        const patternLocation = /(?<=src=")[a-zA-Z0-9://.?=!% ";-]+(?=" width)/
 
         for (let vr of vrsList){
 
-            let newvr = vr
+            let newvr = vr;
 
             for (let [vrField, vrFieldValue] of Object.entries(vr)){
 
@@ -272,30 +273,131 @@ function fillUserVrToursList(user, userVrToursList){
 
                 if (vrField === 'LocationVrForm'){
                     let matchValue = vrFieldValue.match(patternLocation)
+                    console.log("C:>>> Service -> fillUserVrToursList -> GoogleLocations SRC:", matchValue[0])
                     if (!matchValue) {
-                        newvr.vrField = defaultLocation
+                        newvr[vrField] = defaultLocation
                     } else {
-                        newvr.vrField = matchValue[0]
+                        newvr[vrField] = matchValue[0]
                     }
                 }
-                else if (!vrFieldValue && vrField !== "_id"){
+                else if (!vrFieldValue && vrField !== "_id" && vrField !== "__v"){
                     console.log("C:>>> Service -> fillUserVrToursList -> Field Empty -> value:", vrFieldValue)
-                    newvr.vrField = " "
+                    delete newvr[vrField];
                 }
                 else if (Object.keys(dictionaryValues).includes(vrFieldValue)){
                     console.log("C:>>> Service -> fillUserVrToursList -> dictionaryValues -> value:", dictionaryValues[vrFieldValue]);
                     newvr[vrField] = dictionaryValues[vrFieldValue]
                 }
-            };
+                else if (vrField === 'areaCommonPartsVrForm' || vrField === 'areaNoneCommonPartsVrForm') {
+                    newvr[vrField] = vrFieldValue + " " + "кв.м."
+                }
                 
-            console.log("C:>>> Service -> fillUserVrToursList -> vr", newvr);
+
+            };
+
+            // creat vr and append:    
+            console.log("C:>>> Service -> fillUserVrToursList -> newvr", newvr);
             let frag = document.createRange().createContextualFragment(useTemplate.formalVrTemplate(newvr));
             userVrToursList.appendChild(frag);
+            //-----------------------------------------------------------------------------
 
-            // goMarzipano(vr.imgs, userVrToursList);
+            // select all apended in userTourList:
+            const selectFrags = Array.from(userVrToursList.querySelectorAll('.formalVrFormHolder'));
+            console.log("C:>>> Service -> fillUserVrToursList -> AllFragsMade:", selectFrags);
+            let lastFrag = selectFrags[selectFrags.length - 1]
+            console.log("C:>>> Service -> fillUserVrToursList -> LastFragMade:", lastFrag);
+            //-----------------------------------------------------------------------------
+
+            // Dom selection:
+            let buttonsHolder = lastFrag.querySelector('.buttonViews-VrFormalForm');
+            console.log("C:>>> Service -> fillUserVrToursList -> buttonsHolder:", buttonsHolder);
+
+            let pano = lastFrag.querySelector('#pano')
+            console.log("C:>>> Service -> fillUserVrToursList -> Pano:", pano)
+
+            let descriptionVrFormalForm = lastFrag.querySelector(".description-VrFormalForm")
+            console.log("C:>>> Service -> fillUserVrToursList -> description-VrFormalForm:", descriptionVrFormalForm)
+            //----------------------------------------------------------------------------
+            
+            // Img patterns: 
+            const patternImgName = /(?<=end\$)[^\/:*?"<>|]+(?=\.jpg$|\.png$)/;
+            const patterImgID = /ID[0-9-]+end\$/;
+            const patterImgEx = /(.jpg$|.png$)/;
+            //----------------------------------------------------------------------------
+          
+            // img Object Info Holder:
+            const imgNameAndID = {};
+            //----------------------------------------------------------------------------
+
+            // fill description-VrFormalForm and block-description-VrFormalForm:
+            const fieldsOfIntrest = {
+                propertyfloorVrForm:'Етаж на апартамента',
+                areaCommonPartsVrForm: 'Площ с общи части',
+                areaNoneCommonPartsVrForm: 'Площ без общи части',
+                yearConstructionVrForm: 'Година на строеж',
+                buildingSizeVrForm: 'Етаж на сграда',
+                furnitureVrForm: 'Обзавеждане',
+                constructionVrForm: 'Строителство',
+                heatingVrForm: 'Отопление'
+            }
+
+            
+            for (let [field, value] of Object.entries(newvr)){
+                console.log("XXXXX description-VrFormalForm and block-description-VrFormalForm")
+                if (Object.keys(fieldsOfIntrest).includes(field)){
+                    let frag = document.createRange().createContextualFragment(useTemplate.blockDescriptionVrFormalForm(fieldsOfIntrest[field], value));
+                    descriptionVrFormalForm.appendChild(frag);
+                    console.log("XXX:descriptionVrFormalForm->", descriptionVrFormalForm)
+                }
+            }
+
+            const allFieldOfIntrest = descriptionVrFormalForm.querySelectorAll('.block-description-VrFormalForm:nth-child(2n)')
+            for (let fieldIn of allFieldOfIntrest) {
+                console.log("YYYYYY description-VrFormalForm and block-description-VrFormalForm")
+                fieldIn.style.backgroundColor = "#7ADFDF"
+            }
+            //----------------------------------------------------------------------------
+            
+            let imgs = newvr.imgs;
+            console.log("C:>>> Service -> fillUserVrToursList -> newvr.imgs:", imgs);
+
+            // btn creation and append to buttonsHolder:
+            let count = 1
+            for (let img of imgs) {
+
+                const imgName = img.match(patternImgName)[0];
+                const imgID = img.match(patterImgID)[0];
+                const imgEx = img.match(patterImgEx)[0];
+                imgNameAndID[imgName] = [imgID, imgEx];
+
+                console.log("C:>>> Service -> fillUserVrToursList -> imgName:", imgName)
+                console.log("C:>>> Service -> fillUserVrToursList -> imgID:", imgID)
+                console.log("C:>>> Service -> fillUserVrToursList -> imgEx:", imgEx)
+
+                let btn = document.createElement('button');
+                btn.textContent = imgName;
+
+                if (count == 1){
+                btn.style.backgroundColor = 'green';
+                }
+
+                buttonsHolder.appendChild(btn);
+                count ++;
+            };
+            //---------------------------------------------------------------------------
+
+            const ImgName = Object.keys(imgNameAndID)[0];
+            const ImgID = imgNameAndID[ImgName][0];
+            const ImgEx = imgNameAndID[ImgName][1];
+            const firstImgLocation = `useruploads/${ImgID}${ImgName}${ImgEx}`;
+
+            console.log("C:>>> C:>>> Service -> fillUserVrToursList -> IMG -> name, ID, Ex:", imgNameAndID);
+            console.log("C:>>> C:>>> Service -> fillUserVrToursList -> IMG -> firstImgLocation:", firstImgLocation);
+
+            // goMarzipano(firstImgLocation, pano, imgNameAndID, buttonsHolder);
             
         }
-        
+
     }
     else {
         console.log("C:>>> fillUserVrToursList -> No VR's found!")

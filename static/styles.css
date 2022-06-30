@@ -301,6 +301,7 @@ p {
     box-shadow: 0px 0px 4px rgb(134, 134, 134);
     padding-bottom: 5px;
     background-color: white;
+    margin-bottom: 20px;
 }
 
 .buttonViews-VrFormalForm, #pano, .buttonInformation {
@@ -386,14 +387,14 @@ span {
 .GoogleAdress-VrFormalForm,
 .buyerInformation-VrFormalForm,
 .sellarInformation-VrFormalForm {
-    display: none;
+    display: block;
 }
 
 .block-description-VrFormalForm {
     width: 800px;
     display: flex;
     position: relative;
-    background-color: aqua;
+    background-color: rgb(140, 241, 241);
     justify-content: center;
     align-items: center;
 }

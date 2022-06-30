@@ -256,21 +256,23 @@ function vrFormInputImgTempAndLogic() {
     };
 }
 
-const formalVrTemplate = (vr) => {return `
+let blockDescriptionVrFormalForm = (field, value) => {
+    return `
+    <div class="block-description-VrFormalForm">
+        <span class="title-description-VrFormalForm">${field}</span>
+        <div class="text-holder-description-VrFormalForm"><p>${value}</p></div>
+    </div>
+    `
+}
+
+let formalVrTemplate = (vr) => {return `
 <div class="formalVrFormHolder">
 
     <div class="manuHolder-VrFormalForm">
         <button class="btnManu-VrFormalForm">...</button>
     </div>
 
-    <div class="buttonViews-VrFormalForm">
-        
-            <!-- <button>angra</button>
-            <button>pic</button>
-            <button>big</button>
-            <button>bigsea</button>  -->
-       
-    </div>
+    <div class="buttonViews-VrFormalForm"></div>
 
     <div id="pano"></div>
 
@@ -291,30 +293,12 @@ const formalVrTemplate = (vr) => {return `
         <div class="moreinfo-description-VrFormalForm">
             ${vr.moreInfoVrForm}
         </div>
-
-        <!-- reuse logic here-->
-        <div class="block-description-VrFormalForm">
-            <!-- fields:
-                propertyfloorVrForm: Number,
-                areaCommonPartsVrForm: Number,
-                areaNoneCommonPartsVrForm: Number,
-                yearConstructionVrForm: Number,
-                buildingSizeVrForm: Number,
-                furnitureVrForm: String,
-                constructionVrForm: String,
-                heatingVrForm: String,
-                ComplexVrForm: String,
-            -->
-            <span class="title-description-VrFormalForm"></span>
-            <!-- fields value -->
-            <div class="text-holder-description-VrFormalForm"><p></p></div>
-        </div>
+        <div class="block-description-VrFormalForm"></div>
         
     </div>
     
     <div class="GoogleAdress-VrFormalForm">
-        <!-- src = LocationVrForm -->
-        <iframe src="${vr.LocationVrForm}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
 
@@ -445,5 +429,6 @@ export const useTemplate = {
     profileVrToursTemp,
     vrFormTemplate,
     vrFormInputImgTempAndLogic,
-    formalVrTemplate
+    formalVrTemplate,
+    blockDescriptionVrFormalForm
 };
