@@ -302,6 +302,7 @@ p {
     padding-bottom: 5px;
     background-color: white;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .buttonViews-VrFormalForm, #pano, .buttonInformation {
@@ -356,6 +357,34 @@ p {
     border-top-right-radius: 50%; */
 }
 
+/* new */
+.options-manuHolder-VrFormalForm {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 100px;
+    align-self: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+    border-top-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #f7f7f7;
+    box-shadow: 0px 1px 2px rgb(177, 177, 177);
+    margin-top: 25px;
+    margin-right: 20px;
+}
+
+/* new */
+.options-manuHolder-VrFormalForm > button{
+    background: none;
+    border: none;
+    padding: 0px;
+    margin: 4px;
+}
+
 .btnManu-VrFormalForm {
     width: auto;
     height: auto;
@@ -382,6 +411,10 @@ span {
 }
 .buyerInformation-VrFormalForm > h2, .sellarInformation-VrFormalForm > h2 {
     text-align: center;
+}
+.buyerInformation-VrFormalForm, .sellarInformation-VrFormalForm {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .GoogleAdress-VrFormalForm,

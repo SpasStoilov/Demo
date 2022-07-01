@@ -41,6 +41,13 @@ const dictionaryValues = {
     solarPanelsHeatingVrForm: "Соларни Панели"
 }
 
+const BtnDescriptors = {
+    '.btnDescription-VrFormalForm': '.description-VrFormalForm',
+    '.btnAdress-VrFormalForm': '.GoogleAdress-VrFormalForm',
+    '.btnBuyerInformation-VrFormalForm': '.buyerInformation-VrFormalForm',
+    '.btnSellarInformation-VrFormalForm': '.sellarInformation-VrFormalForm',
+};
+
 
 function sendRegisterInf(e){
     console.log('C:>>> Service sendRegisterInfo acting...')
@@ -475,22 +482,27 @@ function trigerProfileSettingsAndVrTourLogic () {
                 })
                 .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs() -> ERRORS", err.message))
             //--------------------------------------------------------------------
-            
-            //btn Descriptors logic:
-            const BtnDescriptors = {
-                '.btnDescription-VrFormalForm': '.description-VrFormalForm',
-                '.btnAdress-VrFormalForm': '.GoogleAdress-VrFormalForm',
-                '.btnBuyerInformation-VrFormalForm': '.buyerInformation-VrFormalForm',
-                '.btnSellarInformation-VrFormalForm': '.sellarInformation-VrFormalForm',
-            };
 
+            // ading click Listener to VrToursHolder:
             VrToursHolder.addEventListener('click', onClickVrToursHolder);
 
             function onClickVrToursHolder(e){
                 e.preventDefault()
                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder is clicked at:', e.target);
-              
-                if (e.target.nodeName === "BUTTON" && Object.keys(BtnDescriptors).includes('.' + e.target.className) || e.target.className === "show-Less-VrFormalForm"){
+
+                // close menuOptions for all VrFormalForms:
+                let allformalVrFormHolders = userVrToursList.querySelectorAll('.formalVrFormHolder')
+
+                for (let formalForm of allformalVrFormHolders){
+                    formalForm.querySelector('.options-manuHolder-VrFormalForm').style.display = 'none';
+                };
+                //--------------------------------------------------------------------------------------------------
+
+                // checking what is clicked:
+                if (e.target.nodeName === "BUTTON" &&
+                 Object.keys(BtnDescriptors).includes('.' + e.target.className) || 
+                 e.target.className === "show-Less-VrFormalForm")
+                 {
 
                     const buttonInformation = e.target.parentElement;
                     buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = "block"
@@ -502,6 +514,7 @@ function trigerProfileSettingsAndVrTourLogic () {
                         buttonInformation.querySelector(btnClasName).style.backgroundColor = '';
                         formalVrFormHolder.querySelector(fieldToExpandClassName).style.display = 'none';
                     };
+                    //-----------------------------------------------------------------------------------------
 
                     console.log(e.target.className)
 
@@ -513,12 +526,20 @@ function trigerProfileSettingsAndVrTourLogic () {
                         buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = 'none'
                     }
                
-                    //----------------------------------------
+                    //-----------------------------------------------------------------------------------------
+                }
+                else if (e.target.nodeName === "BUTTON" && e.target.className == 'btnManu-VrFormalForm'){
+
+                    // Dom selections:
+                    let optionsManuHolderVrFormalForm = e.target.parentElement.parentElement.querySelector(".options-manuHolder-VrFormalForm")
+                    optionsManuHolderVrFormalForm.style.display = "flex"
+                    //------------------------------------------------------------------------------------------
                 };
+                //----------------------------------------------------------------------------------------------
 
             };
 
-            //----------------------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------------------------
 
             btnCreatVr.addEventListener('click', onClickCreatVr);
             function onClickCreatVr (e) {
@@ -528,24 +549,24 @@ function trigerProfileSettingsAndVrTourLogic () {
 
                 //styles:
                 btnCreatVr.style.display = 'none';
-                //--------------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------
 
                 //selections:
                 let vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
                 btnCreatVr.after(vrFormFragment)
-                //--------------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------
                 
                 // Delete VrForm:
                 closeVrUserForm(btnCreatVr, VrToursHolder);
-                //--------------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------
 
                 // Adding and removing Input Images:
                 useTemplate.vrFormInputImgTempAndLogic()
-                //--------------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------
 
                 // Data sumbmition to server:
                 vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList)
-                //--------------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------
             };
         };
     }

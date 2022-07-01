@@ -271,6 +271,10 @@ let formalVrTemplate = (vr) => {return `
     <div class="manuHolder-VrFormalForm">
         <button class="btnManu-VrFormalForm">...</button>
     </div>
+    <ul class="options-manuHolder-VrFormalForm">
+        <button class="edit-options-manuHolder-VrFormalForm" value="Edit">Редактирай</button>
+        <button class="delete-btnManu-VrFormalForm" value="Delete">Изтрий</button>
+    </ul>
 
     <div class="buttonViews-VrFormalForm"></div>
 
@@ -286,7 +290,7 @@ let formalVrTemplate = (vr) => {return `
         <button class="btnAdress-VrFormalForm">Google Адрес</button>
         <button class="btnBuyerInformation-VrFormalForm">Документи за Продавача</button>
         <button class="btnSellarInformation-VrFormalForm">Документи за Купувача</button>
-        <button class="show-Less-VrFormalForm">Скрий</button>
+        <button class="show-Less-VrFormalForm">X</button>
     </div>
 
     <div class="description-VrFormalForm">
