@@ -39,7 +39,18 @@ const dictionaryValues = {
     electricityFurnishedVrForm: "Електричество",
     districtHeatingVrForm: "Топлофикация",
     solarPanelsHeatingVrForm: "Соларни Панели"
-}
+};
+
+const fieldsOfIntrest = {
+    propertyfloorVrForm:'Етаж на апартамента',
+    areaCommonPartsVrForm: 'Площ с общи части',
+    areaNoneCommonPartsVrForm: 'Площ без общи части',
+    yearConstructionVrForm: 'Година на строеж',
+    buildingSizeVrForm: 'Етаж на сграда',
+    furnitureVrForm: 'Обзавеждане',
+    constructionVrForm: 'Строителство',
+    heatingVrForm: 'Отопление'
+};
 
 const BtnDescriptors = {
     '.btnDescription-VrFormalForm': '.description-VrFormalForm',
@@ -337,18 +348,6 @@ function fillUserVrToursList(user, userVrToursList){
             //----------------------------------------------------------------------------
 
             // fill description-VrFormalForm and block-description-VrFormalForm:
-            const fieldsOfIntrest = {
-                propertyfloorVrForm:'Етаж на апартамента',
-                areaCommonPartsVrForm: 'Площ с общи части',
-                areaNoneCommonPartsVrForm: 'Площ без общи части',
-                yearConstructionVrForm: 'Година на строеж',
-                buildingSizeVrForm: 'Етаж на сграда',
-                furnitureVrForm: 'Обзавеждане',
-                constructionVrForm: 'Строителство',
-                heatingVrForm: 'Отопление'
-            }
-
-            
             for (let [field, value] of Object.entries(newvr)){
 
                 console.log("XXXXX description-VrFormalForm and block-description-VrFormalForm")
@@ -484,7 +483,7 @@ function trigerProfileSettingsAndVrTourLogic () {
             //--------------------------------------------------------------------
 
             // ading click Listener to VrToursHolder:
-            VrToursHolder.addEventListener('click', onClickVrToursHolder);
+            userVrToursList.addEventListener('click', onClickVrToursHolder);
 
             function onClickVrToursHolder(e){
                 e.preventDefault()
@@ -530,13 +529,44 @@ function trigerProfileSettingsAndVrTourLogic () {
                 }
                 else if (e.target.nodeName === "BUTTON" && e.target.className == 'btnManu-VrFormalForm'){
 
-                    // Dom selections:
+                    // Displaying menu options for vrFormalForm:
                     let optionsManuHolderVrFormalForm = e.target.parentElement.parentElement.querySelector(".options-manuHolder-VrFormalForm")
                     optionsManuHolderVrFormalForm.style.display = "flex"
                     //------------------------------------------------------------------------------------------
+                }
+                else if (e.target.value.startsWith("Delete-")){
+
+                    //Delete vrFormalForm:
+                    const idToDelete = e.target.value.slice(7);
+                    console.log("c:>>> idToDelete:", idToDelete)
+
+                    fetchME.deleteVrFormalForm(idToDelete)
+                        .then(resp => resp.json())
+                        .then(result => {
+
+                            // result -> { _id: '62be0d5e39984e905e7d5a7b' } or {}
+                            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> DeleteButn -> fetch Result:', result);
+
+                            if (Object.keys(result).length !== 0) {
+                                userVrToursList.removeChild(e.target.parentElement.parentElement)
+                            };
+                        })
+                        .catch(err => console.log(err.message))
+
+                    //--------------------------------------------------------------------------------------
+                }
+                else if (e.target.value.startsWith("Edit-")){
+
+                    //Edit vrFormalForm:
+                    const idToDelete = e.target.value.slice(5);
+                    console.log("c:>>> idToDelete:", idToDelete)
+                    //------------------------------------------------------------------------------------------
+
                 };
+
                 //----------------------------------------------------------------------------------------------
 
+                
             };
 
             //--------------------------------------------------------------------------------------------------

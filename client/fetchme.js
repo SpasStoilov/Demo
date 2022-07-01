@@ -121,11 +121,22 @@ function userVrs() {
     return fetch(`${baseURL}/user/vrs`)
 }
 
+function deleteVrFormalForm (idToDelete) {
+    return fetch(`${baseURL}/user/vrs/delete`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify({'_id': idToDelete})
+    });
+};
+
 export const fetchME = {
     sendRegisterData,
     sendLogInData,
     userDataRegistrations,
     sendSettingsData,
     sendVrFormCreationDATA,
-    userVrs
+    userVrs,
+    deleteVrFormalForm
 }

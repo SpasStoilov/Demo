@@ -109,29 +109,63 @@ async function getUser(user){
     }
 }
 
+async function deleteVrFormalForm(req, fs){
+
+    console.log("S:>>> Service -> deleteVrFormalForm actingg...");
+
+    try {
+
+        // get user:
+        let user = await UserModel.findOne(
+            {email: req.session.user.email, username: req.session.user.username}
+        ).populate("vrs")
+
+        console.log('S:>>> Service -> deleteVrFormalForm -> Curent User:', user)
+        //------------------------------------------------------------------------------
+
+        // extracting img paths:
+        let imgPathsToRemove = []
+
+        user.vrs = user.vrs.filter((vr) => {
+            if (vr["_id"] == req.body['_id']){
+                imgPathsToRemove = vr['imgs'];
+            };
+            return vr["_id"] != req.body['_id'];
+        });
+
+        console.log("S:>>> Service -> deleteVrFormalForm -> imgPathsToRemove:", imgPathsToRemove)
+        //--------------------------------------------------------------------------------
+
+        await user.save();
+
+        // delete img from useruploads:
+        for (let imgAdress of imgPathsToRemove){
+            await fs.unlink(imgAdress)
+        }
+        //----------------------------------------------------------------------------------
+
+        console.log("S:>>> Service -> deleteVrFormalForm -> Updated User Vrs List", user)
+
+        //----------------------------------------------------------------------------------
+
+        // deleting vr form data base:
+        await vrModel.findByIdAndDelete(req.body['_id']);
+        //----------------------------------------------------------------------------------
+
+        return { _id: req.body['_id'] };
+
+    } catch (err){
+        console.log("S:>>> Service -> deleteVrFormalForm -> ERROR:", err.message);
+        return {}
+    }
+}
+
 //------ Service Registrations ----:
 module.exports = {
     userCreation,
     checkForUser,
     updateUserSettings,
     creatVrAndAppendToUser,
-    getUser
+    getUser,
+    deleteVrFormalForm
 };
-
-
-
-        // RadioBtnVrForm: ,
-        // TypeApartmentVrForm: ,
-        // LocationVrForm: ,
-        // propertyfloorVrForm: ,
-        // areaCommonPartsVrForm: ,
-        // areaNoneCommonPartsVrForm: ,
-        // priceVrForm: ,
-        // yearConstructionVrForm: ,
-        // buildingSizeVrForm: ,
-        // furnitureVrForm: ,
-        // constructionVrForm: ,
-        // heatingVrForm: ,
-        // moreInfoVrForm: ,
-        // ComplexVrForm: ,
-        // imgs: imgsNewPaths

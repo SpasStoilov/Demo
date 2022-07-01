@@ -272,8 +272,8 @@ let formalVrTemplate = (vr) => {return `
         <button class="btnManu-VrFormalForm">...</button>
     </div>
     <ul class="options-manuHolder-VrFormalForm">
-        <button class="edit-options-manuHolder-VrFormalForm" value="Edit">Редактирай</button>
-        <button class="delete-btnManu-VrFormalForm" value="Delete">Изтрий</button>
+        <button class="edit-options-manuHolder-VrFormalForm" value="Edit-${vr._id}">Редактирай</button>
+        <button class="delete-btnManu-VrFormalForm" value="Delete-${vr._id}">Изтрий</button>
     </ul>
 
     <div class="buttonViews-VrFormalForm"></div>

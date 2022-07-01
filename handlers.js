@@ -1,4 +1,4 @@
-const { validationResult } = require("express-validator");
+const {validationResult} = require('express-validator');
 const useBackService = require('./services.js');
 const formidable = require("formidable");
 const fs = require("fs/promises");
@@ -212,6 +212,16 @@ async function getUserVrs(req, res) {
     res.json(user);
 };
 
+async function deleteVrFormalForm (req, res){
+    console.log('S:>>> Handler -> deleteVrFormalForm -> delete -> vrForm', req.body) // { _id: '62be0d5e39984e905e7d5a7b' }
+    
+    //returns: { _id: '62be0d5e39984e905e7d5a7b' } or {}
+    const result = await useBackService.deleteVrFormalForm(req, fs);
+
+    console.log('S:>>> Handler -> deleteVrFormalForm -> delete -> Result:', result)
+    res.json(result)
+}
+
 
 //------ Hendler Registrations ----:
 const useHandler = {
@@ -222,7 +232,8 @@ const useHandler = {
     extractingUserDataRegistration,
     settingsDataChange,
     vrFormCreation,
-    getUserVrs
+    getUserVrs,
+    deleteVrFormalForm
 };
 
 module.exports = useHandler;
