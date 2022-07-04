@@ -45,7 +45,7 @@ function register(formData){
 };
 
 
-function vrFormCreationValidation(vrFormCreationDATA){
+function vrFormCreationValidation(vrFormCreationDATA, flag=false){
 
     console.log('C:>>> vrFormCreationValidation actings...')
     console.log('C:>>> vrFormCreationValidation -> VR formData:', vrFormCreationDATA)
@@ -63,7 +63,7 @@ function vrFormCreationValidation(vrFormCreationDATA){
     for (let field of vrFormCreationDATA){
         let [name, value] = field;
        
-        if (requiredFields.includes(name) || name.startsWith('inputImageVrForm')){
+        if (requiredFields.includes(name) || (name.startsWith('inputImageVrForm') && flag !== "edit") ){
             console.log('C:>>> vrFormCreationValidation -> Required field:', name);
             document.querySelector(`input[name=${name}]`).style.borderColor = '#ECECEC';
         }
@@ -74,12 +74,12 @@ function vrFormCreationValidation(vrFormCreationDATA){
             document.querySelector(`input[name=${name}]`).value = 'Задължително поле!';
         }
 
-        else if (name.startsWith('inputImageVrForm') && value.name === ""){
+        else if (name.startsWith('inputImageVrForm') && value.name === "" && flag !== "edit"){
             errorMessenger[name] = 'Липсва снимка!';
             document.querySelector(`input[name=${name}]`).style.borderColor = 'red';
         } 
 
-        else if (name.startsWith('inputImageVrForm') && !value.name.endsWith('.jpg') && !value.name.endsWith('.png') ){
+        else if (name.startsWith('inputImageVrForm') && value.name !== ""  && !value.name.endsWith('.jpg') && !value.name.endsWith('.png') ){
             errorMessenger[name] = 'Файлове с разширение .JPG или .PNG!';
             document.querySelector(`input[name=${name}]`).style.borderColor = 'red';
         }

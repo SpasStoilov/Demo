@@ -108,13 +108,20 @@ function sendSettingsData(bodyInfo) {
 };
 
 
-function sendVrFormCreationDATA(vrFormCreationDATA){
+function sendVrFormCreationDATA(vrFormCreationDATA, flag=false){
     console.log('C:>>> fetchME -> sendVrFormCreationDATA...: ', vrFormCreationDATA)
     
-    return fetch(`${baseURL}/user/vruploads`, {
-        method: "POST",
+    if (!flag){
+        return fetch(`${baseURL}/user/vruploads`, {
+            method: "POST",
+            body: vrFormCreationDATA
+        })
+    };
+
+    return fetch(`${baseURL}/user/vruploads/edit`, {
+        method: "PUT",
         body: vrFormCreationDATA
-    })
+    });
 }
 
 function userVrs() {

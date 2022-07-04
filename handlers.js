@@ -168,7 +168,6 @@ async function vrFormCreation(req, res){
 
             for (let Img of Object.keys(files)){
 
-                
                 const oldPath = files[Img].filepath;
                 const name = files[Img].originalFilename;
 
@@ -199,7 +198,7 @@ async function vrFormCreation(req, res){
 
                 })
                 .catch((err) => console.log(err));
-        }
+        };
 
     })
 
@@ -222,6 +221,64 @@ async function deleteVrFormalForm (req, res){
     res.json(result)
 }
 
+function editVrFormalForm(req, res){
+
+    const formData = new formidable.IncomingForm();
+    console.log('S:>>> Handler -> editVrFormalForm -> FORMDATA:', formData);
+    let imgsNewPaths = [];
+  
+    formData.parse(req, (err, fields, files) => {
+        console.log('S:>>> Handler editVrFormalForm: ERRORS:', err);
+        console.log('S:>>> Handler editVrFormalForm: FIELDS:', fields);
+        console.log('S:>>> Handler editVrFormalForm: FILES:', files);
+        console.log('S:>>> Handler editVrFormalForm: FILES Keys:', Object.keys(files));
+
+        let errorMessenger = useBackValidator.verifyVrUserFormData(fields, files, 'edit') //returns errObj: {...}
+
+        if (Object.keys(errorMessenger).length !== 0){
+            res.json(errorMessenger)
+        }
+        else {
+
+            for (let Img of Object.keys(files)){
+
+                const oldPath = files[Img].filepath;
+                const name = files[Img].originalFilename;
+
+                let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
+
+                const newPath = './static/useruploads/'+ `ID-${ID}-end$` + name;
+
+                try {
+                    fs.copyFile(oldPath, newPath);
+                    imgsNewPaths.push(newPath);
+                } catch (err) {
+                    console.log(err.message);
+                };
+            };
+
+            console.log('S:>>> Handler -> editVrFormalForm: New Imgs Paths:', imgsNewPaths);
+
+            async function newUserer (){
+                return await useBackService.updateVrAndAppendToUser(imgsNewPaths, fields);
+            };
+            newUserer()
+                // .then((result) => {
+
+                //     let newUser = result;
+                //     req.session.user= newUser;
+                //     console.log('S:>>> Handler vrFormCreation: New Userer:', newUser);
+                //     res.json(newUser);
+
+                // })
+                // .catch((err) => console.log(err));
+        };
+
+
+
+    });
+}
+
 
 //------ Hendler Registrations ----:
 const useHandler = {
@@ -234,6 +291,7 @@ const useHandler = {
     vrFormCreation,
     getUserVrs,
     deleteVrFormalForm,
+    editVrFormalForm
 };
 
 module.exports = useHandler;

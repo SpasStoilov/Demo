@@ -7,6 +7,8 @@ const useLocalMiddlewere = require('./LocalMiddlewares.js');
 function router (server){
     console.log('S:>>> Router acting...')
 
+    server.put('/user/vruploads/edit', useHandler.editVrFormalForm)
+
     server.delete("/user/vrs/delete", useHandler.deleteVrFormalForm)
 
     server.post(

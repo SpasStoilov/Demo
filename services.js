@@ -160,6 +160,51 @@ async function deleteVrFormalForm(req, fs){
     }
 }
 
+function updateVrAndAppendToUser(imgsNewPaths, fields){
+
+    const id = fields.editObjId
+    delete fields.editObjId
+
+    console.log('S:>>> Service -> updateVrAndAppendToUser -> fields (Before):', fields)
+
+    let picPathToRemove = Object.entries(fields).filter( (el) => {
+        if (el[0].startsWith('./static')){
+            return el[0];
+        }
+    });
+
+    fields = Object.entries(fields).filter((el) => !el[0].startsWith('./static'));
+    fields = Object.fromEntries(fields);
+    
+    console.log('S:>>> Service -> updateVrAndAppendToUser -> fields:', fields)
+    console.log('S:>>> Service -> updateVrAndAppendToUser -> picPathToRemove:', picPathToRemove)
+
+    // // delete img from useruploads:
+    // for (let el of picPathToRemove){
+    //     await fs.unlink(el[0])
+    // }
+    // //----------------------------------------------------------------------------------
+
+    // // selections:
+    // let vr = await vrModel.findById(id)
+    // //---------------------------------------------------------------------------------
+    
+    // // delete img adress from vr.imgs array
+    // vr['imgs'] = vr.imgs.filter((adrs) => !picPathToRemove.includes(adrs))
+    // //----------------------------------------------------------------------------------
+
+    // // updating vr.imgs array:
+    // vr['imgs'] = vr['imgs'].concat(imgsNewPaths);
+    // // ----------------------------------------------------------------------------------
+
+    // await vr.save();
+
+    // vrModel.findByIdAndUpdate(id, {
+    //     $set: fields
+    // })
+  
+}
+
 //------ Service Registrations ----:
 module.exports = {
     userCreation,
@@ -167,5 +212,6 @@ module.exports = {
     updateUserSettings,
     creatVrAndAppendToUser,
     getUser,
-    deleteVrFormalForm
+    deleteVrFormalForm,
+    updateVrAndAppendToUser
 };

@@ -26,7 +26,7 @@ async function validateCreation (userInstance) {
 
 
 
-function verifyVrUserFormData (fields, files){
+function verifyVrUserFormData (fields, files, flag=false){
 
     console.log('S:>>> validations -> verifyVrUserFormData -> acting...');
 
@@ -46,7 +46,6 @@ function verifyVrUserFormData (fields, files){
         if (requiredFields.includes(name) && (value === "" || value === 'Задължително поле!')){
             errorMessenger[name] = value;
         }
-
         else if (requiredFields.includes(name) && name !== 'LocationVrForm' && !Number(value)){
             errorMessenger[name] = value;
         }
@@ -57,7 +56,7 @@ function verifyVrUserFormData (fields, files){
 
         const originalName = files[Img].originalFilename;
 
-        if (!originalName || (!originalName.endsWith('.jpg') && !originalName.endsWith('.png'))){
+        if ( (!originalName && flag !== 'edit') || (!originalName.endsWith('.jpg') && !originalName.endsWith('.png')) ){
             errorMessenger[Img] = {name: 'Img Required!'};
         }
        

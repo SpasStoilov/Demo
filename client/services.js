@@ -193,7 +193,7 @@ function closeVrUserForm(btnCreatVr, VrToursHolder){
 };
 
 
-function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
+function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList, flag=false){
 
     console.log('C:>>> vrDataFormSubmition -> acting...:');
 
@@ -214,14 +214,16 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
         //----------------------------------------------------------------
 
         //frontValidation--------------------------------------------:
-        let errorMessenger = useValidator.vrFormCreationValidation(vrFormCreationDATA); // returns: {field: errMessage}
+                                       // returns: {field: errMessage}
+        let errorMessenger = useValidator.vrFormCreationValidation(vrFormCreationDATA, flag);
         //-----------------------------------------------------------
+
 
         // Check for Errors:
         if (Object.keys(errorMessenger).length === 0){
 
             // returns -> newUser object:
-            fetchME.sendVrFormCreationDATA(vrFormCreationDATA)
+            fetchME.sendVrFormCreationDATA(vrFormCreationDATA, flag)
                 .then((result) => result.json())
                 .then((newUser) => {
 
@@ -235,8 +237,7 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
                         console.log('C:>>> vrDataFormSubmition -> NO Server ERRORS!');
                         btnCreatVr.style.display = '';
                         VrToursHolder.removeChild(vrCreatForm.parentElement)
-                        // let newVrObjToAppend = newUser.vrs[0]
-
+                      
                         fetchME.userVrs()
                             .then(resp => resp.json())
                             .then(user => {
@@ -406,24 +407,33 @@ function fillUserVrToursList(user, userVrToursList){
 
 //new:
 
-function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolder, userVrToursList){
+function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolder, userVrToursList, id){
     console.log('C:>>> fillDataToEditInVrFormTemplate: acting...');
 
     //styles:
     btnCreatVr.style.display = 'none';
     //------------------------------------------------------------------------------------------------
 
-    //selections:
+    // DOM selections:
     let vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
     btnCreatVr.after(vrFormFragment)
-    //------------------------------------------------------------------------------------------------
-
-    // DOM selections:
+    
     const vrForm = document.querySelector('.btnCloseVrForm').parentElement;
     console.log('C:>>> fillDataToEditInVrFormTemplate: vrForm', vrForm);
+
+    const idInput = document.createElement('input')
+    idInput.type = 'text';
+    idInput.name = 'editObjId'
+    idInput.value = id
+    idInput.style.display = 'none'
+    
+    vrForm.querySelector('.vrCreatForm').prepend(idInput)
     
     let deleteNextImgsHolder = vrForm.querySelector('.delete-next-imgs-holder');
     deleteNextImgsHolder.style.display = "block";
+
+    const btnCloseVrForm = vrForm.querySelector('.btnCloseVrForm');
+
     //-------------------------------------------------------------------------------------------------
 
     // adding imgs check boxes for delete: 
@@ -444,7 +454,7 @@ function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolde
     // appending information in vrFormToEdit:
     for (let [field, value] of Object.entries(vrObjectToEdit)){
 
-        const fieldNotToSelectAndFill = ['LocationVrFor', 'imgs',' __v','_id']
+        const fieldNotToSelectAndFill = ['imgs','__v','_id']
         if (!fieldNotToSelectAndFill.includes(field)){
             console.log('C:>>> fillDataToEditInVrFormTemplate: vrForm -> element To fill:', vrForm.querySelector(`[name=${field}]`))
             vrForm.querySelector(`[name=${field}]`).value = value
@@ -452,17 +462,22 @@ function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolde
     }
     //-------------------------------------------------------------------------------------------------
     
-    // // Delete VrForm:
-    // closeVrUserForm(btnCreatVr, VrToursHolder);
-    // //------------------------------------------------------------------------------------------------
+    // Delete Edit VrForm:
+    btnCloseVrForm.addEventListener('click', onDeleteVrForm);
+    function onDeleteVrForm(){
+        btnCreatVr.style.display = '';
+        VrToursHolder.removeChild(btnCloseVrForm.parentElement)
+    };
+    //------------------------------------------------------------------------------------------------
 
-    // // Adding and removing Input Images:
-    // useTemplate.vrFormInputImgTempAndLogic()
-    // //------------------------------------------------------------------------------------------------
+    // Adding and removing Input Images:
+    useTemplate.vrFormInputImgTempAndLogic()
+    //------------------------------------------------------------------------------------------------
 
-    // // Data sumbmition to server:
-    // vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList)
-    // //------------------------------------------------------------------------------------------------
+    // Data sumbmition to server:
+    let flag = 'edit'
+    vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList, flag)
+    //------------------------------------------------------------------------------------------------
 }
 
 
@@ -624,10 +639,10 @@ function trigerProfileSettingsAndVrTourLogic () {
                             let vrToEdit = user.vrs.filter((vr) => vr['_id'] === idToEdit)[0]
                             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> vrToEdit:', vrToEdit);
 
-                            fillDataToEditInVrFormTemplate(vrToEdit, btnCreatVr, VrToursHolder, userVrToursList)
+                            fillDataToEditInVrFormTemplate(vrToEdit, btnCreatVr, VrToursHolder, userVrToursList, idToEdit)
 
                         })
-                        .catch(err => console.log(err.message))
+                        .catch(err => console.log(err))
 
                     //------------------------------------------------------------------------------------------
 
