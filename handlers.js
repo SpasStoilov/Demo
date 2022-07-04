@@ -233,7 +233,7 @@ const useHandler = {
     settingsDataChange,
     vrFormCreation,
     getUserVrs,
-    deleteVrFormalForm
+    deleteVrFormalForm,
 };
 
 module.exports = useHandler;

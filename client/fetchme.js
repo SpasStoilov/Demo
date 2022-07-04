@@ -131,6 +131,8 @@ function deleteVrFormalForm (idToDelete) {
     });
 };
 
+
+
 export const fetchME = {
     sendRegisterData,
     sendLogInData,
@@ -138,5 +140,5 @@ export const fetchME = {
     sendSettingsData,
     sendVrFormCreationDATA,
     userVrs,
-    deleteVrFormalForm
+    deleteVrFormalForm,
 }

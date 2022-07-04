@@ -4,6 +4,10 @@ import {useTemplate} from "./templates.js";
 import {render} from "./node_modules/lit-html/lit-html.js";
 import {goMarzipano} from "./formalVrTemplateLogic.js";
 
+const patternImgName = /(?<=end\$)[^\/:*?"<>|]+(?=\.jpg$|\.png$)/;
+const patterImgID = /ID[0-9-]+end\$/;
+const patterImgEx = /(.jpg$|.png$)/;
+
 
 const defaultLocation = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.2986166567994!2d23.31935981575583!3d42.697397421723046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa856ec8633e15%3A0xbb095af9967ad612!2sbulevard%20%22Knyaginya%20Maria%20Luiza%22%202%2C%201000%20Sofia%20Center%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1656494888255!5m2!1sen!2sbg";
 
@@ -264,7 +268,7 @@ function fillUserVrToursList(user, userVrToursList){
     if (user.vrs.length !== 0){
         const vrsList = user.vrs
         vrsList.reverse();
-        
+
         console.log("C:>>> Service -> fillUserVrToursList -> user.vrs", user.vrs);
         const patternLocation = /(?<=src=")[a-zA-Z0-9://.?=!% ";-]+(?=" width)/
 
@@ -326,9 +330,7 @@ function fillUserVrToursList(user, userVrToursList){
             //----------------------------------------------------------------------------
             
             // Img patterns: 
-            const patternImgName = /(?<=end\$)[^\/:*?"<>|]+(?=\.jpg$|\.png$)/;
-            const patterImgID = /ID[0-9-]+end\$/;
-            const patterImgEx = /(.jpg$|.png$)/;
+        
             //----------------------------------------------------------------------------
           
             // img Object Info Holder:
@@ -399,6 +401,68 @@ function fillUserVrToursList(user, userVrToursList){
     else {
         console.log("C:>>> fillUserVrToursList -> No VR's found!")
     }
+}
+
+
+//new:
+
+function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolder, userVrToursList){
+    console.log('C:>>> fillDataToEditInVrFormTemplate: acting...');
+
+    //styles:
+    btnCreatVr.style.display = 'none';
+    //------------------------------------------------------------------------------------------------
+
+    //selections:
+    let vrFormFragment = document.createRange().createContextualFragment(useTemplate.vrFormTemplate())
+    btnCreatVr.after(vrFormFragment)
+    //------------------------------------------------------------------------------------------------
+
+    // DOM selections:
+    const vrForm = document.querySelector('.btnCloseVrForm').parentElement;
+    console.log('C:>>> fillDataToEditInVrFormTemplate: vrForm', vrForm);
+    
+    let deleteNextImgsHolder = vrForm.querySelector('.delete-next-imgs-holder');
+    deleteNextImgsHolder.style.display = "block";
+    //-------------------------------------------------------------------------------------------------
+
+    // adding imgs check boxes for delete: 
+  
+    for (let adrs of vrObjectToEdit.imgs){
+        const imgName = adrs.match(patternImgName)[0];
+        const imgID = adrs.match(patterImgID)[0];
+        const imgEx = adrs.match(patterImgEx)[0];
+
+        let temp = `
+        <img src="/useruploads/${imgID}${imgName}${imgEx}" alt="pic">
+        <input type="checkbox" name="${adrs}" value=${adrs}><label class="img-delete-lable">${imgName}</label>`;
+        deleteNextImgsHolder.innerHTML += temp;
+    }
+
+    //-------------------------------------------------------------------------------------------------
+
+    // appending information in vrFormToEdit:
+    for (let [field, value] of Object.entries(vrObjectToEdit)){
+
+        const fieldNotToSelectAndFill = ['LocationVrFor', 'imgs',' __v','_id']
+        if (!fieldNotToSelectAndFill.includes(field)){
+            console.log('C:>>> fillDataToEditInVrFormTemplate: vrForm -> element To fill:', vrForm.querySelector(`[name=${field}]`))
+            vrForm.querySelector(`[name=${field}]`).value = value
+        };
+    }
+    //-------------------------------------------------------------------------------------------------
+    
+    // // Delete VrForm:
+    // closeVrUserForm(btnCreatVr, VrToursHolder);
+    // //------------------------------------------------------------------------------------------------
+
+    // // Adding and removing Input Images:
+    // useTemplate.vrFormInputImgTempAndLogic()
+    // //------------------------------------------------------------------------------------------------
+
+    // // Data sumbmition to server:
+    // vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList)
+    // //------------------------------------------------------------------------------------------------
 }
 
 
@@ -528,6 +592,7 @@ function trigerProfileSettingsAndVrTourLogic () {
                     const idToDelete = e.target.value.slice(7);
                     console.log("c:>>> idToDelete:", idToDelete)
 
+                    
                     fetchME.deleteVrFormalForm(idToDelete)
                         .then(resp => resp.json())
                         .then(result => {
@@ -546,8 +611,24 @@ function trigerProfileSettingsAndVrTourLogic () {
                 else if (e.target.value.startsWith("Edit-")){
 
                     //Edit vrFormalForm:
-                    const idToDelete = e.target.value.slice(5);
-                    console.log("c:>>> idToDelete:", idToDelete)
+                    const idToEdit = e.target.value.slice(5);
+                    console.log("c:>>> idToEdit:", idToEdit)
+
+
+                    fetchME.userVrs()
+                        .then(resp => resp.json())
+                        .then(user => {
+
+                            // result -> [{vrObj1}, {...}]
+                            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> fetch Result:', user.vrs);
+                            let vrToEdit = user.vrs.filter((vr) => vr['_id'] === idToEdit)[0]
+                            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> vrToEdit:', vrToEdit);
+
+                            fillDataToEditInVrFormTemplate(vrToEdit, btnCreatVr, VrToursHolder, userVrToursList)
+
+                        })
+                        .catch(err => console.log(err.message))
+
                     //------------------------------------------------------------------------------------------
 
                 };

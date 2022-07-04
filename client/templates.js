@@ -97,7 +97,12 @@ const vrFormTemplate = () => `
 
     <form class="vrCreatForm">
 
+        <div class="delete-next-imgs-holder" style="display:none;">
+            <h3>Избери кои снимки да премахнеш:</h3>
+        </div>
+
         <div class="formInputImageHolder">
+            <h3>Качи снимки:</h3>
             <input name="inputImageVrForm" type="file"></input>
         </div>
         
@@ -202,9 +207,6 @@ const vrFormTemplate = () => `
 
 </div>
 `;
-
-// <label for="ComplexVrForm">Затворен Комплекс</label>
-// <input type="checkbox" name="ComplexVrForm" id="" value="Complex">
 
 
 function vrFormInputImgTempAndLogic() {
