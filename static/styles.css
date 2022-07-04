@@ -461,3 +461,12 @@ span {
     border-bottom: 2px solid rgb(231, 231, 231);
 }
 
+.download-img {
+    background-color: #48b664;
+    border-radius: 15px;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 25px;
+    margin-left: 10px;
+}

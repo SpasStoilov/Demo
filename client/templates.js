@@ -286,7 +286,7 @@ let formalVrTemplate = (vr) => {return `
     </div>
     
     <div class="buttonInformation">
-        <button class="btnDescription-VrFormalForm"> Описание</button>
+        <button class="btnDescription-VrFormalForm">Описание</button>
         <button class="btnAdress-VrFormalForm">Google Адрес</button>
         <button class="btnBuyerInformation-VrFormalForm">Документи за Продавача</button>
         <button class="btnSellarInformation-VrFormalForm">Документи за Купувача</button>
@@ -316,8 +316,10 @@ let formalVrTemplate = (vr) => {return `
                 <br><span>Адрес за София:</span> ул „Елисавета Багряна“ 20.
                 <br><span>Цена:</span> варира според броя на страниците – първата е 3 лв., а всяка следваща е по 20 ст.
             </p>
-            <label for="">Нотариален АКТ:</label><br>
-            <label for="">Заявление за заверен препис:</label>
+            <label for="">Нотариален АКТ:</label><button class="download-img notakt">Свали</button>
+            <br>
+            <br>
+            <label for="">Заявление за заверен препис:</label><button class="download-img Application-certified-transcript">Свали</button>
 
             <li><h3>Удостоверение за тежести</h3></li>
             <p>
@@ -325,7 +327,7 @@ let formalVrTemplate = (vr) => {return `
                 <br><span>Адрес за София:</span> ул. „Елисавета Багряна“ 20. 
                 <br><span>Стойността на услугата:</span> варира според спешността й (обикновена – за 7 дни – 10 лв; бърза – за 3 дни – 30 лв.)
             </p>
-            <label for="">Искане в имотен регистър:</label>
+            <label for="">Искане в имотен регистър:</label><button class="download-img Application-Property-Registry">Свали</button>
 
             <li><h3>Скица/Схема</h3></li>
             <p>
@@ -335,16 +337,22 @@ let formalVrTemplate = (vr) => {return `
                 <br><span>Няма образец на заявление</span>, защото не попълваш такова предварително – отиваш с документа за собственост и там ти го попълва на място на компютър – става доста бавно. 
                 <br><span>Стойност:</span> зависи от вида услуга – бавна (за 7 работни дни -20 лв.; бърза – за 3 работни дни – 40 лв.)
             </p>
-            <label for="">Скица:</label><br>
-            <label for="">Схема:</label><br>
-            <label for="">Нотариален АКТ:</label>
+            <label for="">Скица:</label><button class="download-img skica">Свали</button>
+            <br>
+            <br>
+            <label for="">Схема:</label><button class="download-img schema">Свали</button>
+            <br>
+            <br>
+            <label for="">Нотариален АКТ:</label><button class="download-img notakt">Свали</button>
+            <br>
 
             <li><h3>Удостоверение от НАП по чл.87 от ДОПК</h3></li>
             <p>
                 Подава се искане в териториалната дирекция на <span>НАП</span> по постоянен адрес на лицето. 
                 <span>Услугата е безплатна.</span>
             </p>
-            <label for="">Искане за удостоверение по чл.87 ДОПК:</label><br>
+            <label for="">Искане за удостоверение по чл.87 ДОПК:</label></label><button class="download-img Certificate-request-87">Свали</button>
+            <br>
 
             <li><h3>Удостоверение за данъчна оценка (ДО)</h3></li>
             <p>
@@ -352,7 +360,8 @@ let formalVrTemplate = (vr) => {return `
                 <br><span>ВАЖНО! Данните на имота в данъчната оценка да са абсолютно еднакви с тези от документа за собственост.</span>
                 <br><span>Този документ има срок на валидност</span> – ако искането е подадено от 01.01. до 30.06 е валидна до 30.06, а ако е подадено от 30.06 до 31.12 е валидна до 31.12.
             </p>
-            <label for="">Искане за ДО:</label><br>
+            <label for="">Искане за ДО:</label></label></label><button class="download-img Certificate-request-DO">Свали</button>
+            <br>
 
         </ol>
 
@@ -365,7 +374,7 @@ let formalVrTemplate = (vr) => {return `
                 <br><span>Експресната услуга</span> струва 10-15 лева.
                 <br><span>Oбикновената услуга</span> варира между 4 лв. и 5 лв.
             </p>
-            <label for="">Искане за УН:</label>
+            <label for="">Искане за УН:</label><button class="download-img Certificate-request-UN">Свали</button>
 
             <li><h3>Ако продавачът е женен илие бил женен някога</h3></li>
             <p>
@@ -373,38 +382,38 @@ let formalVrTemplate = (vr) => {return `
                 <br><span>Искането (Искане на удостоверение за семейно положение)</span> се подава в отдел <span>„ЕСГРАОН“ в общината, района или кметството по постоянен адрес на лицето.</span> 
                 <br><span>Стойността варира:</span> за обикновена услуга 3 лв., за бърза услуга 5 лв. и за експресна услуга 10 лв.
             </p>
-            <label for="">Искане на удостоверение за семейно положение:</label><br>
+            <label for="">Искане на удостоверение за семейно положение:</label><button class="download-img Certificate-request-marital-status">Свали</button>
 
             <li><h3>Ако има развод</h3></li>
             <p>
                 Продавачът задължително представя <span>заверен препис от влязлото в сила решение за развод</span>. Подава се молба за такъв до съда, който е гледал делото за развода. 
                 <br><span>Таксата варира</span> според броя на страниците. Първата страница е 3 лв., а всяка следваща по 1 лв. 
             </p>
-            <label for="">Подава се молба за такъв до съда:</label><br>
+            <label for="">Подава се молба за такъв до съда:</label><button class="download-img such-court">Свали</button>
 
             <li><h3>Ако продавачът е в брак, но имотът е лична негова собственост на някакво основание (например придобит преди брака)</h3></li>
             <p>
                 Абсолютно задължително условие е да представи декларация от <span>съпругата си/ съпруга си</span>, че имотът не е семейно жилище (Декларация семейно жилище) 
             </p>
-            <label for="">Декларация семейно жилище:</label><br>
+            <label for="">Декларация семейно жилище:</label><button class="download-img Family-home-declaration">Свали</button>
 
             <li><h3>Ако имотът е старо строителство</h3></li>
             <p>
                 Продавачът трябва да предостави на купувача документи за заплатени <span>комунални сметки (ток, вода, парно, етажна собственост и др.)</span>
             </p>
-            <label for="">Комунални сметки:</label><br>
+            <label for="">Комунални сметки:</label><button class="download-img Utility-bills">Свали</button>
 
             <li><h3>Ако имотът не е построен</h3></li>
             <p>
                 Продавачът трябва да бъде представен архитектурен проект на бъдещата сграда – <span>много е важно</span> в тази хипотеза площите, отбелязани на проекта напълно да съответстват на тези по таблицата за площообразуване към проекта. 
             </p>
-            <label for="">Архитектурен проект:</label><br>
+            <label for="">Архитектурен проект:</label><button class="download-img Architectural-project">Свали</button>
 
             <li><h3>Ако се продава земя по отношение на която няколко пъти са променяни регулационните планове</h3></li>
             <p>
                 Желателно е продавачът да представи <span>комбинирана скица</span>, зада се види през годините как се е променял имотът. Този документ се издава от <span>частни геодезически фирми (пример ГИС София).</span> 
             </p>
-            <label for="">Комбинирана скица:</label><br>
+            <label for="">Комбинирана скица:</label><button class="download-img Combined-sketch">Свали</button>
 
         </ol>
     </div>
@@ -414,7 +423,7 @@ let formalVrTemplate = (vr) => {return `
 
         <ol>
             <li><h3>Удостоверение за семейно положение (Искане удостоверение за семейно положение)</h3></li>
-            <label for="">Искане удостоверение за семейно положение:</label>
+            <label for="">Искане удостоверение за семейно положение:</label><button class="download-img Certificate-request-marital-status">Свали</button>
         </ol>
     </div>
 

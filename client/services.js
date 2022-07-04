@@ -231,33 +231,15 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
                         console.log('C:>>> vrDataFormSubmition -> NO Server ERRORS!');
                         btnCreatVr.style.display = '';
                         VrToursHolder.removeChild(vrCreatForm.parentElement)
-                        let newVrObjToAppend = newUser.vrs[0]
+                        // let newVrObjToAppend = newUser.vrs[0]
+
+                        fetchME.userVrs()
+                            .then(resp => resp.json())
+                            .then(user => {
+                                fillUserVrToursList(user, userVrToursList);
+                            })
+                            .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs() -> ERRORS", err.message))
                     }
- 
-                    // fill the VRform and atoch to userVrToursList (it is selectet somewere up)
-
-
-                    // {_id: '62b5b8c4323ccf634d992b50', email: 'c8pensil@gmail.com', username: 'SpasPStoilov',  password: '123', vrs: Array(1), …}
-
-                    // email: "c8pensil@gmail.com"
-                    // password: "123"
-                    // username: "SpasPStoilov"
-                    // vrs: Array(1)
-                        // 0:
-                            // LocationVrForm: "1"
-                            // RadioBtnVrForm: "Sale"
-                            // TypeApartmentVrForm: "OneRoomVrForm"
-                            // areaCommonPartsVrForm: 1
-                            // areaNoneCommonPartsVrForm: 1
-                            // buildingSizeVrForm: null
-                            // constructionVrForm: "noneConstructionVrForm"
-                            // furnitureVrForm: "otherFurnishedVrForm"
-                            // heatingVrForm: "noneHeatingVrForm"
-                            // imgs: ['./static/useruploads/IronmanWallpaper.jpg']
-                            // moreInfoVrForm: ""
-                            // priceVrForm: 1
-                            // propertyfloorVrForm: 1
-                            // yearConstructionVrForm: 1
                   
                 })
                 .catch((err) => console.log(err))
@@ -274,9 +256,15 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList){
 function fillUserVrToursList(user, userVrToursList){
     console.log("C:>>> Service -> fillUserVrToursList -> User", user);
     console.log("C:>>> Service -> fillUserVrToursList -> userVrToursList", userVrToursList);
+    
+    // here we clear the list:
+    userVrToursList.textContent = '';
+    //-------------------------------------------------------------------------------
 
     if (user.vrs.length !== 0){
         const vrsList = user.vrs
+        vrsList.reverse();
+        
         console.log("C:>>> Service -> fillUserVrToursList -> user.vrs", user.vrs);
         const patternLocation = /(?<=src=")[a-zA-Z0-9://.?=!% ";-]+(?=" width)/
 
@@ -291,10 +279,10 @@ function fillUserVrToursList(user, userVrToursList){
 
                 if (vrField === 'LocationVrForm'){
                     let matchValue = vrFieldValue.match(patternLocation)
-                    console.log("C:>>> Service -> fillUserVrToursList -> GoogleLocations SRC:", matchValue[0])
                     if (!matchValue) {
                         newvr[vrField] = defaultLocation
                     } else {
+                        console.log("C:>>> Service -> fillUserVrToursList -> GoogleLocations SRC:", matchValue[0])
                         newvr[vrField] = matchValue[0]
                     }
                 }
@@ -571,6 +559,7 @@ function trigerProfileSettingsAndVrTourLogic () {
 
             //--------------------------------------------------------------------------------------------------
 
+            // btn creat VR is clicked:
             btnCreatVr.addEventListener('click', onClickCreatVr);
             function onClickCreatVr (e) {
                 e.preventDefault()
