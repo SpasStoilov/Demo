@@ -258,7 +258,7 @@ function vrDataFormSubmition(btnCreatVr, VrToursHolder, userVrToursList, flag=fa
 }
 
 
-function fillUserVrToursList(user, userVrToursList){
+function fillUserVrToursList(user, userVrToursList, hide=false){
     console.log("C:>>> Service -> fillUserVrToursList -> User", user);
     console.log("C:>>> Service -> fillUserVrToursList -> userVrToursList", userVrToursList);
     
@@ -322,6 +322,12 @@ function fillUserVrToursList(user, userVrToursList){
             // Dom selection:
             let buttonsHolder = lastFrag.querySelector('.buttonViews-VrFormalForm');
             console.log("C:>>> Service -> fillUserVrToursList -> buttonsHolder:", buttonsHolder);
+
+            //here we hide DotMenu if and only if the user dose not acsesing his Vr true ProfileVrTours:
+            if (hide === 'hideDotMenu'){
+                lastFrag.querySelector('.manuHolder-VrFormalForm').style.display = 'none';
+            }
+            //----------------------------------------------------------------------------------
 
             let pano = lastFrag.querySelector('#pano')
             console.log("C:>>> Service -> fillUserVrToursList -> Pano:", pano)
@@ -485,7 +491,7 @@ function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolde
 
 // iznesena rabotq po neq:
 
-function vrFormalFormFunctionality(userVrToursList, btnCreatVr, VrToursHolder) {
+function vrFormalFormFunctionality(userVrToursList, btnCreatVr=false, VrToursHolder=false) {
 
     userVrToursList.addEventListener('click', onClickVrToursHolder);
 
@@ -538,7 +544,7 @@ function vrFormalFormFunctionality(userVrToursList, btnCreatVr, VrToursHolder) {
             optionsManuHolderVrFormalForm.style.display = "flex"
             //------------------------------------------------------------------------------------------
         }
-        else if (e.target.value.startsWith("Delete-")){
+        else if (e.target.value.startsWith("Delete-") && btnCreatVr && VrToursHolder){
 
             //Delete vrFormalForm:
             const idToDelete = e.target.value.slice(7);
@@ -560,7 +566,7 @@ function vrFormalFormFunctionality(userVrToursList, btnCreatVr, VrToursHolder) {
 
             //--------------------------------------------------------------------------------------
         }
-        else if (e.target.value.startsWith("Edit-")){
+        else if (e.target.value.startsWith("Edit-") && btnCreatVr && VrToursHolder){
 
             //Edit vrFormalForm:
             const idToEdit = e.target.value.slice(5);
@@ -661,112 +667,8 @@ function trigerProfileSettingsAndVrTourLogic () {
                 .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs() -> ERRORS", err.message))
             //--------------------------------------------------------------------
 
-            // ading click Listener to userVrToursList:
+            // ADDing VR Formal Form Functionality:
             vrFormalFormFunctionality(userVrToursList, btnCreatVr, VrToursHolder);
-            
-            // userVrToursList.addEventListener('click', onClickVrToursHolder);
-
-            // function onClickVrToursHolder(e){
-            //     e.preventDefault()
-            //     console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder is clicked at:', e.target);
-
-            //     // close menuOptions for all VrFormalForms:
-            //     let allformalVrFormHolders = userVrToursList.querySelectorAll('.formalVrFormHolder')
-
-            //     for (let formalForm of allformalVrFormHolders){
-            //         formalForm.querySelector('.options-manuHolder-VrFormalForm').style.display = 'none';
-            //     };
-            //     //--------------------------------------------------------------------------------------------------
-
-            //     // checking what is clicked:
-            //     if (e.target.nodeName === "BUTTON" &&
-            //      Object.keys(BtnDescriptors).includes('.' + e.target.className) || 
-            //      e.target.className === "show-Less-VrFormalForm")
-            //      {
-
-            //         const buttonInformation = e.target.parentElement;
-            //         buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = "block"
-            //         const formalVrFormHolder = buttonInformation.parentElement;
-
-            //         // btn Decriptors backgroundColor chnage:
-            //         for (let [btnClasName, fieldToExpandClassName] of Object.entries(BtnDescriptors)){
-            //             console.log(buttonInformation)
-            //             buttonInformation.querySelector(btnClasName).style.backgroundColor = '';
-            //             formalVrFormHolder.querySelector(fieldToExpandClassName).style.display = 'none';
-            //         };
-            //         //-----------------------------------------------------------------------------------------
-
-            //         console.log(e.target.className)
-
-            //         if (e.target.className !== "show-Less-VrFormalForm"){
-            //             e.target.style.backgroundColor = "#CFCFCF"
-            //             formalVrFormHolder.querySelector(BtnDescriptors['.' + e.target.className]).style.display = 'block';
-            //         }
-            //         else{
-            //             buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = 'none'
-            //         }
-               
-            //         //-----------------------------------------------------------------------------------------
-            //     }
-            //     else if (e.target.nodeName === "BUTTON" && e.target.className == 'btnManu-VrFormalForm'){
-
-            //         // Displaying menu options for vrFormalForm:
-            //         let optionsManuHolderVrFormalForm = e.target.parentElement.parentElement.querySelector(".options-manuHolder-VrFormalForm")
-            //         optionsManuHolderVrFormalForm.style.display = "flex"
-            //         //------------------------------------------------------------------------------------------
-            //     }
-            //     else if (e.target.value.startsWith("Delete-")){
-
-            //         //Delete vrFormalForm:
-            //         const idToDelete = e.target.value.slice(7);
-            //         console.log("c:>>> idToDelete:", idToDelete)
-
-                    
-            //         fetchME.deleteVrFormalForm(idToDelete)
-            //             .then(resp => resp.json())
-            //             .then(result => {
-
-            //                 // result -> { _id: '62be0d5e39984e905e7d5a7b' } or {}
-            //                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> DeleteButn -> fetch Result:', result);
-
-            //                 if (Object.keys(result).length !== 0) {
-            //                     userVrToursList.removeChild(e.target.parentElement.parentElement)
-            //                 };
-            //             })
-            //             .catch(err => console.log(err.message))
-
-            //         //--------------------------------------------------------------------------------------
-            //     }
-            //     else if (e.target.value.startsWith("Edit-")){
-
-            //         //Edit vrFormalForm:
-            //         const idToEdit = e.target.value.slice(5);
-            //         console.log("c:>>> idToEdit:", idToEdit)
-
-
-            //         fetchME.userVrs()
-            //             .then(resp => resp.json())
-            //             .then(user => {
-
-            //                 // result -> [{vrObj1}, {...}]
-            //                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> fetch Result:', user.vrs);
-            //                 let vrToEdit = user.vrs.filter((vr) => vr['_id'] === idToEdit)[0]
-            //                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> vrToEdit:', vrToEdit);
-
-            //                 fillDataToEditInVrFormTemplate(vrToEdit, btnCreatVr, VrToursHolder, userVrToursList, idToEdit)
-
-            //             })
-            //             .catch(err => console.log(err))
-
-            //         //------------------------------------------------------------------------------------------
-
-            //     };
-
-            //     //----------------------------------------------------------------------------------------------
-
-                
-            // };
-
             //--------------------------------------------------------------------------------------------------
 
             // btn creat VR is clicked:
@@ -824,16 +726,16 @@ function getAllVrs(){
             console.log('C:>>> Service -> getAllVrs -> fakeUser:', fakeUser);
             console.log('C:>>> Service -> getAllVrs -> wallVrHolderList:', wallVrHolderList);
 
-            // fill wallVrHolderList:
-            fillUserVrToursList(fakeUser, wallVrHolderList);
+            // fill wallVrHolderList (here we must send flag to hide edit delete):
+            fillUserVrToursList(fakeUser, wallVrHolderList, 'hideDotMenu');
 
             // trigar logic of the template (without edit and delete menu!!!!):
 
-            //vrFormalFormFunctionality(wallVrHolderList, ?btnCreatVr, ?VrToursHolder, ?flags);
+            vrFormalFormFunctionality(wallVrHolderList);
 
                 // ?btnCreatVr, ?VrToursHolder are used in edit: we are not gonna (edit and delete menu!!!! we need flags)
                 // flags are going to tel if the user acses vr templete from profilVr()where he can creat Vrs or not (Wall)
-                
+
             //------------------------------------------------------------------------------------
 
         })

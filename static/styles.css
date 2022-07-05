@@ -72,18 +72,17 @@ img {
     align-items: center;
     width: 810px;
     border-radius: 10px;
-    padding-top: 30px;
 }
 
 .wall-vr-holder-list {
     padding: 0px;
-    border:2px solid #48b664;
+    margin: 0px;
     list-style-type: none;
 }
 
 .loginForm, .registerForm {
-    background: rgb(241, 245, 250);
-    border: 20px solid rgb(224, 224, 224);
+    background: rgb(228, 236, 248);;
+    border: 20px solid rgb(255, 254, 254);
     border-radius: 30px;
     padding: 80px 60px 60px 60px;
     box-shadow: 0px 1px 5px rgb(211, 211, 211); /*x y blur color*/
@@ -140,6 +139,10 @@ p {
 
 .profileBody {
     padding-top:50px;
+}
+
+.profileBar {
+    padding-top:10px;
 }
 
 .settingsHolder {

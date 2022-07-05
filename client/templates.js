@@ -30,7 +30,7 @@ const loginTemp = () => html`
 const profileTemp = () => html`
 <div class="profileBar">
     <a href="/profile/settings" class="profileSettings">Настройки</a>
-    <a href="/profile/vrtours" class="profileVrTours">Мойте Обяви</a>
+    <a href="/profile/vrtours" class="profileVrTours">Моите Обяви</a>
 </div>
 <ul class="settingsErrosHead"></ul>
 <div class="profileBody"><div>
@@ -273,6 +273,7 @@ let formalVrTemplate = (vr) => {return `
     <div class="manuHolder-VrFormalForm">
         <button class="btnManu-VrFormalForm">...</button>
     </div>
+
     <ul class="options-manuHolder-VrFormalForm">
         <button class="edit-options-manuHolder-VrFormalForm" value="Edit-${vr._id}">Редактирай</button>
         <button class="delete-btnManu-VrFormalForm" value="Delete-${vr._id}">Изтрий</button>
