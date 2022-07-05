@@ -12,6 +12,9 @@ const home = (ctx, next) => {
     console.log('C:>>> Home Handler: CTX:', ctx)
     console.log('C:>>> Home Handler: Render homeTemp')
     render(useTemplate.homeTemp(), wall);
+
+    console.log('C:>>> Home Handler: Use service -> getAllVrs()...')
+    useService.getAllVrs()
 };
 
 const register = (ctx, next) => {

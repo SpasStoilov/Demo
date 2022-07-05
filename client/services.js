@@ -329,10 +329,6 @@ function fillUserVrToursList(user, userVrToursList){
             let descriptionVrFormalForm = lastFrag.querySelector(".description-VrFormalForm")
             console.log("C:>>> Service -> fillUserVrToursList -> description-VrFormalForm:", descriptionVrFormalForm)
             //----------------------------------------------------------------------------
-            
-            // Img patterns: 
-        
-            //----------------------------------------------------------------------------
           
             // img Object Info Holder:
             const imgNameAndID = {};
@@ -487,6 +483,115 @@ function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolde
     //------------------------------------------------------------------------------------------------
 }
 
+// iznesena rabotq po neq:
+
+function vrFormalFormFunctionality(userVrToursList, btnCreatVr, VrToursHolder) {
+
+    userVrToursList.addEventListener('click', onClickVrToursHolder);
+
+    function onClickVrToursHolder(e){
+        e.preventDefault()
+        console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder is clicked at:', e.target);
+
+        // close menuOptions for all VrFormalForms:
+        let allformalVrFormHolders = userVrToursList.querySelectorAll('.formalVrFormHolder')
+
+        for (let formalForm of allformalVrFormHolders){
+            formalForm.querySelector('.options-manuHolder-VrFormalForm').style.display = 'none';
+        };
+        //--------------------------------------------------------------------------------------------------
+
+        // checking what is clicked:
+        if (e.target.nodeName === "BUTTON" &&
+         Object.keys(BtnDescriptors).includes('.' + e.target.className) || 
+         e.target.className === "show-Less-VrFormalForm")
+         {
+
+            const buttonInformation = e.target.parentElement;
+            buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = "block"
+            const formalVrFormHolder = buttonInformation.parentElement;
+
+            // btn Decriptors backgroundColor chnage:
+            for (let [btnClasName, fieldToExpandClassName] of Object.entries(BtnDescriptors)){
+                console.log(buttonInformation)
+                buttonInformation.querySelector(btnClasName).style.backgroundColor = '';
+                formalVrFormHolder.querySelector(fieldToExpandClassName).style.display = 'none';
+            };
+            //-----------------------------------------------------------------------------------------
+
+            console.log(e.target.className)
+
+            if (e.target.className !== "show-Less-VrFormalForm"){
+                e.target.style.backgroundColor = "#CFCFCF"
+                formalVrFormHolder.querySelector(BtnDescriptors['.' + e.target.className]).style.display = 'block';
+            }
+            else{
+                buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = 'none'
+            }
+       
+            //-----------------------------------------------------------------------------------------
+        }
+        else if (e.target.nodeName === "BUTTON" && e.target.className == 'btnManu-VrFormalForm'){
+
+            // Displaying menu options for vrFormalForm:
+            let optionsManuHolderVrFormalForm = e.target.parentElement.parentElement.querySelector(".options-manuHolder-VrFormalForm")
+            optionsManuHolderVrFormalForm.style.display = "flex"
+            //------------------------------------------------------------------------------------------
+        }
+        else if (e.target.value.startsWith("Delete-")){
+
+            //Delete vrFormalForm:
+            const idToDelete = e.target.value.slice(7);
+            console.log("c:>>> idToDelete:", idToDelete)
+
+            
+            fetchME.deleteVrFormalForm(idToDelete)
+                .then(resp => resp.json())
+                .then(result => {
+
+                    // result -> { _id: '62be0d5e39984e905e7d5a7b' } or {}
+                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> DeleteButn -> fetch Result:', result);
+
+                    if (Object.keys(result).length !== 0) {
+                        userVrToursList.removeChild(e.target.parentElement.parentElement)
+                    };
+                })
+                .catch(err => console.log(err.message))
+
+            //--------------------------------------------------------------------------------------
+        }
+        else if (e.target.value.startsWith("Edit-")){
+
+            //Edit vrFormalForm:
+            const idToEdit = e.target.value.slice(5);
+            console.log("c:>>> idToEdit:", idToEdit)
+
+
+            fetchME.userVrs()
+                .then(resp => resp.json())
+                .then(user => {
+
+                    // result -> [{vrObj1}, {...}]
+                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> fetch Result:', user.vrs);
+                    let vrToEdit = user.vrs.filter((vr) => vr['_id'] === idToEdit)[0]
+                    console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> vrToEdit:', vrToEdit);
+
+                    fillDataToEditInVrFormTemplate(vrToEdit, btnCreatVr, VrToursHolder, userVrToursList, idToEdit)
+
+                })
+                .catch(err => console.log(err))
+
+            //------------------------------------------------------------------------------------------
+
+        };
+
+        //----------------------------------------------------------------------------------------------
+
+        
+    };
+
+}
+
 
 function trigerProfileSettingsAndVrTourLogic () {
 
@@ -519,9 +624,6 @@ function trigerProfileSettingsAndVrTourLogic () {
             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Settings btn is cliked!')
 
             // styles:
-            // e.target.style.backgroundColor = '#48b664';
-            // vrBTN.style.backgroundColor = '#cacaca';
-
             e.target.style.backgroundColor = '#dfdfdf';
             vrBTN.style.backgroundColor = "#F0F2F5";
             //-------------------------------------------------------------------
@@ -535,9 +637,6 @@ function trigerProfileSettingsAndVrTourLogic () {
             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: My Vrs btn is cliked!')
 
             // styles:
-            // e.target.style.backgroundColor = '#48b664';
-            // settingBTN.style.backgroundColor = '#cacaca';
-
             e.target.style.backgroundColor = '#dfdfdf';
             settingBTN.style.backgroundColor = "#F0F2F5";
             //-------------------------------------------------------------------
@@ -562,109 +661,111 @@ function trigerProfileSettingsAndVrTourLogic () {
                 .catch(err => console.log("C:>>> trigerProfileSettingsAndVrTourLogic -> fetchME.userVrs() -> ERRORS", err.message))
             //--------------------------------------------------------------------
 
-            // ading click Listener to VrToursHolder:
-            userVrToursList.addEventListener('click', onClickVrToursHolder);
+            // ading click Listener to userVrToursList:
+            vrFormalFormFunctionality(userVrToursList, btnCreatVr, VrToursHolder);
+            
+            // userVrToursList.addEventListener('click', onClickVrToursHolder);
 
-            function onClickVrToursHolder(e){
-                e.preventDefault()
-                console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder is clicked at:', e.target);
+            // function onClickVrToursHolder(e){
+            //     e.preventDefault()
+            //     console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder is clicked at:', e.target);
 
-                // close menuOptions for all VrFormalForms:
-                let allformalVrFormHolders = userVrToursList.querySelectorAll('.formalVrFormHolder')
+            //     // close menuOptions for all VrFormalForms:
+            //     let allformalVrFormHolders = userVrToursList.querySelectorAll('.formalVrFormHolder')
 
-                for (let formalForm of allformalVrFormHolders){
-                    formalForm.querySelector('.options-manuHolder-VrFormalForm').style.display = 'none';
-                };
-                //--------------------------------------------------------------------------------------------------
+            //     for (let formalForm of allformalVrFormHolders){
+            //         formalForm.querySelector('.options-manuHolder-VrFormalForm').style.display = 'none';
+            //     };
+            //     //--------------------------------------------------------------------------------------------------
 
-                // checking what is clicked:
-                if (e.target.nodeName === "BUTTON" &&
-                 Object.keys(BtnDescriptors).includes('.' + e.target.className) || 
-                 e.target.className === "show-Less-VrFormalForm")
-                 {
+            //     // checking what is clicked:
+            //     if (e.target.nodeName === "BUTTON" &&
+            //      Object.keys(BtnDescriptors).includes('.' + e.target.className) || 
+            //      e.target.className === "show-Less-VrFormalForm")
+            //      {
 
-                    const buttonInformation = e.target.parentElement;
-                    buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = "block"
-                    const formalVrFormHolder = buttonInformation.parentElement;
+            //         const buttonInformation = e.target.parentElement;
+            //         buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = "block"
+            //         const formalVrFormHolder = buttonInformation.parentElement;
 
-                    // btn Decriptors backgroundColor chnage:
-                    for (let [btnClasName, fieldToExpandClassName] of Object.entries(BtnDescriptors)){
-                        console.log(buttonInformation)
-                        buttonInformation.querySelector(btnClasName).style.backgroundColor = '';
-                        formalVrFormHolder.querySelector(fieldToExpandClassName).style.display = 'none';
-                    };
-                    //-----------------------------------------------------------------------------------------
+            //         // btn Decriptors backgroundColor chnage:
+            //         for (let [btnClasName, fieldToExpandClassName] of Object.entries(BtnDescriptors)){
+            //             console.log(buttonInformation)
+            //             buttonInformation.querySelector(btnClasName).style.backgroundColor = '';
+            //             formalVrFormHolder.querySelector(fieldToExpandClassName).style.display = 'none';
+            //         };
+            //         //-----------------------------------------------------------------------------------------
 
-                    console.log(e.target.className)
+            //         console.log(e.target.className)
 
-                    if (e.target.className !== "show-Less-VrFormalForm"){
-                        e.target.style.backgroundColor = "#CFCFCF"
-                        formalVrFormHolder.querySelector(BtnDescriptors['.' + e.target.className]).style.display = 'block';
-                    }
-                    else{
-                        buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = 'none'
-                    }
+            //         if (e.target.className !== "show-Less-VrFormalForm"){
+            //             e.target.style.backgroundColor = "#CFCFCF"
+            //             formalVrFormHolder.querySelector(BtnDescriptors['.' + e.target.className]).style.display = 'block';
+            //         }
+            //         else{
+            //             buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = 'none'
+            //         }
                
-                    //-----------------------------------------------------------------------------------------
-                }
-                else if (e.target.nodeName === "BUTTON" && e.target.className == 'btnManu-VrFormalForm'){
+            //         //-----------------------------------------------------------------------------------------
+            //     }
+            //     else if (e.target.nodeName === "BUTTON" && e.target.className == 'btnManu-VrFormalForm'){
 
-                    // Displaying menu options for vrFormalForm:
-                    let optionsManuHolderVrFormalForm = e.target.parentElement.parentElement.querySelector(".options-manuHolder-VrFormalForm")
-                    optionsManuHolderVrFormalForm.style.display = "flex"
-                    //------------------------------------------------------------------------------------------
-                }
-                else if (e.target.value.startsWith("Delete-")){
+            //         // Displaying menu options for vrFormalForm:
+            //         let optionsManuHolderVrFormalForm = e.target.parentElement.parentElement.querySelector(".options-manuHolder-VrFormalForm")
+            //         optionsManuHolderVrFormalForm.style.display = "flex"
+            //         //------------------------------------------------------------------------------------------
+            //     }
+            //     else if (e.target.value.startsWith("Delete-")){
 
-                    //Delete vrFormalForm:
-                    const idToDelete = e.target.value.slice(7);
-                    console.log("c:>>> idToDelete:", idToDelete)
+            //         //Delete vrFormalForm:
+            //         const idToDelete = e.target.value.slice(7);
+            //         console.log("c:>>> idToDelete:", idToDelete)
 
                     
-                    fetchME.deleteVrFormalForm(idToDelete)
-                        .then(resp => resp.json())
-                        .then(result => {
+            //         fetchME.deleteVrFormalForm(idToDelete)
+            //             .then(resp => resp.json())
+            //             .then(result => {
 
-                            // result -> { _id: '62be0d5e39984e905e7d5a7b' } or {}
-                            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> DeleteButn -> fetch Result:', result);
+            //                 // result -> { _id: '62be0d5e39984e905e7d5a7b' } or {}
+            //                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> DeleteButn -> fetch Result:', result);
 
-                            if (Object.keys(result).length !== 0) {
-                                userVrToursList.removeChild(e.target.parentElement.parentElement)
-                            };
-                        })
-                        .catch(err => console.log(err.message))
+            //                 if (Object.keys(result).length !== 0) {
+            //                     userVrToursList.removeChild(e.target.parentElement.parentElement)
+            //                 };
+            //             })
+            //             .catch(err => console.log(err.message))
 
-                    //--------------------------------------------------------------------------------------
-                }
-                else if (e.target.value.startsWith("Edit-")){
+            //         //--------------------------------------------------------------------------------------
+            //     }
+            //     else if (e.target.value.startsWith("Edit-")){
 
-                    //Edit vrFormalForm:
-                    const idToEdit = e.target.value.slice(5);
-                    console.log("c:>>> idToEdit:", idToEdit)
+            //         //Edit vrFormalForm:
+            //         const idToEdit = e.target.value.slice(5);
+            //         console.log("c:>>> idToEdit:", idToEdit)
 
 
-                    fetchME.userVrs()
-                        .then(resp => resp.json())
-                        .then(user => {
+            //         fetchME.userVrs()
+            //             .then(resp => resp.json())
+            //             .then(user => {
 
-                            // result -> [{vrObj1}, {...}]
-                            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> fetch Result:', user.vrs);
-                            let vrToEdit = user.vrs.filter((vr) => vr['_id'] === idToEdit)[0]
-                            console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> vrToEdit:', vrToEdit);
+            //                 // result -> [{vrObj1}, {...}]
+            //                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> fetch Result:', user.vrs);
+            //                 let vrToEdit = user.vrs.filter((vr) => vr['_id'] === idToEdit)[0]
+            //                 console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder -> EditButn -> vrToEdit:', vrToEdit);
 
-                            fillDataToEditInVrFormTemplate(vrToEdit, btnCreatVr, VrToursHolder, userVrToursList, idToEdit)
+            //                 fillDataToEditInVrFormTemplate(vrToEdit, btnCreatVr, VrToursHolder, userVrToursList, idToEdit)
 
-                        })
-                        .catch(err => console.log(err))
+            //             })
+            //             .catch(err => console.log(err))
 
-                    //------------------------------------------------------------------------------------------
+            //         //------------------------------------------------------------------------------------------
 
-                };
+            //     };
 
-                //----------------------------------------------------------------------------------------------
+            //     //----------------------------------------------------------------------------------------------
 
                 
-            };
+            // };
 
             //--------------------------------------------------------------------------------------------------
 
@@ -701,6 +802,45 @@ function trigerProfileSettingsAndVrTourLogic () {
 };
 
 
+//new:
+function getAllVrs(){
+    
+    console.log('C:>>> Service -> getAllVrs acting...');
+
+    fetchME.getAllUsersVrs()
+        .then(resp => resp.json())
+        .then(listOfVrObjcts => {
+
+            // Constructing fakeUser:
+            const fakeUser = {
+                vrs: listOfVrObjcts
+            }
+            //------------------------------------------------------------------------------------
+
+            // DOM:
+            let wallVrHolderList = document.querySelector('.wall-vr-holder-list')
+            //------------------------------------------------------------------------------------
+            
+            console.log('C:>>> Service -> getAllVrs -> fakeUser:', fakeUser);
+            console.log('C:>>> Service -> getAllVrs -> wallVrHolderList:', wallVrHolderList);
+
+            // fill wallVrHolderList:
+            fillUserVrToursList(fakeUser, wallVrHolderList);
+
+            // trigar logic of the template (without edit and delete menu!!!!):
+
+            //vrFormalFormFunctionality(wallVrHolderList, ?btnCreatVr, ?VrToursHolder, ?flags);
+
+                // ?btnCreatVr, ?VrToursHolder are used in edit: we are not gonna (edit and delete menu!!!! we need flags)
+                // flags are going to tel if the user acses vr templete from profilVr()where he can creat Vrs or not (Wall)
+                
+            //------------------------------------------------------------------------------------
+
+        })
+        .catch(err => console.log(err.message))
+
+}
+
 export const useService = {
     sendRegisterInf,
     sendLogInInf,
@@ -708,5 +848,6 @@ export const useService = {
     sumbitNewSettingData,
     trigerProfileSettingsAndVrTourLogic,
     closeVrUserForm,
-    vrDataFormSubmition
+    vrDataFormSubmition,
+    getAllVrs
 }

@@ -40,7 +40,8 @@ function router (server){
         useLocalMiddlewere.userExistInDataBase,
         useHandler.logIn
     );
-
+    
+    server.get('/allvrs', useHandler.getAllvrs)
     server.get('/user/data', useHandler.extractingUserDataRegistration)
     server.get("/logout", useHandler.logout);
     server.get("/user/vrs", useHandler.getUserVrs)

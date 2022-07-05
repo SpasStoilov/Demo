@@ -213,6 +213,22 @@ async function updateVrAndAppendToUser(user, imgsNewPaths, fields, fs){
 
 }
 
+//new:
+async function getAllvrsFromDataBase(){
+    console.log('S:>>> Service -> getAllvrsFromDataBase acting...')
+    try {
+        let allVrs = await vrModel.find({})
+        console.log('S:>>> Service -> getAllvrsFromDataBase -> all VRS:', allVrs);
+        return allVrs
+    }
+    catch (err) {
+        console.log(err.message)
+        return []
+    }
+}
+
+
+
 //------ Service Registrations ----:
 module.exports = {
     userCreation,
@@ -221,5 +237,6 @@ module.exports = {
     creatVrAndAppendToUser,
     getUser,
     deleteVrFormalForm,
-    updateVrAndAppendToUser
+    updateVrAndAppendToUser,
+    getAllvrsFromDataBase
 };

@@ -138,6 +138,11 @@ function deleteVrFormalForm (idToDelete) {
     });
 };
 
+// new:
+function getAllUsersVrs(){
+    console.log('C:>>>FetchMe -> getAllUsersVrs acting...')
+    return fetch(`${baseURL}/allvrs`)
+}
 
 
 export const fetchME = {
@@ -148,4 +153,5 @@ export const fetchME = {
     sendVrFormCreationDATA,
     userVrs,
     deleteVrFormalForm,
+    getAllUsersVrs
 }

@@ -292,6 +292,19 @@ function editVrFormalForm(req, res){
 }
 
 
+//new:
+async function getAllvrs(req, res){
+
+    console.log('S:>>> Handler -> getAllvrs acting...');
+    console.log('S:>>> Handler -> getAllvrs -> req.session.user:', req.session.user);
+
+    let result = await useBackService.getAllvrsFromDataBase();
+    console.log('S:>>> Handler -> getAllvrs -> result:', result);
+
+    res.json(result)
+}
+
+
 //------ Hendler Registrations ----:
 const useHandler = {
     home,
@@ -303,7 +316,8 @@ const useHandler = {
     vrFormCreation,
     getUserVrs,
     deleteVrFormalForm,
-    editVrFormalForm
+    editVrFormalForm,
+    getAllvrs
 };
 
 module.exports = useHandler;

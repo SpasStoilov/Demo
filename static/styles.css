@@ -75,6 +75,12 @@ img {
     padding-top: 30px;
 }
 
+.wall-vr-holder-list {
+    padding: 0px;
+    border:2px solid #48b664;
+    list-style-type: none;
+}
+
 .loginForm, .registerForm {
     background: rgb(241, 245, 250);
     border: 20px solid rgb(224, 224, 224);

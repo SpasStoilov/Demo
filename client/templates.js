@@ -3,7 +3,7 @@ import { useService } from "./services.js";
 
 console.log('C:>>> Templates acting...')
 
-const homeTemp = () => html`<h1>HOME</h1>`;
+const homeTemp = () => html`<ul class="wall-vr-holder-list"></ul>`;
 
 const aboutTemp = () => html`<h1>2About</h1>`;
 
