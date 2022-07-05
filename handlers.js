@@ -140,9 +140,26 @@ async function settingsDataChange (req, res) {
 };
 
 
-// new:
+async function getUserVrs(req, res) {
+    console.log("S:>>> Handler -> getUserVrs acting...");
+    console.log("S:>>> Handler -> getUserVrs -> res.session.user:", req.session.user);
+    let user = await useBackService.getUser(req.session.user)
+    res.json(user);
+};
 
-async function vrFormCreation(req, res){
+async function deleteVrFormalForm (req, res){
+    console.log('S:>>> Handler -> deleteVrFormalForm -> delete -> vrForm', req.body) // { _id: '62be0d5e39984e905e7d5a7b' }
+    
+    //returns: { _id: '62be0d5e39984e905e7d5a7b' } or {}
+    const result = await useBackService.deleteVrFormalForm(req, fs);
+
+    console.log('S:>>> Handler -> deleteVrFormalForm -> delete -> Result:', result)
+    res.json(result)
+}
+
+
+
+function vrFormCreation(req, res){
 
     console.log('S:>>> Handler vrFormCreation acting...');
     console.log('S:>>> Handler vrFormCreation: Current User in Session ->', req.session.user);
@@ -166,23 +183,24 @@ async function vrFormCreation(req, res){
         }
         else {
 
-            for (let Img of Object.keys(files)){
+            // for (let Img of Object.keys(files)){
 
-                const oldPath = files[Img].filepath;
-                const name = files[Img].originalFilename;
+            //     const oldPath = files[Img].filepath;
+            //     const name = files[Img].originalFilename;
 
-                let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
+            //     let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
 
-                const newPath = './static/useruploads/'+ `ID-${ID}-end$` + name;
+            //     const newPath = './static/useruploads/'+ `ID-${ID}-end$` + name;
 
-                try {
-                    fs.copyFile(oldPath, newPath);
-                    imgsNewPaths.push(newPath);
-                } catch (err) {
-                    console.log(err.message);
-                };
-            };
+            //     try {
+            //         fs.copyFile(oldPath, newPath);
+            //         imgsNewPaths.push(newPath);
+            //     } catch (err) {
+            //         console.log(err.message);
+            //     };
+            // };
 
+            appendImgInUserUploads(files, imgsNewPaths)
             console.log('S:>>> Handler vrFormCreation: New Imgs Paths:', imgsNewPaths);
 
             async function newUserer (){
@@ -204,27 +222,40 @@ async function vrFormCreation(req, res){
 
 };
 
-async function getUserVrs(req, res) {
-    console.log("S:>>> Handler -> getUserVrs acting...");
-    console.log("S:>>> Handler -> getUserVrs -> res.session.user:", req.session.user);
-    let user = await useBackService.getUser(req.session.user)
-    res.json(user);
-};
 
-async function deleteVrFormalForm (req, res){
-    console.log('S:>>> Handler -> deleteVrFormalForm -> delete -> vrForm', req.body) // { _id: '62be0d5e39984e905e7d5a7b' }
-    
-    //returns: { _id: '62be0d5e39984e905e7d5a7b' } or {}
-    const result = await useBackService.deleteVrFormalForm(req, fs);
+function appendImgInUserUploads(files, imgsNewPaths) {
+    for (let Img of Object.keys(files)){
 
-    console.log('S:>>> Handler -> deleteVrFormalForm -> delete -> Result:', result)
-    res.json(result)
+        const originalName = files[Img].originalFilename;
+        const oldPath = files[Img].filepath;
+        const name = files[Img].originalFilename;
+
+        // check if name is true because we allowed when we do editing of VR temp to enter empty names!)
+        if (originalName){
+
+            let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
+
+            const newPath = './static/useruploads/'+ `ID-${ID}-end$` + name;
+
+            try {
+                fs.copyFile(oldPath, newPath);
+                imgsNewPaths.push(newPath);
+            } catch (err) {
+                console.log(err.message);
+            };
+        };
+        //-----------------------------------------------------------------------------------------------
+
+    };
 }
+
+//new:
 
 function editVrFormalForm(req, res){
 
     const formData = new formidable.IncomingForm();
     console.log('S:>>> Handler -> editVrFormalForm -> FORMDATA:', formData);
+
     let imgsNewPaths = [];
   
     formData.parse(req, (err, fields, files) => {
@@ -240,42 +271,23 @@ function editVrFormalForm(req, res){
         }
         else {
 
-            for (let Img of Object.keys(files)){
-
-                const oldPath = files[Img].filepath;
-                const name = files[Img].originalFilename;
-
-                let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
-
-                const newPath = './static/useruploads/'+ `ID-${ID}-end$` + name;
-
-                try {
-                    fs.copyFile(oldPath, newPath);
-                    imgsNewPaths.push(newPath);
-                } catch (err) {
-                    console.log(err.message);
-                };
-            };
-
+            appendImgInUserUploads(files, imgsNewPaths);
             console.log('S:>>> Handler -> editVrFormalForm: New Imgs Paths:', imgsNewPaths);
 
             async function newUserer (){
-                return await useBackService.updateVrAndAppendToUser(imgsNewPaths, fields);
+                return await useBackService.updateVrAndAppendToUser(req.session.user, imgsNewPaths, fields, fs);
             };
             newUserer()
-                // .then((result) => {
+                .then((result) => {
 
-                //     let newUser = result;
-                //     req.session.user= newUser;
-                //     console.log('S:>>> Handler vrFormCreation: New Userer:', newUser);
-                //     res.json(newUser);
+                    let newUser = result;
+                    req.session.user= newUser;
+                    console.log('S:>>> Handler editVrFormalForm: New Userer:', newUser);
+                    res.json(newUser);
 
-                // })
-                // .catch((err) => console.log(err));
+                })
+                .catch((err) => console.log(err));
         };
-
-
-
     });
 }
 

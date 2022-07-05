@@ -2,6 +2,7 @@ const UserModel = require("./Models/users.js");
 const vrModel = require("./Models/vrform.js");
 const useBackValidator = require('./validations.js');
 const bcrypt = require('bcrypt');
+const { ConnectionStates } = require("mongoose");
 
 
 // async function hashPassword (pass) {
@@ -160,18 +161,14 @@ async function deleteVrFormalForm(req, fs){
     }
 }
 
-function updateVrAndAppendToUser(imgsNewPaths, fields){
+async function updateVrAndAppendToUser(user, imgsNewPaths, fields, fs){
 
     const id = fields.editObjId
     delete fields.editObjId
 
     console.log('S:>>> Service -> updateVrAndAppendToUser -> fields (Before):', fields)
 
-    let picPathToRemove = Object.entries(fields).filter( (el) => {
-        if (el[0].startsWith('./static')){
-            return el[0];
-        }
-    });
+    let picPathToRemove = Object.keys(fields).filter( (el) => el.startsWith('./static'));
 
     fields = Object.entries(fields).filter((el) => !el[0].startsWith('./static'));
     fields = Object.fromEntries(fields);
@@ -179,30 +176,41 @@ function updateVrAndAppendToUser(imgsNewPaths, fields){
     console.log('S:>>> Service -> updateVrAndAppendToUser -> fields:', fields)
     console.log('S:>>> Service -> updateVrAndAppendToUser -> picPathToRemove:', picPathToRemove)
 
-    // // delete img from useruploads:
-    // for (let el of picPathToRemove){
-    //     await fs.unlink(el[0])
-    // }
-    // //----------------------------------------------------------------------------------
+    try {
 
-    // // selections:
-    // let vr = await vrModel.findById(id)
-    // //---------------------------------------------------------------------------------
-    
-    // // delete img adress from vr.imgs array
-    // vr['imgs'] = vr.imgs.filter((adrs) => !picPathToRemove.includes(adrs))
-    // //----------------------------------------------------------------------------------
+        // delete img from useruploads:
+        for (let adr of picPathToRemove){
+            await fs.unlink(adr)
+        }
+        //----------------------------------------------------------------------------------
 
-    // // updating vr.imgs array:
-    // vr['imgs'] = vr['imgs'].concat(imgsNewPaths);
-    // // ----------------------------------------------------------------------------------
+        // selections:
+        let vr = await vrModel.findById(id)
+        //---------------------------------------------------------------------------------
+        
+        // delete img adress from vr.imgs array
+        vr['imgs'] = vr.imgs.filter((adrs) => !picPathToRemove.includes(adrs))
+        //----------------------------------------------------------------------------------
 
-    // await vr.save();
+        // updating vr.imgs array:
+        vr['imgs'] = vr['imgs'].concat(imgsNewPaths);
+        // ----------------------------------------------------------------------------------
 
-    // vrModel.findByIdAndUpdate(id, {
-    //     $set: fields
-    // })
-  
+        await vr.save();
+
+        await vrModel.findByIdAndUpdate(id, {
+            $set: fields
+        })
+
+        console.log('S:>>> Service -> updateVrAndAppendToUser -> Update User:', user)
+
+        return await getUser(user);
+
+    } 
+    catch (err) {
+        console.log(err)
+    }
+
 }
 
 //------ Service Registrations ----:

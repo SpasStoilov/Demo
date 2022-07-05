@@ -405,8 +405,6 @@ function fillUserVrToursList(user, userVrToursList){
 }
 
 
-//new:
-
 function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolder, userVrToursList, id){
     console.log('C:>>> fillDataToEditInVrFormTemplate: acting...');
 
@@ -456,8 +454,17 @@ function fillDataToEditInVrFormTemplate(vrObjectToEdit, btnCreatVr, VrToursHolde
 
         const fieldNotToSelectAndFill = ['imgs','__v','_id']
         if (!fieldNotToSelectAndFill.includes(field)){
-            console.log('C:>>> fillDataToEditInVrFormTemplate: vrForm -> element To fill:', vrForm.querySelector(`[name=${field}]`))
-            vrForm.querySelector(`[name=${field}]`).value = value
+
+            if (field === "RadioBtnVrForm"){
+                console.log('C:>>> fillDataToEditInVrFormTemplate: vrForm -> element To fill:', vrForm.querySelector(`[value=${value}]`))
+                vrForm.querySelector(`[value=${value}]`).value = value;
+                vrForm.querySelector(`[value=${value}]`).checked = true
+            }
+            else{
+                console.log('C:>>> fillDataToEditInVrFormTemplate: vrForm -> element To fill:', vrForm.querySelector(`[name=${field}]`))
+                vrForm.querySelector(`[name=${field}]`).value = value
+            }
+            
         };
     }
     //-------------------------------------------------------------------------------------------------
@@ -512,8 +519,11 @@ function trigerProfileSettingsAndVrTourLogic () {
             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: Settings btn is cliked!')
 
             // styles:
-            e.target.style.backgroundColor = '#48b664';
-            vrBTN.style.backgroundColor = '#cacaca';
+            // e.target.style.backgroundColor = '#48b664';
+            // vrBTN.style.backgroundColor = '#cacaca';
+
+            e.target.style.backgroundColor = '#dfdfdf';
+            vrBTN.style.backgroundColor = "#F0F2F5";
             //-------------------------------------------------------------------
             
             // Atouching the profileSettingsTemp to profileBody:
@@ -525,8 +535,11 @@ function trigerProfileSettingsAndVrTourLogic () {
             console.log('C:>>> trigerProfileSettingsAndVrTourLogic: My Vrs btn is cliked!')
 
             // styles:
-            e.target.style.backgroundColor = '#48b664';
-            settingBTN.style.backgroundColor = '#cacaca';
+            // e.target.style.backgroundColor = '#48b664';
+            // settingBTN.style.backgroundColor = '#cacaca';
+
+            e.target.style.backgroundColor = '#dfdfdf';
+            settingBTN.style.backgroundColor = "#F0F2F5";
             //-------------------------------------------------------------------
           
             // Atouching the profileVrToursTemp to profileBoddy:

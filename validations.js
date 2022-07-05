@@ -45,9 +45,11 @@ function verifyVrUserFormData (fields, files, flag=false){
        
         if (requiredFields.includes(name) && (value === "" || value === 'Задължително поле!')){
             errorMessenger[name] = value;
+            console.log('S:>>> validations -> verifyVrUserFormData: Задължително поле!');
         }
         else if (requiredFields.includes(name) && name !== 'LocationVrForm' && !Number(value)){
             errorMessenger[name] = value;
+            console.log('S:>>> validations -> verifyVrUserFormData: Трябва да е число!');
         }
 
     }
@@ -56,9 +58,26 @@ function verifyVrUserFormData (fields, files, flag=false){
 
         const originalName = files[Img].originalFilename;
 
-        if ( (!originalName && flag !== 'edit') || (!originalName.endsWith('.jpg') && !originalName.endsWith('.png')) ){
-            errorMessenger[Img] = {name: 'Img Required!'};
+        if (flag !== 'edit'){
+            if (!originalName){
+                errorMessenger[Img] = {name: 'Img Required!'};
+                console.log('S:>>> validations -> verifyVrUserFormData: Img Required! (NO edit)');
+            }
+            else if (!originalName.endsWith('.jpg') && !originalName.endsWith('.png')){
+                errorMessenger[Img] = {name: '.JPG or .PNG!'};
+                console.log('S:>>> validations -> verifyVrUserFormData: .JPG or .PNG! (NO edit)');
+            }
         }
+        else if (flag === 'edit'){
+            if ( originalName && !originalName.endsWith('.jpg') && !originalName.endsWith('.png') ){
+                errorMessenger[Img] = {name: 'Img Required!'};
+                console.log('S:>>> validations -> verifyVrUserFormData: .JPG or .PNG! (edit)');
+            }
+        }
+
+        // if ( !originalName && flag !== 'edit'|| (!originalName.endsWith('.jpg') && !originalName.endsWith('.png') ) ){
+        //     errorMessenger[Img] = {name: 'Img Required!'};
+        // }
        
     };
 

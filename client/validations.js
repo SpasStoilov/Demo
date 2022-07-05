@@ -49,6 +49,7 @@ function vrFormCreationValidation(vrFormCreationDATA, flag=false){
 
     console.log('C:>>> vrFormCreationValidation actings...')
     console.log('C:>>> vrFormCreationValidation -> VR formData:', vrFormCreationDATA)
+    console.log('C:>>> vrFormCreationValidation -> FLAG:', flag)
 
     let requiredFields = [
         'LocationVrForm', 
@@ -62,8 +63,8 @@ function vrFormCreationValidation(vrFormCreationDATA, flag=false){
   
     for (let field of vrFormCreationDATA){
         let [name, value] = field;
-       
-        if (requiredFields.includes(name) || (name.startsWith('inputImageVrForm') && flag !== "edit") ){
+ 
+        if (requiredFields.includes(name) || ( name.startsWith('inputImageVrForm') ) ){
             console.log('C:>>> vrFormCreationValidation -> Required field:', name);
             document.querySelector(`input[name=${name}]`).style.borderColor = '#ECECEC';
         }
@@ -72,22 +73,26 @@ function vrFormCreationValidation(vrFormCreationDATA, flag=false){
             errorMessenger[name] = 'Задължително поле!';
             document.querySelector(`input[name=${name}]`).style.borderColor = 'red';
             document.querySelector(`input[name=${name}]`).value = 'Задължително поле!';
+            console.log('C:>>> vrFormCreationValidation -> Required field:', 'Задължително поле!');
         }
 
         else if (name.startsWith('inputImageVrForm') && value.name === "" && flag !== "edit"){
             errorMessenger[name] = 'Липсва снимка!';
             document.querySelector(`input[name=${name}]`).style.borderColor = 'red';
+            console.log('C:>>> vrFormCreationValidation -> Required field:', 'Липсва снимка!');
         } 
 
         else if (name.startsWith('inputImageVrForm') && value.name !== ""  && !value.name.endsWith('.jpg') && !value.name.endsWith('.png') ){
             errorMessenger[name] = 'Файлове с разширение .JPG или .PNG!';
             document.querySelector(`input[name=${name}]`).style.borderColor = 'red';
+            console.log('C:>>> vrFormCreationValidation -> Required field:', 'Файлове с разширение .JPG или .PNG!');   
         }
 
         else if (requiredFields.includes(name) && name !== 'LocationVrForm' && !Number(value)){
             errorMessenger[name] = 'Въведете число!';
             document.querySelector(`input[name=${name}]`).style.borderColor = 'red';
             document.querySelector(`input[name=${name}]`).value = 'Въведете число!';
+            console.log('C:>>> vrFormCreationValidation -> Required field:', 'Въведете число!'); 
         }
 
     };

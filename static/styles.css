@@ -26,9 +26,11 @@ img {
 }
 
 .navreg, .navlog, .navabout, .navhome, .navProfile, .navLogOut {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
-    padding: 0 20px 0 20px;
+    padding: 0 40px 0 40px;
+    color: #707070;
+    font-weight: bold;
 }
 
 /* BODY STYLES */
@@ -39,7 +41,7 @@ img {
     justify-content: center;
 }
 
-.FormConteiner {
+.FormConteiner, .addHolder {
     display: inline-flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -48,7 +50,6 @@ img {
     width: 300px;
     height: 800px;
     border-radius: 5px;
-    margin-right: 20px;
 }
 
 .FormConteiner > .frommessage {
@@ -65,30 +66,49 @@ img {
 
 
 .wall {
-    /* background-color: white; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 900px;
+    width: 810px;
     border-radius: 10px;
     padding-top: 30px;
 }
 
 .loginForm, .registerForm {
-    background-color: white;
-    border-radius: 2px;
+    background: rgb(241, 245, 250);
+    border: 20px solid rgb(224, 224, 224);
+    border-radius: 30px;
     padding: 80px 60px 60px 60px;
     box-shadow: 0px 1px 5px rgb(211, 211, 211); /*x y blur color*/
 }
 
 .loginForm > input, .settingsInformation > input {
-    border-radius: 2px;
-    border: 2px solid rgb(236, 236, 236);
+    border: none;
     height: 50px;
     width: 400px;
     margin-bottom: 20px
 }
+
+.registerForm > input {
+    border: none;
+    height: 50px;
+    width: 400px;
+    margin-bottom: 20px
+}
+
+.settingsInformation > .saveSettings, .registerForm > .registerButton, .loginForm > .loginButton {
+    background: none;
+    border: 5px solid sandybrown;
+    border-radius: 20px;
+    transition-property: background;
+}
+
+.settingsInformation > .saveSettings:hover, .registerForm > .registerButton:hover, .loginForm > .loginButton:hover{
+    background: sandybrown;
+    color: white;
+}
+
 
 .errorHeader {
     display: flex;
@@ -107,19 +127,6 @@ p {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.registerButton {
-    background-color: #68a16a;
-    color: white;
-    font-size: 16px;
-}
-
-.registerForm > input {
-    border-radius: 2px;
-    border: 2px solid rgb(236, 236, 236);
-    height: 50px;
-    width: 400px;
-    margin-bottom: 20px
-}
 
 .spanErrorRegister, .settingsErrosHead, .LogInErrHead {
     display: none;
@@ -130,12 +137,13 @@ p {
 }
 
 .settingsHolder {
-    background-color: white;
+    background: rgb(228, 236, 248);
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: none;
-    border-radius: 2px;
+    border: 20px solid white;
+    border-radius: 30px;
     padding: 80px 60px 80px 60px;
     box-shadow: 0px 1px 5px rgb(211, 211, 211); /*x y blur color*/
 }
@@ -144,28 +152,33 @@ p {
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     padding-bottom: 30px;
-    color: #ffffff;
+    color: #707070;
     padding: 10px 30px 10px 30px;
-    border-radius: 2px;
+    border-radius: 20px;
+    font-weight: bold;
 }
 
 .profileSettings {
-    background-color: #48b664;
+    background-color: #dfdfdf;
 }
 
 .creatVr {
     margin-bottom: 20px;
     width: 350px;
     height: 50px;
-    background-color: #f8f8f8;
-    border-radius: 2px;
-    border: none;
+    background: none;
+    border: 5px solid sandybrown;
     color: rgb(102, 102, 102);
     font-size: 17px;
+    border-radius: 20px;
     box-shadow: 0px 1px 5px rgb(175, 175, 175); /*x y blur color*/
+    transition-property: background, border;
 }
-.profileVrTours{
-    background-color: #cacaca;
+
+.creatVr:hover{
+    background: sandybrown;
+    color: #F0F2F5;
+    border: none;
 }
 
 .VrToursHolder {
@@ -227,7 +240,8 @@ p {
 }
 
 .userVrToursList {
-    margin-top: 30px;
+    margin-top: 20px;
+    padding: 0px;
 }
 
 .userVrToursList > li {
@@ -346,18 +360,22 @@ p {
     border: 2px solid rgb(207, 207, 207);
     border-radius: 12px;
     margin: 2px;
+    transition-property: background;
+}
+
+.buttonViews-VrFormalForm > button:hover, .buttonInformation > button:hover {
+    background: rgb(102, 102, 102);
+    color: #ffffff;
+    border: none;
 }
 
 .manuHolder-VrFormalForm {
     display: flex;
     justify-content: end;
     border-bottom: 2px solid rgb(231, 231, 231);
-    /* background-color: rgb(218, 218, 218);
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%; */
 }
 
-/* new */
+
 .options-manuHolder-VrFormalForm {
     display: none;
     position: absolute;
@@ -377,8 +395,8 @@ p {
     margin-right: 20px;
 }
 
-/* new */
-.options-manuHolder-VrFormalForm > button{
+
+.options-manuHolder-VrFormalForm > button {
     background: none;
     border: none;
     padding: 0px;
@@ -447,6 +465,7 @@ span {
     overflow-wrap: break-word;
 }
 .moreinfo-description-VrFormalForm {
+    font-family: Arial, Helvetica, sans-serif;
     inline-size: 600px;
     overflow-wrap: break-word;
 }
