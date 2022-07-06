@@ -101,7 +101,32 @@ function vrFormCreationValidation(vrFormCreationDATA, flag=false){
 
 }
 
+function forFilterform(objectData){
+
+    console.log("C:>>> Validations -> forFilterform")
+
+    const filterFieldToCheck = [
+        'areaNoneCommonPartsVrForm-filter-max',
+        'areaNoneCommonPartsVrForm-filter-min',
+        'priceVrForm-filter-max',
+        'priceVrForm-filter-min',
+        'propertyfloorVrForm-filter-max',
+        'propertyfloorVrForm-filter-min',
+    ];
+
+    for (let field of filterFieldToCheck){
+        if (objectData[field] === "" || Number(objectData[field])){
+            objectData[field] = Number(objectData[field])
+            document.querySelector(`[name=${field}]`).style.borderColor = '';
+            continue
+        }
+        throw new Error(field)
+    }
+
+}
+
 export const useValidator = {
     register,
-    vrFormCreationValidation
+    vrFormCreationValidation,
+    forFilterform
 }

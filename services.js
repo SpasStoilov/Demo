@@ -213,13 +213,62 @@ async function updateVrAndAppendToUser(user, imgsNewPaths, fields, fs){
 
 }
 
-//new:
 async function getAllvrsFromDataBase(){
     console.log('S:>>> Service -> getAllvrsFromDataBase acting...')
     try {
         let allVrs = await vrModel.find({})
         console.log('S:>>> Service -> getAllvrsFromDataBase -> all VRS:', allVrs);
         return allVrs
+    }
+    catch (err) {
+        console.log(err.message)
+        return []
+    }
+}
+
+async function getFilteredVrs(data) {
+    console.log('S:>>> Service -> getFilteredVrs')
+    try {
+
+        let requiredObj = {
+            'City': data['City-filter'],
+            'TypeApartmentVrForm': data['TypeApartmentVrForm-filter'],
+            'curuncyVrForm':data['curuncyVrForm-filter'],
+            'priceVrForm': {$gte: data['priceVrForm-filter-min'], $lte: data['priceVrForm-filter-max']},
+            'propertyfloorVrForm': {$gte: data['propertyfloorVrForm-filter-min'], $lte: data['propertyfloorVrForm-filter-max']},
+            'areaNoneCommonPartsVrForm': {$gte: data['areaNoneCommonPartsVrForm-filter-min'], $lte: data['areaNoneCommonPartsVrForm-filter-max']}
+        };
+
+        for (let [field, value] of Object.entries(requiredObj)){
+            if (!value){
+                delete requiredObj[field]
+            }
+            if (!value.$gte){
+                delete value.$gte
+            }
+            if (!value.$lte){
+                delete value.$lte
+            }
+            if ( JSON.stringify(value) == '{}' && Object.keys(value).length === 0){
+                delete requiredObj[field]
+            }
+        }
+
+        let RadioBtnVrFormValues = Object.entries(data).filter((el) => {
+            if (el[0].startsWith('RadioBtnHolderVrForm')){
+                return el[1]
+            }
+        })
+
+        if (RadioBtnVrFormValues.length !== 0){
+            requiredObj['RadioBtnHolderVrForm'] = {$eq: RadioBtnVrFormValues}
+        }
+
+        console.log('S:>>> Service -> getFilteredVrs -> requiredObj:', requiredObj)
+
+        let requiredVrs = await vrModel.find(requiredObj)
+        console.log('S:>>> Service -> getFilteredVrs -> Required VRS:', requiredVrs);
+        return requiredVrs
     }
     catch (err) {
         console.log(err.message)
@@ -238,5 +287,6 @@ module.exports = {
     getUser,
     deleteVrFormalForm,
     updateVrAndAppendToUser,
-    getAllvrsFromDataBase
+    getAllvrsFromDataBase,
+    getFilteredVrs
 };

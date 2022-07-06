@@ -48,18 +48,29 @@ img {
     align-items: center;
     background-color: #e7e9ec;
     width: 300px;
-    height: 800px;
-    border-radius: 5px;
+    height: 780px;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.FormConteiner{
+    margin-right: 10px;
 }
 
 .filter-form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .filter-form > input, select {
     height: 30px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 7px;
+    text-indent: 10px;
+    transition-property: border;
 }
 
 .filter-form > label {
@@ -70,10 +81,44 @@ img {
     color:#707070;
 }
 
+.filter-form > input:hover, select:hover {
+    border:2px solid sandybrown;
+}
+
 .filter-form > input[type="submit"] {
-    margin-top: 20px;
+    margin-top: 30px;
     width: 100px;
     align-self: center;
+    text-indent: 0px;
+
+    background: none;
+    border: 3px solid sandybrown;
+    border-radius: 20px;
+    transition-property: background;
+}
+
+.filter-form > input[type="submit"]:hover {
+    background: sandybrown;
+    color: white;
+}
+
+.frommessage {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background: #f17a7a;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.checkbobx-holder-filter {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.checkbobx-holder-filter > input[type="checkbox"]{
+    width: 15px;
+    height: 15px;
 }
 
 .wall {

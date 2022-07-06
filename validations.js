@@ -73,20 +73,23 @@ function verifyVrUserFormData (fields, files, flag=false){
                 errorMessenger[Img] = {name: 'Img Required!'};
                 console.log('S:>>> validations -> verifyVrUserFormData: .JPG or .PNG! (edit)');
             }
-        }
-
-        // if ( !originalName && flag !== 'edit'|| (!originalName.endsWith('.jpg') && !originalName.endsWith('.png') ) ){
-        //     errorMessenger[Img] = {name: 'Img Required!'};
-        // }
-       
+        } 
     };
 
     return errorMessenger
+}
+
+function validatorFilterForm(value){
+    if (value === "" || Number(value)){
+       return true
+    }
+    throw new Error(field)
 }
 
 
 //------ Validator Registrations ----:
 module.exports = {
     validateCreation,
-    verifyVrUserFormData
+    verifyVrUserFormData,
+    validatorFilterForm
 };

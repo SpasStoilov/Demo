@@ -303,9 +303,24 @@ async function getAllvrs(req, res){
     res.json(result)
 }
 
+
+//new :
 async function getAllFilteredVrs(req, res) {
+
     console.log("S:>>> Handler -> getAllFilteredVrs -> req.body:", req.body)
+
+    if (validationResult(req).errors.length != 0){
+        console.log("S:>>> Handler -> getAllFilteredVrs -> Errors:", validationResult(req).errors);
+        res.status(404);
+        res.json(req.body);
+    }
+    else {
+        let result = await useBackService.getFilteredVrs(req.body);
+        res.json(result)
+    }
 }
+
+
 
 //------ Hendler Registrations ----:
 const useHandler = {

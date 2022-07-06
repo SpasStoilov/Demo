@@ -1,4 +1,4 @@
-import { useService } from "./services";
+import { useService } from "./services.js";
 
 function cleanWallfromErrors(ctx, next){
     console.log('C:>>> Global Middleware: cleanWallfromErrors: acting...')
@@ -18,7 +18,7 @@ function cleanWallfromErrors(ctx, next){
 };
 
 
-async function addEventSubmitOnFilterForm(ctx, next){
+function addEventSubmitOnFilterForm(ctx, next){
     
     console.log('C:>>> Global Middleware: addEventSubmitOnFilterForm acting');
     const filterForm = document.querySelector('.filter-form');

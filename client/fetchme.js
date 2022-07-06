@@ -145,7 +145,9 @@ function getAllUsersVrs(){
 
 function getFilteredVrs (filterData) {
     console.log('C:>>> FetchMe -> getFilteredVrs acting...')
+
     return fetch(`${baseURL}/allvrs/filtered`, {
+        method: "POST",
         headers:{
             'Content-Type': "application/json"
         },

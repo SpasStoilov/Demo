@@ -744,30 +744,49 @@ function getAllVrs(){
 }
 
 
-//new:
+// new:
 async function sendFilteredVrData(objectData){
 
     console.log("C:>>> Service -> sendFilteredVrData acting...")
 
     try {
 
-        const result = await fetchME.getFilteredVrs(objectData);
-        const filteredVrData = await result.json();  // [{...}, {...}]
-        onsole.log("C:>>> Service -> sendFilteredVrData -> filteredVrData:", filteredVrData);
+        // validations:
+        // useValidator.forFilterform(objectData)
+        //--------------------------------------------------------------------------------
 
-        // Constructing fakeUser:
-        const fakeUser = {
-            vrs: filteredVrData
+        const resp = await fetchME.getFilteredVrs(objectData);
+        const filteredVrData = await resp.json();  // [{...}, {...}]
+        console.log("C:>>> Service -> sendFilteredVrData -> filteredVrData:", filteredVrData);
+
+        if (!resp.ok){
+            //We got Server Errors:
+            useValidator.forFilterform(filteredVrData)
+            //--------------------------------------------------------------------------------
         }
-        //------------------------------------------------------------------------------------
 
         let wallVrHolderList = document.querySelector('.wall-vr-holder-list');
         wallVrHolderList.textContent = '';
         
-        fillUserVrToursList(fakeUser, wallVrHolderList, 'hideDotMenu');
+        if (filteredVrData.length !== 0){
+
+            // Constructing fakeUser:
+            const fakeUser = {
+                vrs: filteredVrData
+            }
+            //------------------------------------------------------------------------------------
+            fillUserVrToursList(fakeUser, wallVrHolderList, 'hideDotMenu');
+
+        } else {
+            const noDataFound = document.createElement('h2')
+            noDataFound.textContent = 'Няма намерени Обяви!'
+            wallVrHolderList.appendChild(noDataFound)
+        }
 
     } catch (err) {
-        console.log("C:>>> Service -> sendFilteredVrData -> Error:", err)
+        console.log("C:>>> Validations -> forFilterform -> Error:", err.message)
+        document.querySelector(`[name=${err.message}]`).style.borderColor = 'red';
+        document.querySelector(`[name=${err.message}]`).value = 'Въведете число';
     }
     
 }
