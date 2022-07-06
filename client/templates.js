@@ -135,6 +135,65 @@ const vrFormTemplate = () => `
             <option value="ShopVrForm">Магазин</option>
             <option value="GroundVrForm">Земя</option>
         </select>
+
+        <label for="City">Населено място</label>
+        <select name="City">
+			<option value="">Всички</option>
+            <option value="София област">София област</option>
+            <option value="София">София</option>
+            <option value="Пловдив област">Пловдив област</option>
+            <option value="Пловдив">Пловдив</option>
+            <option value="Варна област">Варна област</option>
+            <option value="Варна">Варна</option>
+            <option value="Бургас област">Бургас област</option>
+            <option value="Бургас">Бургас</option>
+            <option value="Благоевград област">Благоевград област</option>
+            <option value="Благоевград">Благоевград</option>
+            <option value="Велико Търново област">Велико Търново област</option>
+            <option value="Велико Търново">Велико Търново</option>
+            <option value="Видин област">Видин област</option>
+            <option value="Видин">Видин</option>
+            <option value="Враца област">Враца област</option>
+            <option value="Враца">Враца</option>
+            <option value="Габрово област">Габрово област</option>
+            <option value="Габрово">Габрово</option>
+            <option value="Добрич област">Добрич област</option>
+            <option value="Добрич">Добрич</option>
+            <option value="Кърджали област">Кърджали област</option>
+            <option value="Кърджали">Кърджали</option>
+            <option value="Кюстендил област">Кюстендил област</option>
+            <option value="Кюстендил">Кюстендил</option>
+            <option value="Ловеч област">Ловеч област</option>
+            <option value="Ловеч">Ловеч</option>
+            <option value="Монтана област">Монтана област</option>
+            <option value="Монтана">Монтана</option>
+            <option value="Пазарджик област">Пазарджик област</option>
+            <option value="Пазарджик">Пазарджик</option>
+            <option value="Перник област">Перник област</option>
+            <option value="Перник">Перник</option>
+            <option value="Плевен област">Плевен област</option>
+            <option value="Плевен">Плевен</option>
+            <option value="Разград област">Разград област</option>
+            <option value="Разград">Разград</option>
+            <option value="Русе област">Русе област</option>
+            <option value="Русе">Русе</option>
+            <option value="Силистра област">Силистра област</option>
+            <option value="Силистра">Силистра</option>
+            <option value="Сливен област">Сливен област</option>
+            <option value="Сливен">Сливен</option>
+            <option value="Смолян област">Смолян област</option>
+            <option value="Смолян">Смолян</option>
+            <option value="Стара Загора област">Стара Загора област</option>
+            <option value="Стара Загора">Стара Загора</option>
+            <option value="Търговище област">Търговище област</option>
+            <option value="Търговище">Търговище</option>
+            <option value="Хасково област">Хасково област</option>
+            <option value="Хасково">Хасково</option>
+            <option value="Шумен област">Шумен област</option>
+            <option value="Шумен">Шумен</option>
+            <option value="Ямбол област">Ямбол област</option>
+            <option value="Ямбол">Ямбол</option>
+		</select>
         
         <label for="imgs-googleLocationDescription">Google Адрес на имота *</label>
         <div class="imgs-googleLocationDescription">
@@ -284,7 +343,7 @@ let formalVrTemplate = (vr) => {return `
     <div id="pano"></div>
 
     <div class="title-VrFormalForm">
-        <h2 class="typeProp-typeVr-title-vrFormalForm"><span>${vr.RadioBtnVrForm}</span> || ${vr.TypeApartmentVrForm}</h2>
+        <h2 class="typeProp-typeVr-title-vrFormalForm"><span>${vr.RadioBtnVrForm}</span> || ${vr.TypeApartmentVrForm} <span>${vr.City ? vr.City:""}</span></h2>
         <h2 class="price-curency-title-vrFormalForm">${vr.priceVrForm} ${vr.curuncyVrForm}/кв.м.</h2>
     </div>
     

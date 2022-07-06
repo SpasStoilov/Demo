@@ -292,7 +292,6 @@ function editVrFormalForm(req, res){
 }
 
 
-//new:
 async function getAllvrs(req, res){
 
     console.log('S:>>> Handler -> getAllvrs acting...');
@@ -304,6 +303,9 @@ async function getAllvrs(req, res){
     res.json(result)
 }
 
+async function getAllFilteredVrs(req, res) {
+    console.log("S:>>> Handler -> getAllFilteredVrs -> req.body:", req.body)
+}
 
 //------ Hendler Registrations ----:
 const useHandler = {
@@ -317,7 +319,8 @@ const useHandler = {
     getUserVrs,
     deleteVrFormalForm,
     editVrFormalForm,
-    getAllvrs
+    getAllvrs,
+    getAllFilteredVrs
 };
 
 module.exports = useHandler;

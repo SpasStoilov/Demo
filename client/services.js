@@ -743,6 +743,35 @@ function getAllVrs(){
 
 }
 
+
+//new:
+async function sendFilteredVrData(objectData){
+
+    console.log("C:>>> Service -> sendFilteredVrData acting...")
+
+    try {
+
+        const result = await fetchME.getFilteredVrs(objectData);
+        const filteredVrData = await result.json();  // [{...}, {...}]
+        onsole.log("C:>>> Service -> sendFilteredVrData -> filteredVrData:", filteredVrData);
+
+        // Constructing fakeUser:
+        const fakeUser = {
+            vrs: filteredVrData
+        }
+        //------------------------------------------------------------------------------------
+
+        let wallVrHolderList = document.querySelector('.wall-vr-holder-list');
+        wallVrHolderList.textContent = '';
+        
+        fillUserVrToursList(fakeUser, wallVrHolderList, 'hideDotMenu');
+
+    } catch (err) {
+        console.log("C:>>> Service -> sendFilteredVrData -> Error:", err)
+    }
+    
+}
+
 export const useService = {
     sendRegisterInf,
     sendLogInInf,
@@ -751,5 +780,6 @@ export const useService = {
     trigerProfileSettingsAndVrTourLogic,
     closeVrUserForm,
     vrDataFormSubmition,
-    getAllVrs
+    getAllVrs,
+    sendFilteredVrData
 }

@@ -16,6 +16,7 @@ const vrSchema = new Schema({
     heatingVrForm: String,
     moreInfoVrForm: String,
     imgs: Array,
+    City: String
 })
 
 const vrModel = model('VR', vrSchema);

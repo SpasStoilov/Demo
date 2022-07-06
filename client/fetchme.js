@@ -138,12 +138,20 @@ function deleteVrFormalForm (idToDelete) {
     });
 };
 
-// new:
 function getAllUsersVrs(){
     console.log('C:>>>FetchMe -> getAllUsersVrs acting...')
     return fetch(`${baseURL}/allvrs`)
 }
 
+function getFilteredVrs (filterData) {
+    console.log('C:>>> FetchMe -> getFilteredVrs acting...')
+    return fetch(`${baseURL}/allvrs/filtered`, {
+        headers:{
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(filterData)
+    });
+}
 
 export const fetchME = {
     sendRegisterData,
@@ -153,5 +161,6 @@ export const fetchME = {
     sendVrFormCreationDATA,
     userVrs,
     deleteVrFormalForm,
-    getAllUsersVrs
+    getAllUsersVrs,
+    getFilteredVrs
 }

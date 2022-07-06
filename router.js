@@ -42,6 +42,7 @@ function router (server){
     );
     
     server.get('/allvrs', useHandler.getAllvrs)
+    server.get('/allvrs/filtered', useHandler.getAllFilteredVrs)
     server.get('/user/data', useHandler.extractingUserDataRegistration)
     server.get("/logout", useHandler.logout);
     server.get("/user/vrs", useHandler.getUserVrs)

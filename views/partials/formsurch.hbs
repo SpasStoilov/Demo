@@ -1,61 +1,105 @@
-<form>
-    <input type="checkbox" name="sale" id="" value="Sale">Продава
-    <br>
-    <input type="checkbox" name="apartment" id="" value="Apartment">Квартира
-    <br>
-    <input type="checkbox" name="replaces" id="" value="Replace">Замяна
-    <br>
+<form class="filter-form">
+
+    <div class="checkbobx-holder-filter">
+        <input type="checkbox" name="RadioBtnHolderVrForm-filter-Sale" id="" value="Sale">Продава
+        <input type="checkbox" name="RadioBtnHolderVrForm-filter-Apartment" id="" value="Apartment">Квартира
+        <input type="checkbox" name="RadioBtnHolderVrForm-filter-Replace" id="" value="Replace">Замяна
+    </div>
     
-    <label for="Citys">Населено място</label>
-    <br>
-    <select name="Citys" id="">
-        <option value="All">Всички</option>
+    <label for="City-filter">Населено място</label>
+    <select name="City-filter" id="">
+        <option value="">Всички</option>
+        <option value="София област">София област</option>
+        <option value="София">София</option>
+        <option value="Пловдив област">Пловдив област</option>
+        <option value="Пловдив">Пловдив</option>
+        <option value="Варна област">Варна област</option>
+        <option value="Варна">Варна</option>
+        <option value="Бургас област">Бургас област</option>
+        <option value="Бургас">Бургас</option>
+        <option value="Благоевград област">Благоевград област</option>
+        <option value="Благоевград">Благоевград</option>
+        <option value="Велико Търново област">Велико Търново област</option>
+        <option value="Велико Търново">Велико Търново</option>
+        <option value="Видин област">Видин област</option>
+        <option value="Видин">Видин</option>
+        <option value="Враца област">Враца област</option>
+        <option value="Враца">Враца</option>
+        <option value="Габрово област">Габрово област</option>
+        <option value="Габрово">Габрово</option>
+        <option value="Добрич област">Добрич област</option>
+        <option value="Добрич">Добрич</option>
+        <option value="Кърджали област">Кърджали област</option>
+        <option value="Кърджали">Кърджали</option>
+        <option value="Кюстендил област">Кюстендил област</option>
+        <option value="Кюстендил">Кюстендил</option>
+        <option value="Ловеч област">Ловеч област</option>
+        <option value="Ловеч">Ловеч</option>
+        <option value="Монтана област">Монтана област</option>
+        <option value="Монтана">Монтана</option>
+        <option value="Пазарджик област">Пазарджик област</option>
+        <option value="Пазарджик">Пазарджик</option>
+        <option value="Перник област">Перник област</option>
+        <option value="Перник">Перник</option>
+        <option value="Плевен област">Плевен област</option>
+        <option value="Плевен">Плевен</option>
+        <option value="Разград област">Разград област</option>
+        <option value="Разград">Разград</option>
+        <option value="Русе област">Русе област</option>
+        <option value="Русе">Русе</option>
+        <option value="Силистра област">Силистра област</option>
+        <option value="Силистра">Силистра</option>
+        <option value="Сливен област">Сливен област</option>
+        <option value="Сливен">Сливен</option>
+        <option value="Смолян област">Смолян област</option>
+        <option value="Смолян">Смолян</option>
+        <option value="Стара Загора област">Стара Загора област</option>
+        <option value="Стара Загора">Стара Загора</option>
+        <option value="Търговище област">Търговище област</option>
+        <option value="Търговище">Търговище</option>
+        <option value="Хасково област">Хасково област</option>
+        <option value="Хасково">Хасково</option>
+        <option value="Шумен област">Шумен област</option>
+        <option value="Шумен">Шумен</option>
+        <option value="Ямбол област">Ямбол област</option>
+        <option value="Ямбол">Ямбол</option>
     </select>
 
-    <br>
-    <label for="TypeApartment">Вид на имота</label>
-    <br>
-    <select name="TypeApartment" id="">
-        <option value="All">Всички</option>
-        <option value="OneRoom">Едностаен</option>
-        <option value="TwoRooms">Двустаен</option>
-        <option value="ThreeRooms">Тристаен</option>
-        <option value="ManyRooms">Многостаен</option>
-        <option value="Penthouse">Мезонет</option>
-        <option value="House">Къща</option>
+    <label for="TypeApartmentVrFormy-filter">Вид на имота</label>
+    <select name="TypeApartmentVrForm-filter" id="type-property">
+        <option value="OneRoomVrForm">Едностаен</option>
+        <option value="TwoRoomsVrForm">Двустаен</option>
+        <option value="ThreeRoomsVrForm">Тристаен</option>
+        <option value="ManyRoomsVrForm">Многостаен</option>
+        <option value="PenthouseVrForm">Мезонет</option>
+        <option value="HouseVrForm">Къща</option>
+        <option value="ParkingSpaceVrForm">Паркомясто</option>
+        <option value="BasementVrForm">Мазе</option>
+        <option value="StudioVrForm">Ателие</option>
+        <option value="ShopVrForm">Магазин</option>
+        <option value="GroundVrForm">Земя</option>
     </select>
    
-    <br>
-    <label for="curuncy">Валута</label>
-    <br>
-
-    <select name="curuncy">
+    
+    <label for="curuncyVrForm-filter">Валута</label>
+    <select name="curuncyVrForm-filter">
         <option value="Euro">Евро</option>
         <option value="BG">Лева</option>
     </select>
     
-    <br>
-    <label for="loor">Етаж</label>
-    <br>
-    <input type="text" id="minfloor" name="minfloor" placeholder="от"/>
-    <br>
-    <input type="text" id="maxfloor" name="maxfloor" placeholder="до"/>
-    <br>
+    <label for="propertyfloorVrForm-floor-range">Етаж</label>
+    <input type="text" name="propertyfloorVrForm-filter-min" placeholder="от"/>
+    <input type="text" name="propertyfloorVrForm-filter-max" placeholder="до"/>
+    
+    
+    <label for="areaNoneCommonPartsVrForm">Площ</label>
+    <input type="text" id="area-range-min" name="areaNoneCommonPartsVrForm-filter-min" placeholder="от"/>
+    <input type="text" id="area-range-max" name="areaNoneCommonPartsVrForm-filter-max" placeholder="до"/>
+    
 
-    <br>
-    <label for="area">Площ</label>
-    <br>
-    <input type="text" id="minarea" name="minarea" placeholder="от"/>
-    <br>
-    <input type="text" id="maxarea" name="maxarea" placeholder="до"/>
-    <br>
-
-    <br>
-    <label for="range">Диапазон на цената</label>
-    <br>
-
-    <input type="range" name="range" min="1" max="9000000" value="1" class="slider" id="myRange">
-    <p>Цена: <span id="demo"></span></p>
+    <label for="priceVrForm">Диапазон на цената</label>
+    <input type="text" id="price-range-from" name="priceVrForm-filter-min" placeholder="от"/>
+    <input type="text" id="price-range-to" name="priceVrForm-filter-max" placeholder="до"/>
 
     <input type="submit" value="ТЪРСИ"> 
 </form>
