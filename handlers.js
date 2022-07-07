@@ -183,23 +183,6 @@ function vrFormCreation(req, res){
         }
         else {
 
-            // for (let Img of Object.keys(files)){
-
-            //     const oldPath = files[Img].filepath;
-            //     const name = files[Img].originalFilename;
-
-            //     let ID = (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed() + '-' + (Math.random() * (10**20)).toFixed();
-
-            //     const newPath = './static/useruploads/'+ `ID-${ID}-end$` + name;
-
-            //     try {
-            //         fs.copyFile(oldPath, newPath);
-            //         imgsNewPaths.push(newPath);
-            //     } catch (err) {
-            //         console.log(err.message);
-            //     };
-            // };
-
             appendImgInUserUploads(files, imgsNewPaths)
             console.log('S:>>> Handler vrFormCreation: New Imgs Paths:', imgsNewPaths);
 
@@ -304,7 +287,6 @@ async function getAllvrs(req, res){
 }
 
 
-//new :
 async function getAllFilteredVrs(req, res) {
 
     console.log("S:>>> Handler -> getAllFilteredVrs -> req.body:", req.body)

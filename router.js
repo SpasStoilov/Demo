@@ -39,7 +39,7 @@ function router (server){
         useHandler.register
     );
     
-    server.put('/user/change', 
+    server.put('/user/change',
     body('email').notEmpty().bail().isEmail().normalizeEmail().trim(),
     body('username').notEmpty().bail().isLength({min: 3}),
     body('password').notEmpty().bail().isLength({min: 1}),
@@ -58,7 +58,7 @@ function router (server){
     server.get('/user/data', useHandler.extractingUserDataRegistration)
     server.get("/logout", useHandler.logout);
     server.get("/user/vrs", useHandler.getUserVrs)
-    server.get("*", useHandler.home);
+    server.get("/", useHandler.home);
 };
 
 module.exports = router;

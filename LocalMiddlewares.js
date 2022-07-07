@@ -51,9 +51,20 @@ async function verifyNewSettings (req, res, next){
     next()
 }
 
+function chekUserAouth (req, res, next) {
+    console.log('XXXXXXXXXXXXXXXXXXXXXX')
+    if (req.session.user){
+        next()
+    }
+    else {
+        res.redirect('/')
+        res.end()
+    }
+}
 
 
 module.exports = {
     userExistInDataBase,
     verifyNewSettings,
+    chekUserAouth
 }
