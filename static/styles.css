@@ -28,9 +28,15 @@ img {
 .navreg, .navlog, .navabout, .navhome, .navProfile, .navLogOut {
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
-    padding: 0 40px 0 40px;
+    padding: 30px 40px 30px 40px;
     color: #707070;
     font-weight: bold;
+    background: none;
+    transition-property: background;
+}
+
+.navreg:hover, .navlog:hover, .navabout:hover, .navhome:hover, .navProfile:hover, .navLogOut:hover {
+    background: #dfdfdf;
 }
 
 /* BODY STYLES */
@@ -52,6 +58,16 @@ img {
     border-radius: 20px;
     padding-left: 10px;
     padding-right: 10px;
+}
+.addHolder{
+    justify-content: center;
+    align-items: center;
+}
+.addHolder > img {
+    padding: 10px;
+    width: 280px;
+    height: 230px;
+    border-radius: 20px;
 }
 
 .FormConteiner{
@@ -338,7 +354,16 @@ p {
 
 
 .formInputImageHolder{
-    display: inline-block;
+    /* display: inline-block; */
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .formInputImageHolder > input {
@@ -514,6 +539,7 @@ span {
     background-color: rgb(140, 241, 241);
     justify-content: center;
     align-items: center;
+    color: #127463;
 }
 
 .show-Less-VrFormalForm{
@@ -556,12 +582,17 @@ span {
 }
 
 .delete-next-imgs-holder {
-    border: 2px solid brown;
-    display: inline-flex;
+    /* border: 2px solid brown; */
+    display: block;
     justify-content: center;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bolder;
+    padding: 20px;
+    border-radius: 20px;
+    background: #f17a7a;
+    font-size: large;
+    color: white;
 }
 
 .delete-next-imgs-holder > img{
@@ -574,4 +605,7 @@ span {
 .delete-next-imgs-holder > input {
     padding: 0px;
     margin: 0px;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
 }
