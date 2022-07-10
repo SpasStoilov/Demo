@@ -36,7 +36,8 @@ img {
 }
 
 .navreg:hover, .navlog:hover, .navabout:hover, .navhome:hover, .navProfile:hover, .navLogOut:hover {
-    background: #dfdfdf;
+    background: #9879ee;
+    color: white;
 }
 
 /* BODY STYLES */
@@ -67,7 +68,7 @@ img {
     padding: 10px;
     width: 280px;
     height: 230px;
-    border-radius: 20px;
+    border-radius: 15px;
 }
 
 .FormConteiner{
@@ -392,9 +393,6 @@ p {
 
 
 
-
-
-
 /* formalForm styles */
 
 .formalVrFormHolder{
@@ -516,13 +514,29 @@ span {
 }
 .buyerInformation-VrFormalForm, .sellarInformation-VrFormalForm {
     font-family: Arial, Helvetica, sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
 }
 .buyerInformation-VrFormalForm > h2, .sellarInformation-VrFormalForm > h2 {
     text-align: center;
 }
-.buyerInformation-VrFormalForm, .sellarInformation-VrFormalForm {
-    padding-left: 20px;
-    padding-right: 20px;
+
+.buyerInformation-VrFormalForm > ol > a, .sellarInformation-VrFormalForm > ol > a{
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 3px solid #48b664;
+    color: rgb(82, 82, 82);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    background: none;
+    transition-property: background;
+}
+
+.buyerInformation-VrFormalForm > ol > a:hover, .sellarInformation-VrFormalForm > ol > a:hover{
+    background: #48b664;
+    color: #F0F2F5;
 }
 
 .GoogleAdress-VrFormalForm,

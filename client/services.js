@@ -8,6 +8,19 @@ const patternImgName = /(?<=end\$)[^\/:*?"<>|]+(?=\.jpg$|\.png$)/;
 const patterImgID = /ID[0-9-]+end\$/;
 const patterImgEx = /(.jpg$|.png$)/;
 
+// const sellerBuyerNeededDocsResgister = {
+//     'download-img Application-certified-transcript': 'ZZP.pdf',
+//     "download-img Application-Property-Registry": 'IIR.pdf',
+//     "download-img skica": "sketch.jpg",
+//     "download-img schema": "scheme.jpg",
+//     "download-img Certificate-request-87": "DOPK87.doc",
+//     "download-img Certificate-request-DO": "DO.pdf",
+//     "download-img Certificate-request-UN": "UN.pdf",
+//     "download-img Certificate-request-marital-status": "ISP.pdf",
+//     "download-img such-court": "?",
+//     "download-img Family-home-declaration": "DSJ.doc",
+//     "download-img Combined-sketch": "combined-sketch.jpg"
+// }
 
 const defaultLocation = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.2986166567994!2d23.31935981575583!3d42.697397421723046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa856ec8633e15%3A0xbb095af9967ad612!2sbulevard%20%22Knyaginya%20Maria%20Luiza%22%202%2C%201000%20Sofia%20Center%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1656494888255!5m2!1sen!2sbg";
 
@@ -496,7 +509,7 @@ function vrFormalFormFunctionality(userVrToursList, btnCreatVr=false, VrToursHol
     userVrToursList.addEventListener('click', onClickVrToursHolder);
 
     function onClickVrToursHolder(e){
-        e.preventDefault()
+        // e.preventDefault()
         console.log('C:>>> trigerProfileSettingsAndVrTourLogic: VrToursHolder is clicked at:', e.target);
 
         // close menuOptions for all VrFormalForms:
@@ -512,7 +525,7 @@ function vrFormalFormFunctionality(userVrToursList, btnCreatVr=false, VrToursHol
          Object.keys(BtnDescriptors).includes('.' + e.target.className) || 
          e.target.className === "show-Less-VrFormalForm")
          {
-
+            e.preventDefault()
             const buttonInformation = e.target.parentElement;
             buttonInformation.querySelector(".show-Less-VrFormalForm").style.display = "block"
             const formalVrFormHolder = buttonInformation.parentElement;
@@ -538,19 +551,18 @@ function vrFormalFormFunctionality(userVrToursList, btnCreatVr=false, VrToursHol
             //-----------------------------------------------------------------------------------------
         }
         else if (e.target.nodeName === "BUTTON" && e.target.className == 'btnManu-VrFormalForm'){
-
+            e.preventDefault()
             // Displaying menu options for vrFormalForm:
             let optionsManuHolderVrFormalForm = e.target.parentElement.parentElement.querySelector(".options-manuHolder-VrFormalForm")
             optionsManuHolderVrFormalForm.style.display = "flex"
             //------------------------------------------------------------------------------------------
         }
         else if (e.target.value.startsWith("Delete-") && btnCreatVr && VrToursHolder){
-
+            e.preventDefault()
             //Delete vrFormalForm:
             const idToDelete = e.target.value.slice(7);
             console.log("c:>>> idToDelete:", idToDelete)
 
-            
             fetchME.deleteVrFormalForm(idToDelete)
                 .then(resp => resp.json())
                 .then(result => {
@@ -567,7 +579,7 @@ function vrFormalFormFunctionality(userVrToursList, btnCreatVr=false, VrToursHol
             //--------------------------------------------------------------------------------------
         }
         else if (e.target.value.startsWith("Edit-") && btnCreatVr && VrToursHolder){
-
+            e.preventDefault()
             //Edit vrFormalForm:
             const idToEdit = e.target.value.slice(5);
             console.log("c:>>> idToEdit:", idToEdit)
@@ -589,11 +601,8 @@ function vrFormalFormFunctionality(userVrToursList, btnCreatVr=false, VrToursHol
 
             //------------------------------------------------------------------------------------------
 
-        };
-
+        }
         //----------------------------------------------------------------------------------------------
-
-        
     };
 
 }
@@ -732,9 +741,6 @@ function getAllVrs(){
             // trigar logic of the template (without edit and delete menu!!!!):
 
             vrFormalFormFunctionality(wallVrHolderList);
-
-                // ?btnCreatVr, ?VrToursHolder are used in edit: we are not gonna (edit and delete menu!!!! we need flags)
-                // flags are going to tel if the user acses vr templete from profilVr()where he can creat Vrs or not (Wall)
 
             //------------------------------------------------------------------------------------
 

@@ -155,6 +155,7 @@ function getFilteredVrs (filterData) {
     });
 }
 
+
 export const fetchME = {
     sendRegisterData,
     sendLogInData,
@@ -164,5 +165,5 @@ export const fetchME = {
     userVrs,
     deleteVrFormalForm,
     getAllUsersVrs,
-    getFilteredVrs
+    getFilteredVrs,
 }

@@ -302,6 +302,17 @@ async function getAllFilteredVrs(req, res) {
     }
 }
 
+function getSellerBuyerNeededDoc(req, res){
+    console.log("S:>>> Handler -> getSellerBuyerNeededDoc -> req.docname:", req.params.docname);
+    try {
+        res.download(`./static/docs-needed-seller-buyer/${req.params.docname}`)
+    }
+    catch (err) {
+        console.log("S:>>> Handler -> getSellerBuyerNeededDoc -> Error:", err.message)
+        res.redirect('/')
+        res.end()
+    }
+}
 
 
 //------ Hendler Registrations ----:
@@ -317,7 +328,8 @@ const useHandler = {
     deleteVrFormalForm,
     editVrFormalForm,
     getAllvrs,
-    getAllFilteredVrs
+    getAllFilteredVrs,
+    getSellerBuyerNeededDoc
 };
 
 module.exports = useHandler;
