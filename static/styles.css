@@ -48,6 +48,17 @@ img {
     justify-content: center;
 }
 
+.LogInErrHead{
+    text-align: center;
+    background: #f17a7a;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+
 .FormConteiner, .addHolder {
     display: inline-flex;
     flex-direction: column;

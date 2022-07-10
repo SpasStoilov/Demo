@@ -9,12 +9,18 @@ const useBackValidator = require('./validations.js');
 
 function home (req, res) {
     // const User = req.session.user;
-    console.log('S:>>> HomeHandler acting...');
+    console.log('S:>>> HomeHandler acting...', res);
     console.log('S:>>> HomeHandler: User ->', req.session.user)
     console.log('S:>>> HomeHandler: Render: home.hbs')
     res.render('home.hbs', req.session);
 };
 
+function redirectToHome (req, res) {
+    // const User = req.session.user;
+    console.log('S:>>> Handler redirectToHome acting...');
+    res.redirect('/')
+    res.end()
+};
 
 async function register (req, res) {
 
@@ -315,9 +321,11 @@ function getSellerBuyerNeededDoc(req, res){
 }
 
 
+
 //------ Hendler Registrations ----:
 const useHandler = {
     home,
+    redirectToHome,
     register,
     logIn,
     logout,
@@ -329,7 +337,7 @@ const useHandler = {
     editVrFormalForm,
     getAllvrs,
     getAllFilteredVrs,
-    getSellerBuyerNeededDoc
+    getSellerBuyerNeededDoc,
 };
 
 module.exports = useHandler;

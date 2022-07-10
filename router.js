@@ -60,6 +60,7 @@ function router (server){
     server.get("/logout", useHandler.logout);
     server.get("/user/vrs", useHandler.getUserVrs)
     server.get("/", useHandler.home);
+    server.get("*", useHandler.redirectToHome);
 };
 
 module.exports = router;
