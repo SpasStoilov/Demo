@@ -207,25 +207,23 @@ img {
 }
 
 .loginForm, .registerForm {
-    background: rgb(228, 236, 248);;
+    background: rgb(228, 236, 248);
     border: 20px solid rgb(255, 254, 254);
     border-radius: 30px;
     padding: 80px 60px 60px 60px;
     box-shadow: 0px 1px 5px rgb(211, 211, 211); /*x y blur color*/
 }
 
-.loginForm > input, .settingsInformation > input {
-    border: none;
+.loginForm > input, .settingsInformation > input, .registerForm > input {
+    border-radius: 3px;
+    border: 2px solid rgb(228, 236, 248);
     height: 50px;
     width: 400px;
     margin-bottom: 20px
 }
 
-.registerForm > input {
-    border: none;
-    height: 50px;
-    width: 400px;
-    margin-bottom: 20px
+.loginForm > input:hover, .settingsInformation > input:hover, .registerForm > input:hover {
+    border: 2px solid sandybrown;
 }
 
 .settingsInformation > .saveSettings, .registerForm > .registerButton, .loginForm > .loginButton {
@@ -240,6 +238,9 @@ img {
     color: white;
 }
 
+.settingsInformation {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 .errorHeader {
     display: flex;
@@ -264,7 +265,7 @@ p {
 }
 
 .profileBody {
-    padding-top:50px;
+    padding-top: 40px;
 }
 
 .profileBar {
@@ -281,6 +282,17 @@ p {
     border-radius: 30px;
     padding: 80px 60px 80px 60px;
     box-shadow: 0px 1px 5px rgb(211, 211, 211); /*x y blur color*/
+}
+
+.settingsErrosHead > li{
+    margin-top: 40px;
+    padding: 10px;
+    background: #f17a7a;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    border-radius: 10px;
+    list-style-type: none;
 }
 
 .profileSettings, .profileVrTours {

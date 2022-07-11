@@ -8,20 +8,6 @@ const patternImgName = /(?<=end\$)[^\/:*?"<>|]+(?=\.jpg$|\.png$)/;
 const patterImgID = /ID[0-9-]+end\$/;
 const patterImgEx = /(.jpg$|.png$)/;
 
-// const sellerBuyerNeededDocsResgister = {
-//     'download-img Application-certified-transcript': 'ZZP.pdf',
-//     "download-img Application-Property-Registry": 'IIR.pdf',
-//     "download-img skica": "sketch.jpg",
-//     "download-img schema": "scheme.jpg",
-//     "download-img Certificate-request-87": "DOPK87.doc",
-//     "download-img Certificate-request-DO": "DO.pdf",
-//     "download-img Certificate-request-UN": "UN.pdf",
-//     "download-img Certificate-request-marital-status": "ISP.pdf",
-//     "download-img such-court": "?",
-//     "download-img Family-home-declaration": "DSJ.doc",
-//     "download-img Combined-sketch": "combined-sketch.jpg"
-// }
-
 const defaultLocation = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.2986166567994!2d23.31935981575583!3d42.697397421723046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa856ec8633e15%3A0xbb095af9967ad612!2sbulevard%20%22Knyaginya%20Maria%20Luiza%22%202%2C%201000%20Sofia%20Center%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1656494888255!5m2!1sen!2sbg";
 
 const dictionaryValues = {
@@ -632,6 +618,9 @@ function trigerProfileSettingsAndVrTourLogic () {
 
         // Clearing profileBody content:
         profileBody.textContent = '';
+
+        let settingsErrosHead = document.querySelector('.settingsErrosHead')
+        settingsErrosHead.textContent = ''
         //----------------------------------------------------------------------
 
         if (e.target.className === 'profileSettings'){
