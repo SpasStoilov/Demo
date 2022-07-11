@@ -15,6 +15,7 @@
         <img src="LogoNavBar.png" alt="logo" class="Logo">
         <div class="navOptions">
             {{#if user}}
+                <h4 class="username-nav-bar">{{user.username}}</h4>
                 <a href="/" class="navhome">Начало</a>
                 <a href="/profile" class="navProfile">Профил</a>
                 <a href="/logout" class="navLogOut">Излез</a>

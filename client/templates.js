@@ -5,7 +5,26 @@ console.log('C:>>> Templates acting...')
 
 const homeTemp = () => html`<ul class="wall-vr-holder-list"></ul>`;
 
-const aboutTemp = () => html`<h1>2About</h1>`;
+const aboutTemp = () => html`
+<div class="info-about">
+    <img src="about2.jpg" alt="pic-here">
+    <h2>За нас</h2>
+    <p>
+        VRimoti.bg е сайт за имоти в България. 
+        Предоставяме виртуална обиколка на имоти и стимулираме продажбата на 
+        имот без посредник.
+    </p>
+    <h2>Контакти</h2>
+    <p>
+        тел: 089 6768 228 <br>
+        понеделник --> петък / 10:00 - 18:00
+    </p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d733.2253230254693!2d23.329905029239352!3d42.68463318453931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8509feac0f07%3A0x57fd8d3814e3711f!2sbul.%20%22Hristo%20Smirnenski%22%208%D0%90%2C%201164%20g.k.%20Lozenets%2C%20Sofia!5e0!3m2!1sen!2sbg!4v1657534844024!5m2!1sen!2sbg" width="700" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <h2>Общи условия</h2>
+    <p>
+    </p>
+</div>
+`;
 
 
 const registerTemp = () => html`
@@ -443,7 +462,7 @@ let formalVrTemplate = (vr) => {return `
             <a href="/document/UN.pdf">Искане за УН</a>
             <br>
             <br>
-            <li><h3>Ако продавачът е женен или е бил женен някога</h3></li>
+            <li><h3>Ако продавачът е в брак или е бил в брак някога</h3></li>
             <p>
                 Продавачът трябва да представи удостоверение за семейно положение, за да се види дали имотът е придобит по време на брака, съответно дали само той е собственик. 
                 <br><span>Искането (Искане на удостоверение за семейно положение)</span> се подава в отдел <span>„ЕСГРАОН“ в общината, района или кметството по постоянен адрес на лицето.</span> 

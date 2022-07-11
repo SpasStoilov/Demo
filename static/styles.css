@@ -25,7 +25,7 @@ img {
     height: auto;
 }
 
-.navreg, .navlog, .navabout, .navhome, .navProfile, .navLogOut {
+.navreg, .navlog, .navabout, .navhome, .navProfile, .navLogOut{
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     padding: 30px 40px 30px 40px;
@@ -35,9 +35,20 @@ img {
     transition-property: background;
 }
 
+
 .navreg:hover, .navlog:hover, .navabout:hover, .navhome:hover, .navProfile:hover, .navLogOut:hover {
     background: #9879ee;
     color: white;
+}
+
+.username-nav-bar {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: lighter;
+    color: #242424;
+    margin: 0px;
+    margin-top: 31px;
+    margin-right: 30px;
 }
 
 /* BODY STYLES */
@@ -48,7 +59,35 @@ img {
     justify-content: center;
 }
 
-.LogInErrHead{
+.info-about{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    padding-top: 0px;
+}
+
+.info-about > img {
+    width: 700px;
+    height: 350px;
+    padding: 0px;
+    border-radius: 20px;
+}
+
+.info-about > p {
+    width: 660px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    margin: 0px;
+}
+.info-about > iframe {
+    margin-top: 20px;
+    border-radius: 20px;
+}
+.LogInErrHead, .spanErrorRegister{
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     background: #f17a7a;
     color: white;
@@ -58,6 +97,9 @@ img {
     margin-bottom: 10px;
 }
 
+.info-about > h2 {
+    color: #979797;
+}
 
 .FormConteiner, .addHolder {
     display: inline-flex;
@@ -533,7 +575,7 @@ span {
     text-align: center;
 }
 
-.buyerInformation-VrFormalForm > ol > a, .sellarInformation-VrFormalForm > ol > a{
+.buyerInformation-VrFormalForm > ol > a, .sellarInformation-VrFormalForm > ol > a {
     text-decoration: none;
     padding: 10px;
     border-radius: 10px;
@@ -564,7 +606,7 @@ span {
     background-color: rgb(140, 241, 241);
     justify-content: center;
     align-items: center;
-    color: #127463;
+    color: #000000;
 }
 
 .show-Less-VrFormalForm{
@@ -591,9 +633,13 @@ span {
     margin-top: 15px;
     margin-bottom: 15px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     border-top: 2px solid rgb(231, 231, 231);
     border-bottom: 2px solid rgb(231, 231, 231);
+    text-align:justify;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight:500;
+    white-space: pre-line;
 }
 
 .download-img {
