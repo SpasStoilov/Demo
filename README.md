@@ -1,3 +1,0 @@
-#VRimoti.bg Project
-
-sdfsdfsdfsdf!
