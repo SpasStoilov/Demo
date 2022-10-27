@@ -255,16 +255,17 @@ async function getFilteredVrs(data) {
         }
 
         let RadioBtnVrFormValues = Object.entries(data).filter((el) => {
+            console.log(">>>>", el[1])
             if (el[0].startsWith('RadioBtnHolderVrForm')){
-                return el[1]
+                return el
             }
-        })
+        }).map(el => el[1])
 
         if (RadioBtnVrFormValues.length !== 0){
-            requiredObj['RadioBtnHolderVrForm'] = {$eq: RadioBtnVrFormValues}
+            requiredObj['RadioBtnVrForm'] = {$in: RadioBtnVrFormValues}
         }
 
-        console.log('S:>>> Service -> getFilteredVrs -> requiredObj:', requiredObj)
+        console.log('S:>>> Service -> getFilteredVrs -> requiredObj:', requiredObj, "\n|||||", RadioBtnVrFormValues)
 
         let requiredVrs = await vrModel.find(requiredObj)
         console.log('S:>>> Service -> getFilteredVrs -> Required VRS:', requiredVrs);
